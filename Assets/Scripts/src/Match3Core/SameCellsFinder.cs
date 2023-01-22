@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-namespace Src.Match3Core
+namespace Match3Core
 {
     public static class SameCellsFinder
     {

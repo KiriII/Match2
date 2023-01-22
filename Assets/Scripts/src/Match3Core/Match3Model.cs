@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Src.Match3Core
+namespace Match3Core
 {
     public class Match3Model : 
         ICellsFallModel, 

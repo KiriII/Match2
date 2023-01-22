@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace Src.Match3Core
+namespace Match3Core
 {
     public class SwitchCellsController
     {

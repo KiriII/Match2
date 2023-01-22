@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-namespace Src.Match3Core
+namespace Match3Core
 {
     public class CheckSameOnBoardController
     {

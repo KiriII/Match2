@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Src.Match3Core
+namespace Match3Core
 {
     public class AddCellsController
     {

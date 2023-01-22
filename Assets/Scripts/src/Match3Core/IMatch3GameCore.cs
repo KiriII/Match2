@@ -1,5 +1,5 @@
 
-namespace Src.Match3Core
+namespace Match3Core
 {
     public interface IMatch3GameCore
     {

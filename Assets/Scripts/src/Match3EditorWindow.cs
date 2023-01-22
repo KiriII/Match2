@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Src.Match3Core;
+using Match3Core;
+using Match3.Board;
 
 public class Match3EditorWindow : EditorWindow
 {
@@ -68,6 +69,27 @@ public class Match3EditorWindow : EditorWindow
 
                 _match3GameCore.Turn(switchCell1, switchCell2);
             }
+        }
+
+        GUILayout.Label("------- NEW START ---------");
+
+        if (GUILayout.Button("NEW BOARD"))
+        {
+            var board = new bool[,] { { false, false, false }, { true, false, true }, { false, true, false } };
+            BoardModel boardModel = new BoardModel(board);
+            boardModel.SetCell(new Cell(CellsColor.Blue), 1 , 0);
+            boardModel.SetCell(new Cell(CellsColor.Green), 1, 2);
+            boardModel.SetCell(new Cell(CellsColor.Red), 2, 1);
+            boardModel.PrintCurrnetBoard();
+
+            SwitchCellsContoller switchCellsContoller = new SwitchCellsContoller(boardModel);
+            switchCellsContoller.SwitchCells((1,0),(1,2));
+            boardModel.PrintCurrnetBoard();
+
+            switchCellsContoller.SwitchCells((1, 2), (2, 1));
+            boardModel.PrintCurrnetBoard();
+
+            switchCellsContoller.SwitchCells((1, 2), (2, 2)); // EXCEPTION
         }
     }
 }
