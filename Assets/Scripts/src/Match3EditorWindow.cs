@@ -77,19 +77,20 @@ public class Match3EditorWindow : EditorWindow
         {
             var board = new bool[,] { { false, false, false }, { true, false, true }, { false, true, false } };
             BoardModel boardModel = new BoardModel(board);
-            boardModel.SetCell(new Cell(CellsColor.Blue), 1 , 0);
-            boardModel.SetCell(new Cell(CellsColor.Green), 1, 2);
-            boardModel.SetCell(new Cell(CellsColor.Red), 2, 1);
+            boardModel.SetCell(new Cell(CellsColor.Blue), new Coordinate(1 , 0));
+            boardModel.SetCell(new Cell(CellsColor.Green), new Coordinate(1, 2));
+            boardModel.SetCell(new Cell(CellsColor.Red), new Coordinate(2, 1));
             boardModel.PrintCurrnetBoard();
 
             SwitchCellsContoller switchCellsContoller = new SwitchCellsContoller(boardModel);
-            switchCellsContoller.SwitchCells((1,0),(1,2));
+            switchCellsContoller.SwitchCells(new Coordinate(1,0), new Coordinate(1,2));
             boardModel.PrintCurrnetBoard();
 
-            switchCellsContoller.SwitchCells((1, 2), (2, 1));
+            switchCellsContoller.SwitchCells(new Coordinate(1, 2), new Coordinate(2, 1));
             boardModel.PrintCurrnetBoard();
 
-            switchCellsContoller.SwitchCells((1, 2), (2, 2)); // EXCEPTION
+            switchCellsContoller.SwitchCells(new Coordinate(1, 2), new Coordinate(2, 2)); // NOTHING HAPPENS
+            boardModel.PrintCurrnetBoard();
         }
     }
 }

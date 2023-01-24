@@ -4,8 +4,10 @@ namespace Match3.Board
 {
     public interface ISwitchCellsModel
     {
-        public Cell GetCell(int x, int y);
+        public Cell GetCell(Coordinate coordinate);
 
-        public void SetCell(Cell cell, int x, int y);
+        public bool GetCanHoldCell(Coordinate coordinate);
+
+        public void SetCell(Cell cell, Coordinate coordinate);
     }
 }

@@ -11,7 +11,10 @@ namespace Match3Core
 
         public Cell(Cell cell)
         {
-            color = cell.color;
+            if (cell is not null)
+            {
+                color = cell.color;
+            }
         }
 
         public override bool Equals(object obj)

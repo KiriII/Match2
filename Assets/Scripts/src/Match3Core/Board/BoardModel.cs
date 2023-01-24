@@ -33,9 +33,9 @@ namespace Match3.Board
             }
         }
 
-        public void SetCell(Cell cell, int x, int y)
+        public void SetCell(Cell cell, Coordinate coordinate)
         {
-            var slot = _board[x, y];
+            var slot = _board[coordinate.x, coordinate.y];
             if (slot.CanHoldCell)
             {
                 slot.Cell = cell;
@@ -46,11 +46,30 @@ namespace Match3.Board
             }
         }
 
-        public Cell GetCell(int x, int y)
+        public Cell GetCell(Coordinate coordinate)
         {
-            var slot = _board[x, y];
+            if (!GetCanHoldCell(coordinate)) throw new Exception("Try to get Cell from Blocked Slot");
+            var slot = _board[coordinate.x, coordinate.y];
             return slot.Cell;
         }
+
+        public List<Cell> GetSomeCells(List<Coordinate> coordinates)
+        {
+            var cells = new List<Cell>();
+            foreach(var c in coordinates)
+            {
+                if (!GetCanHoldCell(c)) throw new Exception("Try to get Cell from Blocked Slot");
+                cells.Add(GetCell(c));
+            }
+            return cells;
+        }
+
+        public bool GetCanHoldCell(Coordinate coordinate)
+        {
+            var slot = _board[coordinate.x, coordinate.y];
+            return slot.CanHoldCell;
+        }
+
 
         // --- Debug ---
         public void PrintCurrnetBoard()
