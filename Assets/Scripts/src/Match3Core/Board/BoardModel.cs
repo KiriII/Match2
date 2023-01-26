@@ -5,7 +5,7 @@ using Match3Core;
 
 namespace Match3.Board
 {
-    public class BoardModel : ISwitchCellsModel
+    public class BoardModel : ISwitchCellsModel, IFallLineModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -33,7 +33,7 @@ namespace Match3.Board
             }
         }
 
-        public void SetCell(Cell cell, Coordinate coordinate)
+        public void SetCell(Coordinate coordinate, Cell cell)
         {
             var slot = _board[coordinate.x, coordinate.y];
             if (slot.CanHoldCell)
@@ -43,6 +43,15 @@ namespace Match3.Board
             else
             {
                 throw new Exception("Try to add Cell to the Blocked Slot");
+            }
+        }
+
+        public void SetSomeCells(List<Coordinate> coordinate, List<Cell> cells)
+        {
+            if (coordinate.Count != cells.Count) throw new Exception("Something missing from set cells to coordinates");
+            for(int i = 0; i < cells.Count; i++)
+            { 
+                SetCell(coordinate[i], cells[i]);
             }
         }
 
@@ -58,7 +67,6 @@ namespace Match3.Board
             var cells = new List<Cell>();
             foreach(var c in coordinates)
             {
-                if (!GetCanHoldCell(c)) throw new Exception("Try to get Cell from Blocked Slot");
                 cells.Add(GetCell(c));
             }
             return cells;

@@ -8,6 +8,6 @@ namespace Match3.Board
 
         public bool GetCanHoldCell(Coordinate coordinate);
 
-        public void SetCell(Cell cell, Coordinate coordinate);
+        public void SetCell(Coordinate coordinate, Cell cell);
     }
 }

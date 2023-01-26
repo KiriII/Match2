@@ -20,8 +20,8 @@ namespace Match3.Board
             var cell1 = new Cell(_switchCellsModel.GetCell(switchCell1));
             var cell2 = new Cell(_switchCellsModel.GetCell(switchCell2));
 
-            _switchCellsModel.SetCell(cell1, switchCell2);
-            _switchCellsModel.SetCell(cell2, switchCell1);
+            _switchCellsModel.SetCell(switchCell2, cell1);
+            _switchCellsModel.SetCell(switchCell1, cell2);
         }
 
         private bool CanSwitchCell(Coordinate switchCell)
