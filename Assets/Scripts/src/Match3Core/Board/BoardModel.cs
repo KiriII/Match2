@@ -78,6 +78,16 @@ namespace Match3.Board
             return slot.CanHoldCell;
         }
 
+        public int GetRows()
+        {
+            return _rows;
+        }
+
+        public int GetCollumns()
+        {
+            return _columns;
+        }
+
 
         // --- Debug ---
         public void PrintCurrnetBoard()

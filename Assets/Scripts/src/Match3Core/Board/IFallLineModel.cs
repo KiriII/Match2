@@ -9,5 +9,11 @@ namespace Match3.Board
         public void SetSomeCells(List<Coordinate> coordinate, List<Cell> cells);
 
         public List<Cell> GetSomeCells(List<Coordinate> coordinates);
+
+        public bool GetCanHoldCell(Coordinate coordinate);
+
+        public int GetCollumns();
+
+        public int GetRows();
     }
 }

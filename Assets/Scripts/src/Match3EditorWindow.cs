@@ -107,5 +107,21 @@ public class Match3EditorWindow : EditorWindow
             line.Fall();
             boardModel.PrintCurrnetBoard();
         }
+
+        if (GUILayout.Button("Falling Only Down"))
+        {
+            var board = new bool[,] { { true, false, true }, { true, true, true }, { true, true, false } };
+            BoardModel boardModel = new BoardModel(board);
+            boardModel.SetCell(new Coordinate(0, 0), new Cell(CellsColor.Blue));
+            boardModel.SetCell(new Coordinate(1, 0), new Cell(CellsColor.Green));
+            boardModel.SetCell(new Coordinate(1, 1), new Cell(CellsColor.Blue));
+            boardModel.SetCell(new Coordinate(2, 1), new Cell(CellsColor.Green));
+            boardModel.SetCell(new Coordinate(0, 2), new Cell(CellsColor.Blue));
+            boardModel.SetCell(new Coordinate(1, 2), new Cell(CellsColor.Green));
+
+            var fallCtrl = new FallingOnlyDownController(boardModel);
+            fallCtrl.FallAllLines();
+            boardModel.PrintCurrnetBoard();
+        }
     }
 }
