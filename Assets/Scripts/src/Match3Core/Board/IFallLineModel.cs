@@ -6,14 +6,8 @@ namespace Match3.Board
 {
     public interface IFallLineModel
     {
-        public void SetSomeCells(List<Coordinate> coordinate, List<Cell> cells);
-
-        public List<Cell> GetSomeCells(List<Coordinate> coordinates);
-
+        public void SetCell(Coordinate coordinate, Cell cell);
+        public Cell GetCell(Coordinate coordinate);
         public bool GetCanHoldCell(Coordinate coordinate);
-
-        public int GetCollumns();
-
-        public int GetRows();
     }
 }

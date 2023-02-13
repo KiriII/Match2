@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using Match3Core;
 using Match3.Board;
-using Match3.Falling;
 
 public class Match3EditorWindow : EditorWindow
 {
@@ -103,8 +102,8 @@ public class Match3EditorWindow : EditorWindow
 
             //boardModel.PrintCurrnetBoard();
 
-            var line = new FallingLine(new List<Coordinate> { new Coordinate(0, 0) , new Coordinate(1, 0) , new Coordinate(2, 0) }, boardModel);
-            line.Fall();
+            //var line = new FallingLine(new List<Coordinate> { new Coordinate(0, 0) , new Coordinate(1, 0) , new Coordinate(2, 0) }, boardModel);
+                //line.Fall();
             boardModel.PrintCurrnetBoard();
         }
 
@@ -119,8 +118,8 @@ public class Match3EditorWindow : EditorWindow
             boardModel.SetCell(new Coordinate(0, 2), new Cell(CellsColor.Blue));
             boardModel.SetCell(new Coordinate(1, 2), new Cell(CellsColor.Green));
 
-            var fallCtrl = new FallingOnlyDownController(boardModel);
-            fallCtrl.FallAllLines();
+            //var fallCtrl = new FallingOnlyDownController(boardModel);
+            //fallCtrl.FallAllLines();
             boardModel.PrintCurrnetBoard();
         }
     }

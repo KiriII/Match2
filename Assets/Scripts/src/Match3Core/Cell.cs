@@ -4,7 +4,7 @@ namespace Match3Core
     {
         public CellsColor color { get; set; }
 
-        public Cell(CellsColor cellsColor)
+        public Cell(CellsColor cellsColor = CellsColor.Empty)
         {
             this.color = cellsColor;
         }

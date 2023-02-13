@@ -46,30 +46,11 @@ namespace Match3.Board
             }
         }
 
-        public void SetSomeCells(List<Coordinate> coordinate, List<Cell> cells)
-        {
-            if (coordinate.Count != cells.Count) throw new Exception("Something missing from set cells to coordinates");
-            for(int i = 0; i < cells.Count; i++)
-            { 
-                SetCell(coordinate[i], cells[i]);
-            }
-        }
-
         public Cell GetCell(Coordinate coordinate)
         {
             if (!GetCanHoldCell(coordinate)) throw new Exception("Try to get Cell from Blocked Slot");
             var slot = _board[coordinate.x, coordinate.y];
             return slot.Cell;
-        }
-
-        public List<Cell> GetSomeCells(List<Coordinate> coordinates)
-        {
-            var cells = new List<Cell>();
-            foreach(var c in coordinates)
-            {
-                cells.Add(GetCell(c));
-            }
-            return cells;
         }
 
         public bool GetCanHoldCell(Coordinate coordinate)
