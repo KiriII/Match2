@@ -35,7 +35,7 @@ namespace Match3.Falling
                 if (nextCell.color == CellsColor.Empty) break;
 
                 _fallLineModel.SetCell(currentCellCoordinate, nextCell);
-                _fallLineModel.SetCell(nextCellCoordinate, new Cell(CellsColor));
+                _fallLineModel.SetCell(nextCellCoordinate, new Cell(CellsColor.Empty));
 
                 currentCellCoordinate = nextCellCoordinate;
             }
