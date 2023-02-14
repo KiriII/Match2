@@ -5,6 +5,7 @@ using UnityEngine;
 using Match3Core;
 using Match3.Board;
 using Match3.Falling;
+using Match3Core.DestroyCells;
 
 public class Match3EditorWindow : EditorWindow
 {
@@ -96,32 +97,38 @@ public class Match3EditorWindow : EditorWindow
 
         if (GUILayout.Button("XXXTentacion Falling down"))
         {
-            var board = new Slot[,] { {new Slot(false, true)}, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) } };
+            var board = new Slot[,] { {new Slot(false, false)}, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) } };
             BoardModel boardModel = new BoardModel(board);
             boardModel.SetCell(new Coordinate(1, 0), new Cell(CellsColor.Blue));
             boardModel.SetCell(new Coordinate(2, 0), new Cell(CellsColor.Green));
 
+            SwitchCellsContoller switchCellsContoller = new SwitchCellsContoller(boardModel);
+
             boardModel.PrintCurrnetBoard();
 
-            var fallCtrl = new FallingController(boardModel);
-            fallCtrl.FallingWithDeadCells(new List<Coordinate> {new Coordinate(3,0), new Coordinate(4, 0)});
+            var fallCtrl = new FallingController(boardModel, switchCellsContoller);
+            fallCtrl.FallingWithDeadCells(new List<Coordinate> { new Coordinate(0, 0), new Coordinate(3,0), new Coordinate(4, 0)});
 
             boardModel.PrintCurrnetBoard();
         }
 
-        if (GUILayout.Button("Falling Only Down"))
+        if (GUILayout.Button("Destroy"))
         {
-            var board = new bool[,] { { true, false, true }, { true, true, true }, { true, true, false } };
+            var board = new Slot[,] { { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) } };
             BoardModel boardModel = new BoardModel(board);
             boardModel.SetCell(new Coordinate(0, 0), new Cell(CellsColor.Blue));
             boardModel.SetCell(new Coordinate(1, 0), new Cell(CellsColor.Green));
-            boardModel.SetCell(new Coordinate(1, 1), new Cell(CellsColor.Blue));
-            boardModel.SetCell(new Coordinate(2, 1), new Cell(CellsColor.Green));
-            boardModel.SetCell(new Coordinate(0, 2), new Cell(CellsColor.Blue));
-            boardModel.SetCell(new Coordinate(1, 2), new Cell(CellsColor.Green));
+            boardModel.SetCell(new Coordinate(2, 0), new Cell(CellsColor.Blue));
+            boardModel.SetCell(new Coordinate(3, 0), new Cell(CellsColor.Green));
+            boardModel.SetCell(new Coordinate(4, 0), new Cell(CellsColor.Red));
 
-            //var fallCtrl = new FallingOnlyDownController(boardModel);
-            //fallCtrl.FallAllLines();
+            SwitchCellsContoller switchCellsContoller = new SwitchCellsContoller(boardModel);
+
+            boardModel.PrintCurrnetBoard();
+
+            CellsDestroyController cellsDestroyController = new CellsDestroyController(switchCellsContoller);
+            cellsDestroyController.DestroyCells(new List<Coordinate> { new Coordinate(4, 0), new Coordinate(3, 0), new Coordinate(0, 0) });
+
             boardModel.PrintCurrnetBoard();
         }
     }

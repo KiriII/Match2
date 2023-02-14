@@ -8,6 +8,6 @@ namespace Match3.Falling
 {
     public abstract class StealingCellsController
     {
-        public abstract void TrainOfSteals(IFallLineModel fallLineModel, Coordinate coordinate);
+        public abstract void TrainOfSteals(Coordinate coordinate);
     }
 }

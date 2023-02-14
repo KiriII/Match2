@@ -10,21 +10,23 @@ namespace Match3.Falling
     public class FallingController : StealingCellsController
     {
         private IFallLineModel _fallLineModel;
+        private SwitchCellsContoller _switchCellsContoller;
 
-        public FallingController(IFallLineModel fallLineModel)
+        public FallingController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller)
         {
             _fallLineModel = fallLineModel;
+            _switchCellsContoller = switchCellsContoller;
         }
 
         public void FallingWithDeadCells(List<Coordinate> deadCellsCoordinates)
         {
             foreach (Coordinate c in deadCellsCoordinates)
             {
-                TrainOfSteals(_fallLineModel, c);
+                TrainOfSteals(c);
             }
         }
 
-        public override void TrainOfSteals(IFallLineModel fallLineModel, Coordinate coordinate)
+        public override void TrainOfSteals(Coordinate coordinate)
         {
             var currentCellCoordinate = coordinate;
             while (currentCellCoordinate.x >= 0)
@@ -34,15 +36,11 @@ namespace Match3.Falling
                 if (nextCellCoordinate == null) break;
                 if (nextCellCoordinate.x == -1)
                 {
-                    _fallLineModel.SetCell(currentCellCoordinate, RandomCellsGenerator.GenerateNewCell());
+                    _switchCellsContoller.SwitchWithNewCell(currentCellCoordinate, RandomCellsGenerator.GenerateNewCell());
                     break;
                 }
 
-                var nextCell = _fallLineModel.GetCell(nextCellCoordinate);
-                if (nextCell.color == CellsColor.Empty) break;
-
-                _fallLineModel.SetCell(currentCellCoordinate, nextCell);
-                _fallLineModel.SetCell(nextCellCoordinate, new Cell(CellsColor.Empty));
+                _switchCellsContoller.SwitchCells(currentCellCoordinate, nextCellCoordinate);
 
                 currentCellCoordinate = nextCellCoordinate;
             }

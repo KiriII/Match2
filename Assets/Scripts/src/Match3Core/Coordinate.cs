@@ -1,6 +1,8 @@
+using System;
+
 namespace Match3Core
 {
-    public class Coordinate
+    public class Coordinate : IComparable<Coordinate>
     {
         public int x;
         public int y;
@@ -9,6 +11,12 @@ namespace Match3Core
         {
             this.x = x;
             this.y = y;
+        }
+
+        public int CompareTo(Coordinate other)
+        {
+            if (x == other.x) return y.CompareTo(other.y);
+            return x.CompareTo(other.x);
         }
 
         public bool Equals(Coordinate coordinate)

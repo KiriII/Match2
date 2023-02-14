@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Match3Core;
 
+
+// -------- TODO Normal realisation of random generator of cells --------
 namespace Match3Core.RandomGenerate
 {
     public static class RandomCellsGenerator

@@ -11,17 +11,24 @@ namespace Match3.Board
             _switchCellsModel = switchCellsModel;
         }
 
-        public void SwitchCells(Coordinate switchCell1, Coordinate switchCell2)
-        {
-            if (!CanSwitchCell(switchCell1) || !CanSwitchCell(switchCell2))
+        public void SwitchCells(Coordinate switchCoordinate1, Coordinate switchCoordinate2)
+        { 
+            if (!CanSwitchCell(switchCoordinate1) || !CanSwitchCell(switchCoordinate2))
             {
                 return;
             }
-            var cell1 = new Cell(_switchCellsModel.GetCell(switchCell1));
-            var cell2 = new Cell(_switchCellsModel.GetCell(switchCell2));
+            var cell1 = new Cell(_switchCellsModel.GetCell(switchCoordinate1));
+            var cell2 = new Cell(_switchCellsModel.GetCell(switchCoordinate2));
 
-            _switchCellsModel.SetCell(switchCell2, cell1);
-            _switchCellsModel.SetCell(switchCell1, cell2);
+            _switchCellsModel.SetCell(switchCoordinate2, cell1);
+            _switchCellsModel.SetCell(switchCoordinate1, cell2);
+        }
+
+        public void SwitchWithNewCell(Coordinate CellCoordinate, Cell newCell)
+        {
+            if (!CanSwitchCell(CellCoordinate)) return;
+
+            _switchCellsModel.SetCell(CellCoordinate, newCell);
         }
 
         private bool CanSwitchCell(Coordinate switchCell)
