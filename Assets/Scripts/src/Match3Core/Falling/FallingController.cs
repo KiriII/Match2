@@ -26,10 +26,16 @@ namespace Match3.Falling
         public override void TrainOfSteals(IFallLineModel fallLineModel, Coordinate coordinate)
         {
             var currentCellCoordinate = coordinate;
-            while (currentCellCoordinate.x > 0)
+            while (currentCellCoordinate.x >= 0)
             {
+                //Debug.Log(currentCellCoordinate.x);
                 var nextCellCoordinate = GetNextCell(currentCellCoordinate);
                 if (nextCellCoordinate == null) break;
+                if (nextCellCoordinate.x == -1)
+                {
+                    _fallLineModel.SetCell(currentCellCoordinate, GenerateNewCell());
+                    break;
+                }
 
                 var nextCell = _fallLineModel.GetCell(nextCellCoordinate);
                 if (nextCell.color == CellsColor.Empty) break;
@@ -43,9 +49,25 @@ namespace Match3.Falling
 
         private Coordinate GetNextCell(Coordinate coordinate)
         {
-            var newCoordinate = new Coordinate(coordinate.x, coordinate.y - 1);
-            if (!_fallLineModel.GetCanHoldCell(newCoordinate)) return null;
+            var newCoordinate = new Coordinate(coordinate.x - 1, coordinate.y);
+            if (newCoordinate.x == -1) return newCoordinate;
+            if (!_fallLineModel.GetCanHoldCell(newCoordinate))
+            {
+                if (_fallLineModel.GetCanPassCell(newCoordinate))
+                {
+                    return GetNextCell(newCoordinate);
+                }
+                else
+                {
+                    return null;
+                }
+            }
             return newCoordinate;
+        }
+
+        private Cell GenerateNewCell()
+        {
+            return new Cell(CellsColor.Blue);
         }
     }
 }

@@ -33,6 +33,20 @@ namespace Match3.Board
             }
         }
 
+        public BoardModel(Slot[,] slots)
+        {
+            _rows = slots.GetLength(0);
+            _columns = slots.GetLength(1);
+            _board = new Slot[_rows, _columns];
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    _board[i, j] = slots[i,j];
+                }
+            }
+        }
+
         public void SetCell(Coordinate coordinate, Cell cell)
         {
             var slot = _board[coordinate.x, coordinate.y];
@@ -59,6 +73,12 @@ namespace Match3.Board
             return slot.CanHoldCell;
         }
 
+        public bool GetCanPassCell(Coordinate coordinate)
+        {
+            var slot = _board[coordinate.x, coordinate.y];
+            return slot.CanPassCell;
+        }
+
         public int GetRows()
         {
             return _rows;
@@ -79,7 +99,14 @@ namespace Match3.Board
                 for (int j = 0; j < _columns; j++)
                 {
                     var cell = _board[i, j].Cell;
-                    result += String.Format("{0,3}", (_board[i, j].CanHoldCell ? (int)cell.color : "X"));
+                    if (cell == null)
+                    {
+                        result += String.Format("{0,3}", "[]");
+                    }
+                    else
+                    {
+                        result += String.Format("{0,3}", (_board[i, j].CanHoldCell ? (int)cell.color : "X"));
+                    }
                 }
                 result += "\n";
             }

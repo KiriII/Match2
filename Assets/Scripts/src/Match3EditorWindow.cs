@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Match3Core;
 using Match3.Board;
+using Match3.Falling;
 
 public class Match3EditorWindow : EditorWindow
 {
@@ -95,15 +96,16 @@ public class Match3EditorWindow : EditorWindow
 
         if (GUILayout.Button("XXXTentacion Falling down"))
         {
-            var board = new bool[,] { { true, false, false }, { true, false, false }, { true, false, false } };
+            var board = new Slot[,] { {new Slot(false, true)}, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) }, { new Slot(true, true) } };
             BoardModel boardModel = new BoardModel(board);
-            boardModel.SetCell(new Coordinate(0, 0), new Cell(CellsColor.Blue));
-            boardModel.SetCell(new Coordinate(1, 0), new Cell(CellsColor.Green));
+            boardModel.SetCell(new Coordinate(1, 0), new Cell(CellsColor.Blue));
+            boardModel.SetCell(new Coordinate(2, 0), new Cell(CellsColor.Green));
 
-            //boardModel.PrintCurrnetBoard();
+            boardModel.PrintCurrnetBoard();
 
-            //var line = new FallingLine(new List<Coordinate> { new Coordinate(0, 0) , new Coordinate(1, 0) , new Coordinate(2, 0) }, boardModel);
-                //line.Fall();
+            var fallCtrl = new FallingController(boardModel);
+            fallCtrl.FallingWithDeadCells(new List<Coordinate> {new Coordinate(3,0), new Coordinate(4, 0)});
+
             boardModel.PrintCurrnetBoard();
         }
 
