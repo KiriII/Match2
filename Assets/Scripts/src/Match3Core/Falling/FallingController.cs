@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Match3.Board;
 using Match3Core;
+using Match3Core.RandomGenerate;
 
 namespace Match3.Falling
 {
@@ -33,7 +34,7 @@ namespace Match3.Falling
                 if (nextCellCoordinate == null) break;
                 if (nextCellCoordinate.x == -1)
                 {
-                    _fallLineModel.SetCell(currentCellCoordinate, GenerateNewCell());
+                    _fallLineModel.SetCell(currentCellCoordinate, RandomCellsGenerator.GenerateNewCell());
                     break;
                 }
 
@@ -63,11 +64,6 @@ namespace Match3.Falling
                 }
             }
             return newCoordinate;
-        }
-
-        private Cell GenerateNewCell()
-        {
-            return new Cell(CellsColor.Blue);
         }
     }
 }

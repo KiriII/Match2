@@ -1,5 +1,7 @@
-
-public class CellsDestroyController 
+namespace Match3Core.DestroyCells
 {
+    public class CellsDestroyController
+    {
 
+    }
 }
