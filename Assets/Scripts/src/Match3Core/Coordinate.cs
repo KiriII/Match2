@@ -23,5 +23,10 @@ namespace Match3Core
         {
             return (this.x == coordinate.x && this.y == coordinate.y);
         }
+
+        public override string ToString()
+        {
+            return $"[{x}:{y}]";
+        }
     }
 }

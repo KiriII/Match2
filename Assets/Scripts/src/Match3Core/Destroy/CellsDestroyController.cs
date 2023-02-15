@@ -1,4 +1,4 @@
-using Match3.Board;
+using Match3Core.Board;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace Match3Core.DestroyCells
     public class CellsDestroyController
     {
         private SwitchCellsContoller _switchCellsContoller;
-        private event Action<List<Coordinate>> cellsDestroyed;
+        private event Action<List<Coordinate>> _cellsDestroyed;
 
         public CellsDestroyController(SwitchCellsContoller switchCellsContoller)
         {
@@ -20,16 +20,33 @@ namespace Match3Core.DestroyCells
         public void DestroyCells(List<Coordinate> tripledCells)
         {
             SortDestroyedCells(ref tripledCells);
+            Debug.Log(string.Join(", ", tripledCells));
             foreach (var cell in tripledCells)
             {
-                Debug.Log(cell.x);
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
+
+            OnCellsDestroyed(tripledCells);
         }
 
         private void SortDestroyedCells(ref List<Coordinate> destroyedCells)
         {
             destroyedCells.Sort();
+        }
+
+        private void OnCellsDestroyed(List<Coordinate> destroyedCells)
+        {
+            _cellsDestroyed?.Invoke(destroyedCells);
+        }
+
+        public void EnableDestroyedCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
+        {
+            _cellsDestroyed += methodInLitener;
+        }
+
+        public void DesableDestroyedCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
+        {
+            _cellsDestroyed -= methodInLitener;
         }
     }
 }

@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Match3.Board;
+using Match3Core.Board;
 using Match3Core;
 
-namespace Match3.Falling
+namespace Match3Core.Falling
 {
     public abstract class StealingCellsController
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Match3Core;
 
-namespace Match3.Board
+namespace Match3Core.Board
 {
     public class BoardModel : ISwitchCellsModel, IFallLineModel
     {

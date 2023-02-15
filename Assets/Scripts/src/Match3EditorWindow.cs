@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Match3Core;
-using Match3.Board;
-using Match3.Falling;
+using Match3Core.Board;
+using Match3Core.Falling;
 using Match3Core.DestroyCells;
 
 public class Match3EditorWindow : EditorWindow
@@ -27,54 +27,6 @@ public class Match3EditorWindow : EditorWindow
 
     private void OnGUI()
     {
-        if (GUILayout.Button("RESET"))
-        {
-            _match3GameCore = new Match3GameCore(5, 5);
-            _match3GameCore.PrintCurrnetBoard();
-        }
-
-        if (GUILayout.Button("CHECK Tripless"))
-        {
-            deadCells = new List<(int, int)>(_match3GameCore.Check());
-        }
-
-        if (GUILayout.Button("Remove dead cells"))
-        {
-            _match3GameCore.FindDestroyedCellsInCollumns(deadCells);
-            _match3GameCore.PrintCurrnetBoard();
-        }
-
-
-        using (var h = new GUILayout.HorizontalScope())
-        {
-            GUILayout.Label("Cell 1: ");
-            x1 = (string)EditorGUILayout.TextField("x", x1);
-            y1 = (string)EditorGUILayout.TextField("y", y1);
-        }
-
-        using (var h = new GUILayout.HorizontalScope())
-        {
-            GUILayout.Label("Cell 2: ");
-            x2 = (string)EditorGUILayout.TextField("x", x2);
-            y2 = (string)EditorGUILayout.TextField("y", y2);
-        }
-
-        if (GUILayout.Button("Make a Turn"))
-        {
-            if (x1.Length > 0 && y1.Length > 0 && x2.Length > 0 && y2.Length > 0)
-            {
-                switchCell1.x = int.Parse(x1);
-                switchCell1.y = int.Parse(y1);
-
-                switchCell2.x = int.Parse(x2);
-                switchCell2.y = int.Parse(y2);
-
-                _match3GameCore.Turn(switchCell1, switchCell2);
-            }
-        }
-
-        GUILayout.Label("------- NEW START ---------");
-
         if (GUILayout.Button("NEW BOARD"))
         {
             var board = new bool[,] { { false, false, false }, { true, false, true }, { false, true, false } };
@@ -126,7 +78,11 @@ public class Match3EditorWindow : EditorWindow
 
             boardModel.PrintCurrnetBoard();
 
-            CellsDestroyController cellsDestroyController = new CellsDestroyController(switchCellsContoller);
+            var cellsDestroyController = new CellsDestroyController(switchCellsContoller);
+            var fallCtrl = new FallingController(boardModel, switchCellsContoller);
+
+            cellsDestroyController.EnableDestroyedCellDestroyedListener(fallCtrl.FallingWithDeadCells);
+
             cellsDestroyController.DestroyCells(new List<Coordinate> { new Coordinate(4, 0), new Coordinate(3, 0), new Coordinate(0, 0) });
 
             boardModel.PrintCurrnetBoard();
