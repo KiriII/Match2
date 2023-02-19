@@ -5,7 +5,7 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public class BoardModel : ISwitchCellsModel, IFallLineModel
+    public class BoardModel : ISwitchCellsModel, IFallLineModel, IGUIBoardModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -67,15 +67,34 @@ namespace Match3Core.Board
             return slot.Cell;
         }
 
+        public Cell GetCell(int x, int y)
+        {
+            if (!GetCanHoldCell(x, y)) throw new Exception("Try to get Cell from Blocked Slot");
+            var slot = _board[x, y];
+            return slot.Cell;
+        }
+
         public bool GetCanHoldCell(Coordinate coordinate)
         {
             var slot = _board[coordinate.x, coordinate.y];
             return slot.CanHoldCell;
         }
 
+        public bool GetCanHoldCell(int x, int y)
+        {
+            var slot = _board[x, y];
+            return slot.CanHoldCell;
+        }
+
         public bool GetCanPassCell(Coordinate coordinate)
         {
             var slot = _board[coordinate.x, coordinate.y];
+            return slot.CanPassCell;
+        }
+
+        public bool GetCanPassCell(int x, int y)
+        {
+            var slot = _board[x, y];
             return slot.CanPassCell;
         }
 
@@ -87,6 +106,11 @@ namespace Match3Core.Board
         public int GetCollumns()
         {
             return _columns;
+        }
+
+        public Slot[,] GetSlots()
+        {
+            return _board;
         }
 
 

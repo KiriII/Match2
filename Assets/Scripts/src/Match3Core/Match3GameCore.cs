@@ -27,6 +27,22 @@ namespace Match3Core
 
             _cellsDestroyController.EnableDestroyedCellDestroyedListener(_fallingController.FallingWithDeadCells);
         }
+
+        public BoardModel GetBoardModel()
+        {
+            return _boardModel;
+        }
+
+        // ------ ACTIONS ------
+        public void EnableCellSwitchedListener(Action methodInLitener)
+        {
+            _switchCellController.EnableCellSwitchedListener(methodInLitener);
+        }
+
+        public void DesableCellSwitchedListener(Action methodInLitener)
+        {
+            _switchCellController.DesableCellSwitchedListener(methodInLitener);
+        }
         /*
         public void Turn((int x1, int y1) switchCell1, (int x2, int y2) switchCell2)
         {

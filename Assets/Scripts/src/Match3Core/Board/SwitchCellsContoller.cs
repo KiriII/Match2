@@ -1,10 +1,13 @@
 using Match3Core;
+using System;
 
 namespace Match3Core.Board
 {
     public class SwitchCellsContoller
     {
         private ISwitchCellsModel _switchCellsModel;
+
+        private event Action _CellSwitched;
 
         public SwitchCellsContoller(ISwitchCellsModel switchCellsModel)
         {
@@ -22,6 +25,8 @@ namespace Match3Core.Board
 
             _switchCellsModel.SetCell(switchCoordinate2, cell1);
             _switchCellsModel.SetCell(switchCoordinate1, cell2);
+
+            OnCellSwitched();
         }
 
         public void SwitchWithNewCell(Coordinate CellCoordinate, Cell newCell)
@@ -29,6 +34,8 @@ namespace Match3Core.Board
             if (!CanSwitchCell(CellCoordinate)) return;
 
             _switchCellsModel.SetCell(CellCoordinate, newCell);
+
+            OnCellSwitched();
         }
 
         private bool CanSwitchCell(Coordinate switchCell)
@@ -36,6 +43,21 @@ namespace Match3Core.Board
             var canHoldSell1 = _switchCellsModel.GetCanHoldCell(switchCell);
 
             return canHoldSell1;
+        }
+
+        private void OnCellSwitched()
+        {
+            _CellSwitched?.Invoke();
+        }
+
+        public void EnableCellSwitchedListener(Action methodInLitener)
+        {
+            _CellSwitched += methodInLitener;
+        }
+
+        public void DesableCellSwitchedListener(Action methodInLitener)
+        {
+            _CellSwitched -= methodInLitener;
         }
     }
 }
