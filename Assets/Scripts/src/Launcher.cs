@@ -52,5 +52,7 @@ public class Launcher : MonoBehaviour
 
 
         mainUI.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel());
+
+        _match3GameCore.DEADCELLS(new List<Coordinate> { new Coordinate(2, 1), new Coordinate(2, 2), new Coordinate(2, 3) });
     }
 }

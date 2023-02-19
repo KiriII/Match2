@@ -43,6 +43,12 @@ namespace Match3Core
         {
             _switchCellController.DesableCellSwitchedListener(methodInLitener);
         }
+
+        // ------ DEBUG ------
+        public void DEADCELLS(List<Coordinate> tripledCells)
+        {
+            _cellsDestroyController.DestroyCells(tripledCells);
+        }
         /*
         public void Turn((int x1, int y1) switchCell1, (int x2, int y2) switchCell2)
         {
