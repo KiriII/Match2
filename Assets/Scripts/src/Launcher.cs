@@ -1,5 +1,7 @@
 using Match3Core;
+using Match3Configs.Reader;
 using Match3Core.gui;
+using Match3Core.Levels;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,17 +12,18 @@ public class Launcher : MonoBehaviour
     [SerializeField] GameObject _mainUI;
 
     private Match3GameCore _match3GameCore;
+    private LevelsHolder _levelsHolder;
 
     void Start()
     {
         var mainUI = Instantiate(_mainUI, _canvas);
 
+        var levels = XmlBoardsReader.GetBoards();
+        _levelsHolder = new LevelsHolder(levels);
+
         // ------ DEBUG -----
-        _match3GameCore = new Match3GameCore(new Slot[,] {{ new Slot(false, true), new Slot(true, true), new Slot(true, true), new Slot(true, true), new Slot(false, true) },
-        { new Slot(true, true) ,  new Slot(false, true) ,  new Slot(true, true) ,  new Slot(false, true) ,  new Slot(true, true) },
-        { new Slot(true, true) ,  new Slot(true, true) ,  new Slot(true, true) ,  new Slot(true, true) ,  new Slot(true, true) },
-        { new Slot(true, true) ,  new Slot(false, true) ,  new Slot(true, true) ,  new Slot(false, true) ,  new Slot(true, true) },
-        { new Slot(false, true) ,  new Slot(true, true) ,  new Slot(true, true) ,  new Slot(true, true) ,  new Slot(false, true) } });
+        var level1 = _levelsHolder.GetLevelById(2);
+        _match3GameCore = new Match3GameCore(level1.slots);
 
         var boardModel = _match3GameCore.GetBoardModel();
 
