@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -12,6 +12,9 @@ namespace Match3Debug.Configs
         private string _levelID = "";
         private Level _currentLevel;
         private List<Level> _levels;
+        private Vector2 _levelsScrollPosition;
+
+        private GUIStyle _slotStyle = new GUIStyle();
 
         [MenuItem("Match3/LevelsEditor")]
         public static void ShowWindow()
@@ -30,7 +33,9 @@ namespace Match3Debug.Configs
             _levelID = GUILayout.TextField(_levelID, 20);
             EditorGUILayout.EndHorizontal();
 
-            GUILayout.BeginScrollView(new Vector2(100, 0), GUILayout.Width(200), GUILayout.Height(100));
+            EditorGUILayout.BeginHorizontal();
+
+            _levelsScrollPosition = GUILayout.BeginScrollView(_levelsScrollPosition, GUILayout.Width(200), GUILayout.Height(100));
 
             foreach(var l in _levels)
             {
@@ -44,6 +49,16 @@ namespace Match3Debug.Configs
             }
 
             GUILayout.EndScrollView();
+            
+
+            if (GUILayout.Button($"Add new level", GUILayout.Width(228)))
+            {
+                
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(25);
 
             if (_currentLevel != null)
             {
@@ -52,16 +67,64 @@ namespace Match3Debug.Configs
                     EditorGUILayout.BeginHorizontal();
                     for (int j = 0; j < _currentLevel.collumns; j++)
                     {
-                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}"))
+                        var slotSkin = _currentLevel.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
+
+                        EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(150), GUILayout.Height(100));
+
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label("Hold");
+                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}" , GUILayout.Width(100)))
                         {
-                            Debug.Log("TIK TIK TIK");
-                             
+                            
                         }
+                        EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label("Pass");
+                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUILayout.Width(100)))
+                        {
+
+                        }
+                        EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.EndVertical();
                     }
                     EditorGUILayout.EndHorizontal();
                 }
-            }
 
+                EditorGUILayout.BeginHorizontal();
+
+                GUILayout.Label("<-->");
+
+                if (GUILayout.Button($"+", GUILayout.Width(100)))
+                {
+
+                }
+
+                if (GUILayout.Button($"-", GUILayout.Width(100)))
+                {
+
+                }
+
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+
+                GUILayout.Label("↑↓");
+
+                if (GUILayout.Button($"+", GUILayout.Width(100)))
+                {
+
+                }
+
+                if (GUILayout.Button($"-", GUILayout.Width(100)))
+                {
+
+                }
+
+                EditorGUILayout.EndHorizontal();
+
+            }
             EditorGUILayout.EndVertical();
         }
     }
