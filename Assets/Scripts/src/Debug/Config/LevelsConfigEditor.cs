@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Match3Configs.Reader;
 using Match3Core.Levels;
+using Match3Configs.Writer;
 
 namespace Match3Debug.Configs
 {
@@ -13,8 +14,6 @@ namespace Match3Debug.Configs
         private Level _currentLevel;
         private List<Level> _levels;
         private Vector2 _levelsScrollPosition;
-
-        private GUIStyle _slotStyle = new GUIStyle();
 
         [MenuItem("Match3/LevelsEditor")]
         public static void ShowWindow()
@@ -69,24 +68,21 @@ namespace Match3Debug.Configs
                     {
                         var slotSkin = _currentLevel.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
 
-                        EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(150), GUILayout.Height(100));
-
+                        EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(90), GUILayout.Height(70));
                         EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Hold");
-                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}" , GUILayout.Width(100)))
+                        GUILayout.Label("Hold:");
+                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}", GUI.skin.label))
                         {
-                            
+                            XmlBoardsWriter.ToggleHoldCell(_currentLevel.ID, i, j);
                         }
                         EditorGUILayout.EndHorizontal();
-
                         EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Pass");
-                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUILayout.Width(100)))
+                        GUILayout.Label("Pass:");
+                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUI.skin.label))
                         {
-
+                            XmlBoardsWriter.TogglePassCell(_currentLevel.ID, i, j);
                         }
                         EditorGUILayout.EndHorizontal();
-
                         EditorGUILayout.EndVertical();
                     }
                     EditorGUILayout.EndHorizontal();
