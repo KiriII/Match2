@@ -31,7 +31,7 @@ namespace Match3Configs.Reader
 
                     foreach (Level l in levels)
                     {
-                        if (l.ID == id) throw new Exception($"Duplication level id in levels.xml");
+                        if (l.ID == id) throw new Exception($"Duplication level id:{level.ID} in levels.xml");
                     }
 
                     level.ID = id;
@@ -74,7 +74,7 @@ namespace Match3Configs.Reader
                             var posY = Int32.Parse(positionText[1]);
 
                             //Debug.Log($"X = {posX} y = {posY} HC = {canHoldCell} PC = {canPassCell}");
-                            if (level.slots[posX, posY] != null) throw new Exception($"Duplication slot in levels.xml");
+                            if (level.slots[posX, posY] != null) throw new Exception($"Duplication slot {posX}-{posY} in levels.xml");
                             level.slots[posX, posY] = new Slot(canHoldCell, canPassCell);
                         }
                     }

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Match3Configs.Reader;
 using Match3Core.Levels;
 using Match3Configs.Writer;
+using System;
 
 namespace Match3Debug.Configs
 {
@@ -36,7 +38,7 @@ namespace Match3Debug.Configs
 
             _levelsScrollPosition = GUILayout.BeginScrollView(_levelsScrollPosition, GUILayout.Width(200), GUILayout.Height(100));
 
-            foreach(var l in _levels)
+            foreach (var l in _levels)
             {
                 if (_levelID.Length == 0 || l.ID.ToString().Contains(_levelID))
                 {
@@ -48,11 +50,15 @@ namespace Match3Debug.Configs
             }
 
             GUILayout.EndScrollView();
+
             
 
             if (GUILayout.Button($"Add new level", GUILayout.Width(228)))
             {
-                
+                if (_levelID.Length > 0 && !_levels.Select(e => e.ID).Contains(Int32.Parse(_levelID)))
+                {
+                    XmlBoardsWriter.AddNewLevel(Int32.Parse(_levelID));
+                }
             }
 
             EditorGUILayout.EndHorizontal();
@@ -74,15 +80,21 @@ namespace Match3Debug.Configs
                         if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}", GUI.skin.label))
                         {
                             XmlBoardsWriter.ToggleHoldCell(_currentLevel.ID, i, j);
+                            ReadFromConfigCurrentLevel();
                         }
                         EditorGUILayout.EndHorizontal();
-                        EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Pass:");
-                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUI.skin.label))
+
+                        if (!_currentLevel.slots[i, j].CanHoldCell)
                         {
-                            XmlBoardsWriter.TogglePassCell(_currentLevel.ID, i, j);
+                            EditorGUILayout.BeginHorizontal();
+                            GUILayout.Label("Pass:");
+                            if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUI.skin.label))
+                            {
+                                XmlBoardsWriter.TogglePassCell(_currentLevel.ID, i, j);
+                                ReadFromConfigCurrentLevel();
+                            }
+                            EditorGUILayout.EndHorizontal();
                         }
-                        EditorGUILayout.EndHorizontal();
                         EditorGUILayout.EndVertical();
                     }
                     EditorGUILayout.EndHorizontal();
@@ -122,6 +134,18 @@ namespace Match3Debug.Configs
 
             }
             EditorGUILayout.EndVertical();
+        }
+
+        private void ReadFromConfigCurrentLevel()
+        {
+            _levels = XmlBoardsReader.GetBoards();
+            foreach (var l in _levels)
+            {
+                if (l.ID == _currentLevel.ID)
+                {
+                    _currentLevel = l;
+                }
+            }
         }
     }
 }
