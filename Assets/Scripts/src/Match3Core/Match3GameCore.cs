@@ -4,8 +4,9 @@ using System.Linq;
 using UnityEngine;
 using Match3Core;
 using Match3Core.Board;
-using Match3Core.Falling;
 using Match3Core.DestroyCells;
+using Match3Core.Falling;
+using Match3Core.Triples;
 
 namespace Match3Core
 {
@@ -16,6 +17,7 @@ namespace Match3Core
         private SwitchCellsContoller _switchCellController;
         private FallingController _fallingController;
         private CellsDestroyController _cellsDestroyController;
+        private CheckTriplesController _checkTriplesController;
 
         public Match3GameCore(Slot[,] slots)  
         {
@@ -24,8 +26,13 @@ namespace Match3Core
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _cellsDestroyController = new CellsDestroyController(_switchCellController);
             _fallingController = new FallingController(_boardModel, _switchCellController);
+            _checkTriplesController = new CheckTriplesController(_boardModel);
 
-            _cellsDestroyController.EnableDestroyedCellDestroyedListener(_fallingController.FallingWithDeadCells);
+            _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);
+            _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
+
+            // TODO REMOVE
+            _checkTriplesController.FindTriples();
         }
 
         public BoardModel GetBoardModel()

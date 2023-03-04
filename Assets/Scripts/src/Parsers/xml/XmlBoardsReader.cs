@@ -73,9 +73,11 @@ namespace Match3Configs.Reader
                             var posX = Int32.Parse(positionText[0]);
                             var posY = Int32.Parse(positionText[1]);
 
+                            var coordinate = new Coordinate(posX, posY);
+
                             //Debug.Log($"X = {posX} y = {posY} HC = {canHoldCell} PC = {canPassCell}");
-                            if (level.slots[posX, posY] != null) throw new Exception($"Duplication slot {posX}-{posY} in levels.xml");
-                            level.slots[posX, posY] = new Slot(canHoldCell, canPassCell);
+                            if (level.slots[posX, posY] != null) throw new Exception($"Duplication slot {coordinate} in levels.xml");
+                            level.slots[posX, posY] = new Slot(coordinate, canHoldCell, canPassCell);
                         }
                     }
                     levels.Add(level);

@@ -99,39 +99,6 @@ namespace Match3Debug.Configs
                     }
                     EditorGUILayout.EndHorizontal();
                 }
-
-                EditorGUILayout.BeginHorizontal();
-
-                GUILayout.Label("<-->");
-
-                if (GUILayout.Button($"+", GUILayout.Width(100)))
-                {
-
-                }
-
-                if (GUILayout.Button($"-", GUILayout.Width(100)))
-                {
-
-                }
-
-                EditorGUILayout.EndHorizontal();
-
-                EditorGUILayout.BeginHorizontal();
-
-                GUILayout.Label("↑↓");
-
-                if (GUILayout.Button($"+", GUILayout.Width(100)))
-                {
-
-                }
-
-                if (GUILayout.Button($"-", GUILayout.Width(100)))
-                {
-
-                }
-
-                EditorGUILayout.EndHorizontal();
-
             }
             EditorGUILayout.EndVertical();
         }

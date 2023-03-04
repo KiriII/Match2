@@ -27,6 +27,7 @@ public class Match3EditorWindow : EditorWindow
 
     private void OnGUI()
     {
+        /*
         if (GUILayout.Button("NEW BOARD"))
         {
             var board = new bool[,] { { false, false, false }, { true, false, true }, { false, true, false } };
@@ -87,5 +88,6 @@ public class Match3EditorWindow : EditorWindow
 
             boardModel.PrintCurrnetBoard();
         }
+        */
     }
 }

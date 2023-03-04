@@ -39,12 +39,12 @@ namespace Match3Core.DestroyCells
             _cellsDestroyed?.Invoke(destroyedCells);
         }
 
-        public void EnableDestroyedCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
+        public void EnableCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
         {
             _cellsDestroyed += methodInLitener;
         }
 
-        public void DesableDestroyedCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
+        public void DesableCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
         {
             _cellsDestroyed -= methodInLitener;
         }

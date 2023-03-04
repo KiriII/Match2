@@ -19,19 +19,19 @@ namespace Match3Configs.Writer
             levels.Add(new XElement("level",
                 new XAttribute("id", levelID),
                 new XElement("slots",
-                    new XAttribute("size", "3/3"),
-                    new XElement("slot", new XAttribute("coordinate", "0/0")),
-                    new XElement("slot", new XAttribute("coordinate", "0/1")),
-                    new XElement("slot", new XAttribute("coordinate", "0/2")),
+                    new XAttribute("size", "5/5"))));
 
-                    new XElement("slot", new XAttribute("coordinate", "1/0")),
-                    new XElement("slot", new XAttribute("coordinate", "1/1")),
-                    new XElement("slot", new XAttribute("coordinate", "1/2")),
+            var slots = GetSlots(xdoc, levelID);
 
-                    new XElement("slot", new XAttribute("coordinate", "2/0")),
-                    new XElement("slot", new XAttribute("coordinate", "2/1")),
-                    new XElement("slot", new XAttribute("coordinate", "2/2"))
-                )));
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    slots.Add(new XElement("slot",
+                        new XAttribute("coordinate", $"{i}/{j}")
+                        ));
+                }
+            }
 
             xdoc.Save("Assets/Configs/levels.xml");
         }
@@ -40,7 +40,7 @@ namespace Match3Configs.Writer
         {
             XDocument xdoc = XDocument.Load("Assets/Configs/levels.xml");
 
-            var slot = GetSlot(xdoc, levelID, posX, posY);
+            var slot = GetRequiredSlot(xdoc, levelID, posX, posY);
 
             if (slot == null) return;
 
@@ -61,7 +61,7 @@ namespace Match3Configs.Writer
         {
             XDocument xdoc = XDocument.Load("Assets/Configs/levels.xml");
 
-            var slot = GetSlot(xdoc, levelID, posX, posY);
+            var slot = GetRequiredSlot(xdoc, levelID, posX, posY);
 
             if (slot == null) return;
 
@@ -77,9 +77,31 @@ namespace Match3Configs.Writer
             xdoc.Save("Assets/Configs/levels.xml");
         }
 
-        private static XElement GetSlot(XDocument xDoc, int levelID, int posX, int posY)
+        private static XElement GetRequiredSlot(XDocument xDoc, int levelID, int posX, int posY)
         {
-            
+
+            var slots = GetSlots(xDoc, levelID);
+
+            if (slots is not null)
+            {
+                var someRequiredSlot = slots.Elements()
+                    .Where(e => e.Attribute("coordinate").Value == $"{posX}/{posY}");
+
+                if (someRequiredSlot.Count() > 1)
+                {
+                    throw new System.Exception($"Duplication slot {posX}-{posY} in levels.xml");
+                }
+
+                var requiredSlot = someRequiredSlot.First();
+
+                return requiredSlot;
+            }
+
+            return null;
+        }
+
+        private static XElement GetSlots(XDocument xDoc, int levelID)
+        {
             XElement? levels = xDoc.Element("levels");
 
             if (levels is not null)
@@ -96,17 +118,7 @@ namespace Match3Configs.Writer
 
                 var slots = requiredLevel.Element("slots");
 
-                var someRequiredSlot = slots.Elements()
-                    .Where(e => e.Attribute("coordinate").Value == $"{posX}/{posY}");
-
-                if (someRequiredSlot.Count() > 1)
-                {
-                    throw new System.Exception($"Duplication slot {posX}-{posY} in levels.xml");
-                }
-
-                var requiredSlot = someRequiredSlot.First();
-
-                return requiredSlot;
+                return slots;
             }
 
             return null;

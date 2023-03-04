@@ -5,7 +5,7 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public class BoardModel : ISwitchCellsModel, IFallLineModel, IGUIBoardModel
+    public class BoardModel : ISwitchCellsModel, IFallLineModel, IGUIBoardModel, ICheckTriplesBoardModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -28,7 +28,8 @@ namespace Match3Core.Board
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    _board[i, j] = canHoldCellBoard[i, j] ? new Slot(true) : new Slot(false);
+                    var coordinate = new Coordinate(i , j);
+                    _board[i, j] = canHoldCellBoard[i, j] ? new Slot(coordinate, true) : new Slot(coordinate, false);
                 }
             }
         }

@@ -1,9 +1,9 @@
-using Match3Core.Board;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Match3Core.Board;
 
 namespace Match3Core.gui
 {
