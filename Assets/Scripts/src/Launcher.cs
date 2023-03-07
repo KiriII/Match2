@@ -1,5 +1,5 @@
 using Match3Core;
-using Match3Configs.Reader;
+using Match3Configs.Levels;
 using Match3Core.gui;
 using Match3Core.Levels;
 using System.Collections;

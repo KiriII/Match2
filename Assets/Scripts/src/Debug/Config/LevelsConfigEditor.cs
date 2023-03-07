@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Match3Configs.Reader;
 using Match3Core.Levels;
-using Match3Configs.Writer;
+using Match3Configs.Levels;
 using System;
 
 namespace Match3Debug.Configs

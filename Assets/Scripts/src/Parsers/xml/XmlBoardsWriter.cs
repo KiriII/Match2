@@ -6,122 +6,64 @@ using System.Linq;
 using UnityEngine;
 using Match3Core;
 
-
-namespace Match3Configs.Writer
+namespace Match3Configs.Levels
 {
     public static class XmlBoardsWriter
     {
+        private const string DEFAULT_BOARD_SIZE = "5/5";
+
         public static void AddNewLevel(int levelID)
         {
-            XDocument xdoc = XDocument.Load("Assets/Configs/levels.xml");
-            XElement? levels = xdoc.Element("levels");
+            var levels = XmlBoardsReader.GetRoot();
 
-            levels.Add(new XElement("level",
-                new XAttribute("id", levelID),
-                new XElement("slots",
-                    new XAttribute("size", "5/5"))));
+            levels.Add(new XElement(XmlFields.LEVEL_ELEMENT,
+                new XAttribute(XmlFields.LEVEL_ID_ATTRIBUTE, levelID),
+                new XElement(XmlFields.SLOTS_ELEMENT,
+                    new XAttribute(XmlFields.SLOTS_SIZE_ATTRIBUTE, DEFAULT_BOARD_SIZE))));
 
-            var slots = GetSlots(xdoc, levelID);
+            var requiredLevel = XmlBoardsReader.GetLevelByID(levelID);
+
+            var slots = XmlBoardsReader.GetSlotElement(requiredLevel);
 
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    slots.Add(new XElement("slot",
-                        new XAttribute("coordinate", $"{i}/{j}")
+                    slots.Add(new XElement(XmlFields.SLOT_ELEMENT,
+                        new XAttribute(XmlFields.SLOT_COORDINATE_ATTRIBUTE, $"{i}/{j}")
                         ));
                 }
             }
 
-            xdoc.Save("Assets/Configs/levels.xml");
+            levels.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
         public static void ToggleHoldCell(int levelID, int posX, int posY)
         {
-            XDocument xdoc = XDocument.Load("Assets/Configs/levels.xml");
-
-            var slot = GetRequiredSlot(xdoc, levelID, posX, posY);
-
-            if (slot == null) return;
-
-            if (slot.Attribute("canHoldCell") != null)
-            {
-                slot.SetAttributeValue("canHoldCell", null);
-                slot.SetAttributeValue("canPassCells", null);
-            }
-            else
-            {
-                slot.SetAttributeValue("canHoldCell", "false");
-            }
-
-            xdoc.Save("Assets/Configs/levels.xml");
+            ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_HOLD_CELL_ATTRIBUTE);
         }
 
         public static void TogglePassCell(int levelID, int posX, int posY)
         {
-            XDocument xdoc = XDocument.Load("Assets/Configs/levels.xml");
+            ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_PASS_CELL_ATTRIBUTE);
+        }
 
-            var slot = GetRequiredSlot(xdoc, levelID, posX, posY);
+        private static void ToggleCanSlot(int levelID, int posX, int posY, string attributeName)
+        {
+            var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
 
             if (slot == null) return;
 
-            if (slot.Attribute("canPassCells") != null)
+            if (slot.Attribute(attributeName) != null)
             {
-                slot.SetAttributeValue("canPassCells", null);
+                slot.SetAttributeValue(attributeName, null);
             }
             else
             {
-                slot.SetAttributeValue("canPassCells", "false");
+                slot.SetAttributeValue(attributeName, "false");
             }
 
-            xdoc.Save("Assets/Configs/levels.xml");
-        }
-
-        private static XElement GetRequiredSlot(XDocument xDoc, int levelID, int posX, int posY)
-        {
-
-            var slots = GetSlots(xDoc, levelID);
-
-            if (slots is not null)
-            {
-                var someRequiredSlot = slots.Elements()
-                    .Where(e => e.Attribute("coordinate").Value == $"{posX}/{posY}");
-
-                if (someRequiredSlot.Count() > 1)
-                {
-                    throw new System.Exception($"Duplication slot {posX}-{posY} in levels.xml");
-                }
-
-                var requiredSlot = someRequiredSlot.First();
-
-                return requiredSlot;
-            }
-
-            return null;
-        }
-
-        private static XElement GetSlots(XDocument xDoc, int levelID)
-        {
-            XElement? levels = xDoc.Element("levels");
-
-            if (levels is not null)
-            {
-                var SomeRequiredLevel = levels.Elements()
-                    .Where(e => e.Attribute("id").Value == levelID.ToString());
-
-                if (SomeRequiredLevel.Count() > 1)
-                {
-                    throw new System.Exception($"Duplication level id:{levelID} in levels.xml");
-                }
-
-                var requiredLevel = SomeRequiredLevel.First();
-
-                var slots = requiredLevel.Element("slots");
-
-                return slots;
-            }
-
-            return null;
+            slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
     }
 }
