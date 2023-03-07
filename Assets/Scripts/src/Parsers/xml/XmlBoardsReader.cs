@@ -67,9 +67,9 @@ namespace Match3Configs.Levels
             return rootElement;
         }
 
-        public static XElement GetLevelByID(int levelID)
+        public static XElement GetLevelByID(int levelID, XElement root = null)
         {
-            var rootElement = GetRoot();
+            var rootElement = root is null ? GetRoot() : root;
             if (rootElement is null) throw new Exception($"Missing root element {XmlFields.ROOT_ELEMENT}");
             var SomeRequiredLevel = rootElement.Elements()
                 .Where(e => e.Attribute("id").Value == levelID.ToString());

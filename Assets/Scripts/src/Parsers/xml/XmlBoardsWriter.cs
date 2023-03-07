@@ -21,7 +21,7 @@ namespace Match3Configs.Levels
                 new XElement(XmlFields.SLOTS_ELEMENT,
                     new XAttribute(XmlFields.SLOTS_SIZE_ATTRIBUTE, DEFAULT_BOARD_SIZE))));
 
-            var requiredLevel = XmlBoardsReader.GetLevelByID(levelID);
+            var requiredLevel = XmlBoardsReader.GetLevelByID(levelID, levels);
 
             var slots = XmlBoardsReader.GetSlotElement(requiredLevel);
 
