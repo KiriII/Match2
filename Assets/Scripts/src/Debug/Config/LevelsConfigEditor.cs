@@ -28,13 +28,39 @@ namespace Match3Debug.Configs
 
             EditorGUILayout.BeginVertical();
 
+            LevelFinder();
+
+            EditorGUILayout.BeginHorizontal();
+
+            LevelsScroll();
+
+            AddNewLevelButton();
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(25);
+
+            if (_currentLevel != null)
+            {
+                // Как-то медленно работает
+                var slotsGrid = ScriptableObject.CreateInstance<BoardSlotEditor>();
+                slotsGrid.CreateGrid(_currentLevel);
+                ReadFromConfigCurrentLevel();
+            }
+
+            EditorGUILayout.EndVertical();
+        }
+
+        private void LevelFinder()
+        {
             EditorGUILayout.BeginHorizontal();
             GUILayout.Label("Choose level: ", GUILayout.ExpandWidth(false));
             _levelID = GUILayout.TextField(_levelID, 20);
             EditorGUILayout.EndHorizontal();
+        }
 
-            EditorGUILayout.BeginHorizontal();
-
+        private void LevelsScroll()
+        {
             _levelsScrollPosition = GUILayout.BeginScrollView(_levelsScrollPosition, GUILayout.Width(200), GUILayout.Height(100));
 
             foreach (var l in _levels)
@@ -49,9 +75,10 @@ namespace Match3Debug.Configs
             }
 
             GUILayout.EndScrollView();
+        }
 
-            
-
+        private void AddNewLevelButton()
+        {
             if (GUILayout.Button($"Add new level", GUILayout.Width(228)))
             {
                 if (_levelID.Length > 0 && !_levels.Select(e => e.ID).Contains(Int32.Parse(_levelID)))
@@ -59,47 +86,6 @@ namespace Match3Debug.Configs
                     XmlBoardsWriter.AddNewLevel(Int32.Parse(_levelID));
                 }
             }
-
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.Space(25);
-
-            if (_currentLevel != null)
-            {
-                for (int i = 0; i < _currentLevel.rows; i++)
-                {
-                    EditorGUILayout.BeginHorizontal();
-                    for (int j = 0; j < _currentLevel.collumns; j++)
-                    {
-                        var slotSkin = _currentLevel.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
-
-                        EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(90), GUILayout.Height(70));
-                        EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Hold:");
-                        if (GUILayout.Button($"{_currentLevel.slots[i, j].CanHoldCell}", GUI.skin.label))
-                        {
-                            XmlBoardsWriter.ToggleHoldCell(_currentLevel.ID, i, j);
-                            ReadFromConfigCurrentLevel();
-                        }
-                        EditorGUILayout.EndHorizontal();
-
-                        if (!_currentLevel.slots[i, j].CanHoldCell)
-                        {
-                            EditorGUILayout.BeginHorizontal();
-                            GUILayout.Label("Pass:");
-                            if (GUILayout.Button($"{_currentLevel.slots[i, j].CanPassCell}", GUI.skin.label))
-                            {
-                                XmlBoardsWriter.TogglePassCell(_currentLevel.ID, i, j);
-                                ReadFromConfigCurrentLevel();
-                            }
-                            EditorGUILayout.EndHorizontal();
-                        }
-                        EditorGUILayout.EndVertical();
-                    }
-                    EditorGUILayout.EndHorizontal();
-                }
-            }
-            EditorGUILayout.EndVertical();
         }
 
         private void ReadFromConfigCurrentLevel()
