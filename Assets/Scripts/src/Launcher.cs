@@ -13,21 +13,29 @@ public class Launcher : MonoBehaviour
 
     private Match3GameCore _match3GameCore;
     private LevelsHolder _levelsHolder;
+    private GameObject mainUIObject;
 
     void Start()
     {
-        var mainUI = Instantiate(_mainUI, _canvas);
-
         var levels = XmlBoardsReader.GetBoards();
-        _levelsHolder = new LevelsHolder(levels);
+        _levelsHolder = new LevelsHolder(levels, 0);
 
-        // ------ DEBUG -----
-        var level1 = _levelsHolder.GetLevelById(1);
+        CreateLevel(0);
+    }
 
-        _match3GameCore = new Match3GameCore(level1.slots);
+    private void CreateLevel(int levelNumber)
+    {
+        Destroy(mainUIObject);
 
-        mainUI.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel());
+        mainUIObject = Instantiate(_mainUI, _canvas);
 
-        // _match3GameCore.DEADCELLS(new List<Coordinate> { new Coordinate(2, 1), new Coordinate(2, 2), new Coordinate(2, 3) });
+        _levelsHolder.currentLevelID = _levelsHolder.GetLevel(levelNumber).ID;
+
+        var ñurrentLevel = _levelsHolder.GetCurrentLevel();
+        var ids = _levelsHolder.GetLevelsID();
+
+        _match3GameCore = new Match3GameCore(ñurrentLevel.slots);
+
+        mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(), ids, _levelsHolder.currentLevelID, CreateLevel);
     }
 }

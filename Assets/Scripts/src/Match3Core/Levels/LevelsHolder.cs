@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,24 +7,30 @@ namespace Match3Core.Levels
 {
     public class LevelsHolder
     {
-        private List<Level> _levels;
+        private HashSet<Level> _levels;
+        public int currentLevelID { get; set; }
 
-        public LevelsHolder(List<Level> levels)
+        public LevelsHolder(HashSet<Level> levels, int id)
         {
             _levels = levels;
+            currentLevelID = id;
         }
 
-        public Level GetLevelById(int id)
+        public HashSet<int> GetLevelsID()
         {
-            foreach (Level l in _levels)
-            {
-                if (l.ID == id)
-                {
-                    return l;
-                }
-            }
+            var ids = new HashSet<int>(_levels.ToList().Select(x => x.ID));
+            return ids;
+        }
 
-            return null;
+        public Level GetCurrentLevel()
+        {
+            return _levels.Where(level => level.ID == currentLevelID).First();
+        }
+
+        // Не по id а по порядковому номеру
+        public Level GetLevel(int levelNumber)
+        {
+            return _levels.ElementAt(levelNumber);
         }
     }
 }

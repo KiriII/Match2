@@ -13,7 +13,7 @@ namespace Match3Debug.Configs
     {
         private string _levelID = "";
         private Level _currentLevel;
-        private List<Level> _levels;
+        private HashSet<Level> _levels;
         private Vector2 _levelsScrollPosition;
 
         [MenuItem("Match3/LevelsEditor")]

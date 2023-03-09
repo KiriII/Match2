@@ -43,7 +43,7 @@ namespace Match3Core.Board
             {
                 for (int j = 0; j < _columns; j++)
                 {
-                    _board[i, j] = slots[i,j];
+                    _board[i, j] = new Slot(slots[i,j]);
                 }
             }
         }
@@ -114,6 +114,13 @@ namespace Match3Core.Board
             return _board;
         }
 
+        public void ClearBoard()
+        {
+            foreach (var s in _board)
+            {
+                s.Cell = null;
+            }
+        }
 
         // --- Debug ---
         public void PrintCurrnetBoard()

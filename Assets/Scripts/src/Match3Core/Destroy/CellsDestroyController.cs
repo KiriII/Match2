@@ -20,7 +20,6 @@ namespace Match3Core.DestroyCells
         public void DestroyCells(List<Coordinate> tripledCells)
         {
             SortDestroyedCells(ref tripledCells);
-            Debug.Log(string.Join(", ", tripledCells));
             foreach (var cell in tripledCells)
             {
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());

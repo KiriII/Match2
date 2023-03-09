@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Match3Core
 {
     public class Cell

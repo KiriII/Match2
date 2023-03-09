@@ -13,13 +13,20 @@ namespace Match3Core
         private bool _canPassCell;
         private Coordinate _coordinate;
 
-        public Slot(Coordinate coordinate, bool canHoldSell, bool canPassCell = true, Cell cell = null)
+        public Slot(Coordinate coordinate, bool canHoldCell, bool canPassCell = true, Cell cell = null)
         {
-            _canHoldCell = canHoldSell;
+            _canHoldCell = canHoldCell;
             _canPassCell = canPassCell;
             _cell = cell;
             _coordinate = coordinate;
         }
 
+        public Slot(Slot slot)
+        {
+            _canHoldCell = slot.CanHoldCell;
+            _canPassCell = slot.CanPassCell;
+            _cell = new Cell(slot.Cell);
+            _coordinate = slot.Coordinate;
+        }
     }
 }

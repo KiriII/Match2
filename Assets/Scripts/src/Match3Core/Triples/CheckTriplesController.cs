@@ -25,7 +25,7 @@ namespace Match3Core.Triples
 
             foreach(var s in slots)
             {
-                if (s.CanHoldCell && s.Cell == null)
+                if (s.CanHoldCell && (s.Cell == null || s.Cell.color == CellsColor.Empty))
                 {
                     findedCells.Add(s.Coordinate);
                 }

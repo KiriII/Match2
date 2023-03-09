@@ -12,9 +12,9 @@ namespace Match3Configs.Levels
 {
     public static class XmlBoardsReader
     {
-        public static List<Level> GetBoards()
+        public static HashSet<Level> GetBoards()
         {
-            var levels = new List<Level>();
+            var levels = new HashSet<Level>();
 
             var rootElement = GetRoot();
 

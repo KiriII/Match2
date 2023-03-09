@@ -9,7 +9,7 @@ namespace Match3Core.Levels
         public int ID { get; set; }
         public int rows { get; set; }
         public int collumns { get; set; }
-        public Slot[,]? slots { get; set; }
+        public Slot[,] slots { get; set; }
 
         public Slot GetSlot(Coordinate coordinate)
         {
