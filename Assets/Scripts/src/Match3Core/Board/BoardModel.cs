@@ -11,7 +11,7 @@ namespace Match3Core.Board
         private readonly int _rows;
         private readonly int _columns;
 
-        /*   По идее мы передаём сразу готовое поле и не меняем размер поля
+        /*   пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         public BoardModel(int x, int y)
         {
             _board = new Slot[x, y];
@@ -51,14 +51,11 @@ namespace Match3Core.Board
         public void SetCell(Coordinate coordinate, Cell cell)
         {
             var slot = _board[coordinate.x, coordinate.y];
-            if (slot.CanHoldCell)
-            {
-                slot.Cell = cell;
-            }
-            else
+            if (!slot.CanHoldCell)
             {
                 throw new Exception("Try to add Cell to the Blocked Slot");
             }
+            slot.Cell = cell;
         }
 
         public Cell GetCell(Coordinate coordinate)

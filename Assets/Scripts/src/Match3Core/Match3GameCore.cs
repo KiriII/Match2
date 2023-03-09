@@ -15,7 +15,7 @@ namespace Match3Core
         private BoardModel _boardModel;
 
         private SwitchCellsContoller _switchCellController;
-        private FallingSidewayController _fallingController;
+        private FallingController _fallingController;
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
 

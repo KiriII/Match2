@@ -42,7 +42,6 @@ namespace Match3Core.Falling
                     _switchCellsContoller.SwitchWithNewCell(currentCellCoordinate, RandomCellsGenerator.GenerateNewCell());
                     break;
                 }
-
                 _switchCellsContoller.SwitchCells(currentCellCoordinate, nextCellCoordinate);
 
                 currentCellCoordinate = nextCellCoordinate;
