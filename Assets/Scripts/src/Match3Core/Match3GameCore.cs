@@ -15,7 +15,7 @@ namespace Match3Core
         private BoardModel _boardModel;
 
         private SwitchCellsContoller _switchCellController;
-        private FallingController _fallingController;
+        private FallingSidewayController _fallingController;
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
 
@@ -25,7 +25,7 @@ namespace Match3Core
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _cellsDestroyController = new CellsDestroyController(_switchCellController);
-            _fallingController = new FallingController(_boardModel, _switchCellController);
+            _fallingController = new FallingSidewayController(_boardModel, _switchCellController);
             _checkTriplesController = new CheckTriplesController(_boardModel);
 
             _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);

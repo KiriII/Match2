@@ -7,18 +7,21 @@ using Match3Core.RandomGenerate;
 
 namespace Match3Core.Falling
 {
-    public class FallingController : StealingCellsController
+    public class FallingController
     {
-        private IFallLineModel _fallLineModel;
-        private SwitchCellsContoller _switchCellsContoller;
+        protected IFallLineModel _fallLineModel;
+        protected SwitchCellsContoller _switchCellsContoller;
+
+        public virtual IFallLineModel FallLineModel { get => _fallLineModel; set => _fallLineModel = value; }
+        public virtual SwitchCellsContoller SwitchCellsContoller { get => _switchCellsContoller; set => _switchCellsContoller = value; }
 
         public FallingController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller)
         {
-            _fallLineModel = fallLineModel;
-            _switchCellsContoller = switchCellsContoller;
+            FallLineModel = fallLineModel;
+            SwitchCellsContoller = switchCellsContoller;
         }
 
-        public void FallingWithDeadCells(List<Coordinate> deadCellsCoordinates)
+        public virtual void FallingWithDeadCells(List<Coordinate> deadCellsCoordinates)
         {
             foreach (Coordinate c in deadCellsCoordinates)
             {
@@ -26,7 +29,7 @@ namespace Match3Core.Falling
             }
         }
 
-        public override void TrainOfSteals(Coordinate coordinate)
+        public virtual void TrainOfSteals(Coordinate coordinate)
         {
             var currentCellCoordinate = coordinate;
             while (currentCellCoordinate.x >= 0)
@@ -46,7 +49,12 @@ namespace Match3Core.Falling
             }
         }
 
-        private Coordinate GetNextCell(Coordinate coordinate)
+        protected virtual Coordinate GetNextCell(Coordinate coordinate)
+        {
+            return GetCellFromAbove(coordinate);
+        }
+
+        protected virtual Coordinate GetCellFromAbove(Coordinate coordinate)
         {
             var newCoordinate = new Coordinate(coordinate.x - 1, coordinate.y);
             if (newCoordinate.x == -1) return newCoordinate;
