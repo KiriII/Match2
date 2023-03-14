@@ -17,6 +17,13 @@ namespace Match3Core.DestroyCells
         }
 
         // На самом деле не уничтожаем а перекрашиваем в пустой цвет
+
+        public void DestroyCells(Coordinate coordinate)
+        {
+            _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
+            OnCellsDestroyed(new List<Coordinate> { coordinate });
+        }
+
         public void DestroyCells(List<Coordinate> tripledCells)
         {
             SortDestroyedCells(ref tripledCells);

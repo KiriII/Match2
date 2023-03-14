@@ -54,8 +54,7 @@ namespace Match3Core.gui
 
             _slotsGrid.constraintCount = _rows;
 
-            DrawSlots();
-            DrawCells();
+            DrawField();
 
             _updateViewButton.onClick.AddListener(UpdateView);
         }
@@ -69,61 +68,65 @@ namespace Match3Core.gui
             _levelsList.onValueChanged.AddListener(createNewBoardAction);
         }
 
-        private void DrawSlots()
+        public void DrawField()
         {
-            var gridTransform = _slotsGrid.gameObject.transform; 
-
-            for (int i = 0; i < _rows; i++)
-            {
-                for (int j = 0; j < _collumns; j++)
-                {
-                    var slotObject = Instantiate(_slot, gridTransform);
-                    _slotsObjects[i, j] = slotObject;
-                    if (!_GUIBoardModel.GetCanHoldCell(i, j)) slotObject.GetComponent<Image>().enabled = false;
-                }
-            }
-        } 
-
-        public void DrawCells()
-        {
-            Debug.Log("DRAW CELLS");
             var gridTransform = _slotsGrid.gameObject.transform;
-
-            for (int i = 0; i < _rows; i++)
+            for (int x = 0; x < _rows; x++)
             {
-                for (int j = 0; j < _collumns; j++)
+                for (int y = 0; y < _collumns; y++)
                 {
-                    if (!_GUIBoardModel.GetCanHoldCell(i, j)) continue;
-                    var cell = _GUIBoardModel.GetCell(i, j);
-                    var cellObject = Instantiate(_cell, _slotsObjects[i, j].transform);
-                    var cellColorObject = cellObject.GetComponent<Image>();
-
-                    switch (cell.color)
-                    {
-                        case CellsColor.Red:
-                            cellColorObject.color = Color.red;
-                            break;
-                        case CellsColor.Green:
-                            cellColorObject.color = Color.green;
-                            break;
-                        case CellsColor.Blue:
-                            cellColorObject.color = Color.blue;
-                            break;
-                        case CellsColor.Empty:
-                            cellColorObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
-                            break;
-                        default:
-                            break;
-                    }
+                    DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform));
                 }
             }
+        }
+
+        public Transform DrawOneSlot(Coordinate coordinate, Transform parent)
+        {
+            var slotObject = Instantiate(_slot, parent);
+            _slotsObjects[coordinate.x, coordinate.y] = slotObject;
+            if (!_GUIBoardModel.GetCanHoldCell(coordinate.x, coordinate.y)) slotObject.GetComponent<Image>().enabled = false;
+            return slotObject.transform;
+        }
+
+        public void DrawOneCell(Coordinate coordinate, Transform parent)
+        {
+            if (!_GUIBoardModel.GetCanHoldCell(coordinate.x, coordinate.y)) return;
+            var cell = _GUIBoardModel.GetCell(coordinate.x, coordinate.y);
+            var cellObject = Instantiate(_cell, _slotsObjects[coordinate.x, coordinate.y].transform);
+            var cellColorObject = cellObject.GetComponent<Image>();
+
+            switch (cell.color)
+            {
+                case CellsColor.Red:
+                    cellColorObject.color = Color.red;
+                    break;
+                case CellsColor.Green:
+                    cellColorObject.color = Color.green;
+                    break;
+                case CellsColor.Blue:
+                    cellColorObject.color = Color.blue;
+                    break;
+                case CellsColor.Empty:
+                    cellColorObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                    break;
+                default:
+                    break;
+            }
+
+            var cellButtonObject = cellObject.GetComponent<Button>();
+            cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
         }
 
         public void UpdateView()
         {
-            DrawCells();
+            DrawField();
         }
 
+        private void DestroyCell(Coordinate coordinate)
+        {
+            Debug.Log(coordinate);
+        }
+        
         public void Destroy(bool destroyGameObject = true)
         {
             Destroy(this.gameObject);
