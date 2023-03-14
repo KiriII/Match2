@@ -41,14 +41,11 @@ namespace Match3Core.Falling
         {
             var newCoordinate = new Coordinate(coordinate.x - 1, coordinate.y + vector);
             if (newCoordinate.x == -1) return newCoordinate;
-            if (newCoordinate.y == -1 || newCoordinate.y > _fallLineModel.GetCollumns() - 1) return null;
-            if (!_fallLineModel.GetCanHoldCell(newCoordinate) &&
-                !_fallLineModel.GetCanPassCell(newCoordinate))
-            {
-                return null;
-            }
-            if (CheckWayToZeroCoordinate(newCoordinate)) return newCoordinate;
-            if (CheckSideway(newCoordinate, vector) != null) return newCoordinate;
+            if (newCoordinate.y == -1 || newCoordinate.y > _fallLineModel.GetCollumns() - 1
+                || (!_fallLineModel.GetCanHoldCell(newCoordinate) &&
+                !_fallLineModel.GetCanPassCell(newCoordinate))) return null;
+            
+            if (CheckWayToZeroCoordinate(newCoordinate) || CheckSideway(newCoordinate, vector) != null) return newCoordinate;
             return null;
         }
     }
