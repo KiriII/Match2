@@ -17,13 +17,13 @@ namespace Match3Core.Triples
             _boardModel = boardModel;
         }
 
-        public List<Coordinate> FindTriples()
-        { 
+        public List<Coordinate> CreateBoard()
+        {
             var findedCells = new List<Coordinate>();
 
             var slots = _boardModel.GetSlots();
 
-            foreach(var s in slots)
+            foreach (var s in slots)
             {
                 if (s.CanHoldCell && (s.Cell == null || s.Cell.color == CellsColor.Empty))
                 {
@@ -33,6 +33,37 @@ namespace Match3Core.Triples
 
             OnTriplesFinded(findedCells);
             return findedCells;
+        }
+
+        public void FindTriples()
+        {
+            var findedCells = new List<Coordinate>();
+
+            var rows = _boardModel.GetRows();
+            var collumns = _boardModel.GetCollumns();
+
+            for (int i = 0; i < rows; i++)
+            {
+                var YcoordinatesOfTriples = SameCellsFinder.CheckSameInArray(_boardModel.GetFullRow(i)) ;
+
+                foreach (var y in YcoordinatesOfTriples)
+                {
+                    Debug.Log($"{new Coordinate(i, y)}");
+                    findedCells.Add(new Coordinate(i, y));
+                }
+            }
+
+            for (int i = 0; i < collumns; i++)
+            {
+                var XcoordinatesOfTriples = SameCellsFinder.CheckSameInArray(_boardModel.GetFullCollumn(i));
+
+                foreach (var x in XcoordinatesOfTriples)
+                {
+                    Debug.Log($"{new Coordinate(x, i)}");
+                    findedCells.Add(new Coordinate(x, i));
+                }
+            }
+            OnTriplesFinded(findedCells);
         }
 
         private void OnTriplesFinded(List<Coordinate> findedCells)

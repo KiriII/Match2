@@ -58,6 +58,26 @@ namespace Match3Core.Board
             slot.Cell = cell;
         }
 
+        public Cell[] GetFullRow(int rowNumber)
+        {
+            var row = new Cell[_rows];
+            for (int i = 0; i < _rows; i++)
+            {
+                row[i] = GetCanHoldCell(rowNumber, i) ? GetCell(rowNumber, i) : null;
+            }
+            return row;
+        }
+        
+        public Cell[] GetFullCollumn(int collumnNumber)
+        {
+            var collumn = new Cell[_columns];
+            for (int i = 0; i < _columns; i++)
+            {
+                collumn[i] = GetCanHoldCell(i, collumnNumber) ? GetCell(i, collumnNumber) : null;
+            }
+            return collumn;
+        }
+        
         public Cell GetCell(Coordinate coordinate)
         {
             if (!GetCanHoldCell(coordinate)) throw new Exception("Try to get Cell from Blocked Slot");

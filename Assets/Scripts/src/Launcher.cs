@@ -34,7 +34,7 @@ public class Launcher : MonoBehaviour
         var ñurrentLevel = _levelsHolder.GetCurrentLevel();
         var ids = _levelsHolder.GetLevelsID();
 
-        _match3GameCore = new Match3GameCore(ñurrentLevel.slots);
+        _match3GameCore = new Match3GameCore(ñurrentLevel.slots, mainUIObject.GetComponent<WindowMatch3Debug>().UpdateView);
 
         mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(), 
             ids, 

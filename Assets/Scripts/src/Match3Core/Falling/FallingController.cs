@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Match3Core.Falling
     {
         protected IFallLineModel _fallLineModel;
         protected SwitchCellsContoller _switchCellsContoller;
+
+        private event Action _cellsFell;
 
         public virtual IFallLineModel FallLineModel { get => _fallLineModel; set => _fallLineModel = value; }
         public virtual SwitchCellsContoller SwitchCellsContoller { get => _switchCellsContoller; set => _switchCellsContoller = value; }
@@ -27,6 +30,7 @@ namespace Match3Core.Falling
             {
                 TrainOfSteals(c);
             }
+            if (deadCellsCoordinates.Count > 0) OnCellsFell();
         }
 
         public virtual void TrainOfSteals(Coordinate coordinate)
@@ -34,7 +38,6 @@ namespace Match3Core.Falling
             var currentCellCoordinate = coordinate;
             while (currentCellCoordinate.x >= 0)
             {
-                //Debug.Log(currentCellCoordinate.x);
                 var nextCellCoordinate = GetNextCell(currentCellCoordinate);
                 //Debug.Log($"{currentCellCoordinate} {nextCellCoordinate}");
                 if (nextCellCoordinate == null) break;
@@ -70,6 +73,21 @@ namespace Match3Core.Falling
                 }
             }
             return newCoordinate;
+        }
+
+        private void OnCellsFell()
+        {
+            _cellsFell?.Invoke();
+        }
+
+        public void EnableCellsFellListener(Action methodInLitener)
+        {
+            _cellsFell += methodInLitener;
+        }
+
+        public void DesableCellsFellListener(Action methodInLitener)
+        {
+            _cellsFell -= methodInLitener;
         }
     }
 }

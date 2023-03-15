@@ -19,7 +19,7 @@ namespace Match3Core
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
 
-        public Match3GameCore(Slot[,] slots)  
+        public Match3GameCore(Slot[,] slots, Action updateView)  
         {
             _boardModel = new BoardModel(slots);
 
@@ -30,9 +30,11 @@ namespace Match3Core
 
             _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
+            _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
+            _fallingController.EnableCellsFellListener(updateView);
 
             // TODO REMOVE
-            _checkTriplesController.FindTriples();
+            _checkTriplesController.CreateBoard();
         }
 
         public BoardModel GetBoardModel()

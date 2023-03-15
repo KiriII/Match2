@@ -1,8 +1,8 @@
-using Match3Core.Board;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Match3Core.Board;
 
 namespace Match3Core.DestroyCells
 {
