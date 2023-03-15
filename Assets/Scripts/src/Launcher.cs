@@ -36,6 +36,10 @@ public class Launcher : MonoBehaviour
 
         _match3GameCore = new Match3GameCore(ñurrentLevel.slots);
 
-        mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(), ids, _levelsHolder.currentLevelID, CreateLevel);
+        mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(), 
+            ids, 
+            _levelsHolder.currentLevelID, 
+            CreateLevel,
+            _match3GameCore.DestroyCell);
     }
 }

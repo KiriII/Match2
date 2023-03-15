@@ -22,6 +22,7 @@ namespace Match3Core.gui
         private int _collumns;
         private int _currentLevelID;
         private HashSet<int> _levelsID;
+        private Action<Coordinate> _destroyOneCellAction;
 
         private GameObject[,] _slotsObjects;
 
@@ -37,9 +38,12 @@ namespace Match3Core.gui
         public void init(IGUIBoardModel GUIBoardModel, 
             HashSet<int> levelsID, 
             int curentLevelID,
-            UnityAction<int> createNewBoardAction)
+            UnityAction<int> createNewBoardAction, 
+            Action<Coordinate> destroyOneCellAction)
         {
             _currentLevelID = curentLevelID;
+
+            _destroyOneCellAction = destroyOneCellAction;
 
             _levelsID = levelsID;
             InitDropdownListView(createNewBoardAction);
@@ -119,15 +123,24 @@ namespace Match3Core.gui
 
         public void UpdateView()
         {
+            DestroyAllSlots();
             DrawField();
         }
 
         private void DestroyCell(Coordinate coordinate)
         {
-            Debug.Log(coordinate);
+            _destroyOneCellAction(coordinate);
+        }
+
+        public void DestroyAllSlots()
+        {
+            foreach (Transform s in _slotsGrid.transform)
+            {
+                Destroy(s.gameObject);
+            }
         }
         
-        public void Destroy(bool destroyGameObject = true)
+        public void DestroyWindow(bool destroyGameObject = true)
         {
             Destroy(this.gameObject);
         }

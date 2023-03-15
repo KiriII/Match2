@@ -56,6 +56,11 @@ namespace Match3Core
         {
             _cellsDestroyController.DestroyCells(tripledCells);
         }
+
+        public void DestroyCell(Coordinate coordinate)
+        {
+            _cellsDestroyController.DestroyCells(coordinate);
+        }
         /*
         public void Turn((int x1, int y1) switchCell1, (int x2, int y2) switchCell2)
         {

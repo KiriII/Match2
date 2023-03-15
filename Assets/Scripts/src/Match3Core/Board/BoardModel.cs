@@ -67,9 +67,7 @@ namespace Match3Core.Board
 
         public Cell GetCell(int x, int y)
         {
-            if (!GetCanHoldCell(x, y)) throw new Exception("Try to get Cell from Blocked Slot");
-            var slot = _board[x, y];
-            return slot.Cell;
+            return GetCell(new Coordinate(x, y));
         }
 
         public bool GetCanHoldCell(Coordinate coordinate)
@@ -80,8 +78,7 @@ namespace Match3Core.Board
 
         public bool GetCanHoldCell(int x, int y)
         {
-            var slot = _board[x, y];
-            return slot.CanHoldCell;
+            return GetCanHoldCell(new Coordinate(x, y));
         }
 
         public bool GetCanPassCell(Coordinate coordinate)
@@ -117,6 +114,12 @@ namespace Match3Core.Board
             {
                 s.Cell = null;
             }
+        }
+
+        public bool HasCell(Coordinate coordinate)
+        {
+            var result = GetCanHoldCell(coordinate) ? GetCell(coordinate).color != CellsColor.Empty : false;
+            return result;
         }
 
         // --- Debug ---

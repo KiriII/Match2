@@ -36,6 +36,7 @@ namespace Match3Core.Falling
             {
                 //Debug.Log(currentCellCoordinate.x);
                 var nextCellCoordinate = GetNextCell(currentCellCoordinate);
+                //Debug.Log($"{currentCellCoordinate} {nextCellCoordinate}");
                 if (nextCellCoordinate == null) break;
                 if (nextCellCoordinate.x == -1)
                 {
@@ -43,7 +44,7 @@ namespace Match3Core.Falling
                     break;
                 }
                 _switchCellsContoller.SwitchCells(currentCellCoordinate, nextCellCoordinate);
-
+                
                 currentCellCoordinate = nextCellCoordinate;
             }
         }

@@ -16,6 +16,7 @@ namespace Match3Core.Falling
 
         protected override Coordinate GetNextCell(Coordinate coordinate)
         {
+            //Debug.Log($"{coordinate} 0 {CheckSideway(coordinate, 0)} -1 {CheckSideway(coordinate, -1)} 1 {CheckSideway(coordinate, 1)}");
             if (CheckSideway(coordinate, 0) != null)
             {
                 return GetCellFromAbove(coordinate);
@@ -45,7 +46,8 @@ namespace Match3Core.Falling
                 || (!_fallLineModel.GetCanHoldCell(newCoordinate) &&
                 !_fallLineModel.GetCanPassCell(newCoordinate))) return null;
             
-            if (CheckWayToZeroCoordinate(newCoordinate) || CheckSideway(newCoordinate, vector) != null) return newCoordinate;
+            if (_fallLineModel.HasCell(newCoordinate) || CheckWayToZeroCoordinate(newCoordinate) 
+                || CheckSideway(newCoordinate, vector) != null) return newCoordinate;
             return null;
         }
     }
