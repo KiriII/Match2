@@ -17,24 +17,6 @@ namespace Match3Core.Triples
             _boardModel = boardModel;
         }
 
-        public List<Coordinate> CreateBoard()
-        {
-            var findedCells = new List<Coordinate>();
-
-            var slots = _boardModel.GetSlots();
-
-            foreach (var s in slots)
-            {
-                if (s.CanHoldCell && (s.Cell == null || s.Cell.color == CellsColor.Empty))
-                {
-                    findedCells.Add(s.Coordinate);
-                }
-            }
-
-            OnTriplesFinded(findedCells);
-            return findedCells;
-        }
-
         public void FindTriples()
         {
             var findedCells = new List<Coordinate>();
@@ -63,6 +45,7 @@ namespace Match3Core.Triples
                     findedCells.Add(new Coordinate(x, i));
                 }
             }
+
             OnTriplesFinded(findedCells);
         }
 

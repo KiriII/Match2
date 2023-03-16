@@ -33,8 +33,8 @@ namespace Match3Core
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
             _fallingController.EnableCellsFellListener(updateView);
 
-            // TODO REMOVE
-            _checkTriplesController.CreateBoard();
+            // Create Cells On Board
+            _cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
         }
 
         public BoardModel GetBoardModel()
