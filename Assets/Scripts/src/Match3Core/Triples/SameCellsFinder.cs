@@ -4,7 +4,7 @@ namespace Match3Core.Triples
 {
     public static class SameCellsFinder
     {
-        private const int CELLS_COUNT_IN_A_ROW = 3;
+        private const int CELLS_COUNT_IN_A_ROW = 2;
 
         public static List<int> CheckSameInArray(Cell[] cells)
         {

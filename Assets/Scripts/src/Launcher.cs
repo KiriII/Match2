@@ -15,12 +15,21 @@ public class Launcher : MonoBehaviour
     private LevelsHolder _levelsHolder;
     private GameObject mainUIObject;
 
+
     void Start()
     {
         var levels = XmlBoardsReader.GetBoards();
         _levelsHolder = new LevelsHolder(levels, 0);
 
         CreateLevel(0);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _match3GameCore.FindTriples();
+        }
     }
 
     private void CreateLevel(int levelNumber)
