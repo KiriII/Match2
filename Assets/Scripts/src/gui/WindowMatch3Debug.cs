@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Match3Core.Board;
+using Match3Core.MakeTurn;
 
 namespace Match3Core.gui
 {
@@ -21,8 +22,11 @@ namespace Match3Core.gui
         private int _rows;
         private int _collumns;
         private int _currentLevelID;
+
         private HashSet<int> _levelsID;
+
         private Action<Coordinate> _destroyOneCellAction;
+        private Action<Turn> _turnMade;
 
         private GameObject[,] _slotsObjects;
 
@@ -39,11 +43,13 @@ namespace Match3Core.gui
             HashSet<int> levelsID, 
             int curentLevelID,
             UnityAction<int> createNewBoardAction, 
-            Action<Coordinate> destroyOneCellAction)
+            Action<Coordinate> destroyOneCellAction,
+            Action<Turn> turnMade)
         {
             _currentLevelID = curentLevelID;
 
             _destroyOneCellAction = destroyOneCellAction;
+            _turnMade = turnMade;
 
             _levelsID = levelsID;
             InitDropdownListView(createNewBoardAction);
@@ -119,6 +125,10 @@ namespace Match3Core.gui
 
             var cellButtonObject = cellObject.GetComponent<Button>();
             cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
+
+            var draggingCell = cellObject.GetComponent<DraggingCell>();
+            draggingCell.coordinate = coordinate;
+            draggingCell.EnableTurnMadeListener(_turnMade);
         }
 
         public void UpdateView()

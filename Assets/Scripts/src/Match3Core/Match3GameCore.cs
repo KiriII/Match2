@@ -7,6 +7,7 @@ using Match3Core.Board;
 using Match3Core.DestroyCells;
 using Match3Core.Falling;
 using Match3Core.Triples;
+using Match3Core.MakeTurn;
 
 namespace Match3Core
 {
@@ -18,6 +19,7 @@ namespace Match3Core
         private FallingController _fallingController;
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
+        private TurnController _turnController;
 
         public Match3GameCore(Slot[,] slots, Action updateView)  
         {
@@ -27,6 +29,7 @@ namespace Match3Core
             _cellsDestroyController = new CellsDestroyController(_switchCellController);
             _fallingController = new FallingSidewayController(_boardModel, _switchCellController);
             _checkTriplesController = new CheckTriplesController(_boardModel);
+            _turnController = new TurnController(_boardModel);
 
             _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
@@ -62,6 +65,11 @@ namespace Match3Core
         public void DestroyCell(Coordinate coordinate)
         {
             _cellsDestroyController.DestroyCells(coordinate);
+        }
+
+        public void TurnMade(Turn turn)
+        {
+            _turnController.MakeTurn(turn);
         }
         /*
         public void Turn((int x1, int y1) switchCell1, (int x2, int y2) switchCell2)

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Match3Core
 {
@@ -11,6 +12,18 @@ namespace Match3Core
         {
             this.x = x;
             this.y = y;
+        }
+
+        public Coordinate(Coordinate coordinate)
+        {
+            this.x = coordinate.x;
+            this.y = coordinate.y;
+        }
+
+        public Coordinate(Coordinate coordinate, Vector2 vector)
+        {
+            this.x = coordinate.x - (int)vector.y;
+            this.y = coordinate.y + (int)vector.x;
         }
 
         public int CompareTo(Coordinate other)

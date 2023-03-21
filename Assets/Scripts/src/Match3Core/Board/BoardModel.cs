@@ -5,7 +5,11 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public class BoardModel : ISwitchCellsModel, IFallLineModel, IGUIBoardModel, ICheckTriplesBoardModel
+    public class BoardModel : ISwitchCellsModel, 
+        IFallLineModel, 
+        IGUIBoardModel, 
+        ICheckTriplesBoardModel, 
+        ITurnModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -113,6 +117,12 @@ namespace Match3Core.Board
             return slot.CanPassCell;
         }
 
+        public bool ContainCoordinate(Coordinate coordinate)
+        {
+            if (coordinate.x >= 0 && coordinate.x < _rows && coordinate.y >= 0 && coordinate.y < _columns) return true;
+            return false;
+        }
+
         public int GetRows()
         {
             return _rows;
@@ -126,6 +136,21 @@ namespace Match3Core.Board
         public Slot[,] GetSlots()
         {
             return _board;
+        }
+
+        public Cell[,] GetCells()
+        {
+            var cells = new Cell[_rows, _columns];
+
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    cells[i, j] = _board[i, j].Cell;
+                }
+            }
+
+            return cells;
         }
 
         public void ClearBoard()

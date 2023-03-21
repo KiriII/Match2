@@ -48,6 +48,7 @@ public class Launcher : MonoBehaviour
             ids, 
             _levelsHolder.currentLevelID, 
             CreateLevel,
-            _match3GameCore.DestroyCell);
+            _match3GameCore.DestroyCell,
+            _match3GameCore.TurnMade);
     }
 }
