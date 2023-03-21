@@ -15,7 +15,6 @@ public class Launcher : MonoBehaviour
     private LevelsHolder _levelsHolder;
     private GameObject mainUIObject;
 
-
     void Start()
     {
         var levels = XmlBoardsReader.GetBoards();
@@ -28,7 +27,7 @@ public class Launcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _match3GameCore.FindTriples();
+            //_match3GameCore.FindTriples();
         }
     }
 
