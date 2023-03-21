@@ -30,11 +30,24 @@ namespace Match3Core.MakeTurn
 
             Debug.Log($"{firstCoordinate} {secondCoordinate}");
 
-            var cells = _turnModel.GetCells().toArray();
+            var cells = CopyArray(_turnModel.GetCells());
             var c = new Cell(cells[firstCoordinate.x, firstCoordinate.y]);
             cells[firstCoordinate.x, firstCoordinate.y] = new Cell(cells[secondCoordinate.x, secondCoordinate.y]);
             cells[secondCoordinate.x, secondCoordinate.y] = new Cell(c);
             var newTriples = SameCellsFinder.CheckSameInArray(cells);
+        }
+
+        private Cell[,] CopyArray(Cell[,] source)
+        {
+            var receiver = new Cell[source.GetLength(0), source.GetLength(1)];
+            for (int i = 0; i < source.GetLength(0); i++)
+            {
+                for (int j = 0; j < source.GetLength(1); j++)
+                {
+                    receiver[i, j] = source[i, j];
+                }
+            }
+            return receiver;
         }
     }
 }
