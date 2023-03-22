@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Match3Core.Triples
 {
     public static class SameCellsFinder
     {
         private const int CELLS_COUNT_IN_A_ROW = 3;
 
-        public static List<int> CheckSameInArray(Cell[] cells)
+        private static List<int> CheckSameInArray(Cell[] cells)
         {
             var findedCells = new List<int>();
             for (int cellPosition = 0; cellPosition <= cells.Length - CELLS_COUNT_IN_A_ROW; cellPosition++)
@@ -32,6 +34,73 @@ namespace Match3Core.Triples
                 }
             }
             return findedCells;
+        }
+
+        public static List<Coordinate> TriplesFinder(Cell[,] cells)
+        {
+            var findedCells = new List<Coordinate>();
+
+            var rows = cells.GetLength(0);
+            var collumns = cells.GetLength(1);
+
+            if (rows != collumns) throw new Exception($"Board have uncorrect size {rows}x{collumns}");
+
+            for (int i = 0; i < rows; i++)
+            {
+                var YcoordinatesOfTriples = CheckSameInArray(GetFullRow(cells, i));
+                var XcoordinatesOfTriples = CheckSameInArray(GetFullCollumn(cells, i));
+
+                foreach (var y in YcoordinatesOfTriples)
+                {
+                    if (!FindCoordinateInFinded(findedCells, i, y))
+                    {
+                        //Debug.Log($"{new Coordinate(i, y)}");
+                        findedCells.Add(new Coordinate(i, y));
+                    }
+                }
+                foreach (var x in XcoordinatesOfTriples)
+                {
+                    if (!FindCoordinateInFinded(findedCells, x, i))
+                    {
+                        //Debug.Log($"{new Coordinate(x, i)}");
+                        findedCells.Add(new Coordinate(x, i));
+                    }
+                }
+            }
+            return findedCells;
+        }
+
+        private static bool FindCoordinateInFinded(List<Coordinate> findedCells, int x, int y)
+        {
+            var contain = false;
+            foreach (var c in findedCells)
+            {
+                if ((c.x == x) && (c.y == y))
+                {
+                    contain = true;
+                }
+            }
+            return contain;
+        }
+
+        public static Cell[] GetFullRow(Cell[,] cells, int rowNumber)
+        {
+            var row = new Cell[cells.GetLength(0)];
+            for (int i = 0; i < cells.GetLength(0); i++)
+            {
+                row[i] = cells[rowNumber, i];
+            }
+            return row;
+        }
+
+        public static Cell[] GetFullCollumn(Cell[,] cells, int collumnNumber)
+        {
+            var collumn = new Cell[cells.GetLength(1)];
+            for (int i = 0; i < cells.GetLength(1); i++)
+            {
+                collumn[i] = cells[i, collumnNumber];
+            }
+            return collumn;
         }
     }
 }

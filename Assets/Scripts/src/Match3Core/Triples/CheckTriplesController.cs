@@ -19,50 +19,11 @@ namespace Match3Core.Triples
 
         public void FindTriples()
         {
-            var findedCells = new List<Coordinate>();
+            var cells = _boardModel.GetCells();
 
-            var rows = _boardModel.GetRows();
-            var collumns = _boardModel.GetCollumns();
+            var findedCells = SameCellsFinder.TriplesFinder(cells);
 
-            if (rows != collumns) throw new Exception($"Board have uncorrect size {rows}x{collumns}"); 
-
-            for (int i = 0; i < rows; i++)
-            {
-                var YcoordinatesOfTriples = SameCellsFinder.CheckSameInArray(_boardModel.GetFullRow(i)) ;
-                var XcoordinatesOfTriples = SameCellsFinder.CheckSameInArray(_boardModel.GetFullCollumn(i));
-
-                foreach (var y in YcoordinatesOfTriples)
-                {
-                    if (!FindCoordinateInFinded(findedCells, i, y))
-                    {
-                        //Debug.Log($"{new Coordinate(i, y)}");
-                        findedCells.Add(new Coordinate(i, y));
-                    }
-                }
-                foreach (var x in XcoordinatesOfTriples)
-                {
-                    if (!FindCoordinateInFinded(findedCells, x, i))
-                    {
-                        //Debug.Log($"{new Coordinate(x, i)}");
-                        findedCells.Add(new Coordinate(x, i));
-                    }
-                }
-            }
             OnTriplesFinded(findedCells);
-        }
-
-        // BAD
-        private bool FindCoordinateInFinded(List<Coordinate> findedCells, int x, int y)
-        {
-            var contain = false;
-            foreach (var c in findedCells)
-            {
-                if ((c.x == x) && (c.y == y))
-                {
-                    contain = true;
-                }
-            }
-            return contain;
         }
 
         private void OnTriplesFinded(List<Coordinate> findedCells)
