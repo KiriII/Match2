@@ -35,7 +35,7 @@ namespace Match3Core.Triples
                 {
                     if (!FindCoordinateInFinded(findedCells, i, y))
                     {
-                        Debug.Log($"{new Coordinate(i, y)}");
+                        //Debug.Log($"{new Coordinate(i, y)}");
                         findedCells.Add(new Coordinate(i, y));
                     }
                 }
@@ -43,7 +43,7 @@ namespace Match3Core.Triples
                 {
                     if (!FindCoordinateInFinded(findedCells, x, i))
                     {
-                        Debug.Log($"{new Coordinate(x, i)}");
+                        //Debug.Log($"{new Coordinate(x, i)}");
                         findedCells.Add(new Coordinate(x, i));
                     }
                 }

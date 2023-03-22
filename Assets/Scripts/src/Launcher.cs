@@ -27,7 +27,7 @@ public class Launcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //_match3GameCore.FindTriples();
+            _match3GameCore.FindTriples();
         }
     }
 

@@ -29,8 +29,9 @@ namespace Match3Core
             _cellsDestroyController = new CellsDestroyController(_switchCellController);
             _fallingController = new FallingSidewayController(_boardModel, _switchCellController);
             _checkTriplesController = new CheckTriplesController(_boardModel);
-            _turnController = new TurnController(_boardModel);
+            _turnController = new TurnController(_boardModel, _switchCellController);
 
+            _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
@@ -70,6 +71,11 @@ namespace Match3Core
         public void TurnMade(Turn turn)
         {
             _turnController.MakeTurn(turn);
+        }
+
+        public void FindTriples()
+        {
+            _checkTriplesController.FindTriples();
         }
         /*
         public void Turn((int x1, int y1) switchCell1, (int x2, int y2) switchCell2)
