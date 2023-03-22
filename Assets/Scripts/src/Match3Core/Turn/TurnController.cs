@@ -33,14 +33,14 @@ namespace Match3Core.MakeTurn
                 || _turnModel.GetCell(firstCoordinate).color == CellsColor.Empty
                 || _turnModel.GetCell(secondCoordinate).color == CellsColor.Empty) return;
 
-            Debug.Log($"{firstCoordinate} {secondCoordinate}");
+            //Debug.Log($"{firstCoordinate} {secondCoordinate}");
 
             var cells = CopyArray(_turnModel.GetCells());
             var c = new Cell(cells[firstCoordinate.x, firstCoordinate.y]);
             cells[firstCoordinate.x, firstCoordinate.y] = new Cell(cells[secondCoordinate.x, secondCoordinate.y]);
             cells[secondCoordinate.x, secondCoordinate.y] = new Cell(c);
             var newTriples = FindTriples(cells);
-            Debug.Log(newTriples);
+            //Debug.Log(newTriples);
 
             if (newTriples)
             {

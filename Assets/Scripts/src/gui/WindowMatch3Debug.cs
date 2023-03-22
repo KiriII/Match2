@@ -116,6 +116,9 @@ namespace Match3Core.gui
                 case CellsColor.Blue:
                     cellColorObject.color = Color.blue;
                     break;
+                case CellsColor.Yellow:
+                    cellColorObject.color = Color.yellow;
+                    break;
                 case CellsColor.Empty:
                     cellColorObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
                     break;
