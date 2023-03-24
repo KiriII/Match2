@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Match3Core.Board;
+using Match3Core.RandomGenerate;
 
 namespace Match3Core
 {
     public static class CreateCellsOnBoard
     {
-        public static List<Coordinate> CreateBoard(Slot[,] slots)
+        public static void CreateBoard(Slot[,] slots, SwitchCellsContoller switchCellController)
         {
             var findedCells = new List<Coordinate>();
 
@@ -18,7 +20,11 @@ namespace Match3Core
                     findedCells.Add(s.Coordinate);
                 }
             }
-            return findedCells;
+
+            foreach (var cell in findedCells)
+            {
+                switchCellController.SwitchWithNewCell(cell, RandomCellsGenerator.GenerateNewCell());
+            }
         }
     }
 }

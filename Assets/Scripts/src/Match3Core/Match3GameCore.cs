@@ -8,6 +8,7 @@ using Match3Core.DestroyCells;
 using Match3Core.Falling;
 using Match3Core.Triples;
 using Match3Core.MakeTurn;
+using Match3Core.RandomGenerate;
 
 namespace Match3Core
 {
@@ -38,7 +39,8 @@ namespace Match3Core
             _fallingController.EnableCellsFellListener(updateView);
 
             // Create Cells On Board
-            _cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
+            //_cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
+            CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController); 
         }
 
         public BoardModel GetBoardModel()
