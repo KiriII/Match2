@@ -113,8 +113,18 @@ namespace Match3Core.Board
 
         public bool GetCanPassCell(int x, int y)
         {
-            var slot = _board[x, y];
-            return slot.CanPassCell;
+            return GetCanPassCell(new Coordinate(x, y));
+        }
+
+        public bool GetBlocked(Coordinate coordinate)
+        {
+            var slot = _board[coordinate.x, coordinate.y];
+            return slot.IsBlocked;
+        }
+
+        public bool GetBlocked(int x, int y)
+        {
+            return GetCanPassCell(new Coordinate(x, y));
         }
 
         public bool ContainCoordinate(Coordinate coordinate)
@@ -163,7 +173,7 @@ namespace Match3Core.Board
 
         public bool HasCell(Coordinate coordinate)
         {
-            var result = GetCanHoldCell(coordinate) ? GetCell(coordinate).color != CellsColor.Empty : false;
+            var result = (GetCanHoldCell(coordinate) && !GetBlocked(coordinate)) ? GetCell(coordinate).color != CellsColor.Empty : false;
             return result;
         }
 

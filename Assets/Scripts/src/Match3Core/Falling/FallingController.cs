@@ -72,6 +72,10 @@ namespace Match3Core.Falling
                     return null;
                 }
             }
+            if (_fallLineModel.GetBlocked(newCoordinate))
+            {
+                return null;
+            }
             return newCoordinate;
         }
 

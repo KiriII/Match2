@@ -17,5 +17,6 @@ namespace Match3Configs.Levels
         public const string SLOT_COORDINATE_ATTRIBUTE = "coordinate";
         public const string SLOT_HOLD_CELL_ATTRIBUTE = "canHoldCell";
         public const string SLOT_PASS_CELL_ATTRIBUTE = "canPassCells";
+        public const string SLOT_BLOCKED_ATTRIBUTE = "isBlocked";
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,11 @@ namespace Match3Core
 
             foreach (var s in slots)
             {
-                if (s.CanHoldCell && (s.Cell == null || s.Cell.color == CellsColor.Empty))
+                if (s.CanHoldCell && !s.IsBlocked && (s.Cell == null || s.Cell.color == CellsColor.Empty))
                 {
                     findedCells.Add(s.Coordinate);
                 }
             }
-
             return findedCells;
         }
     }

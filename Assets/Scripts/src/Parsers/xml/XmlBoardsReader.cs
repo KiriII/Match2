@@ -42,11 +42,12 @@ namespace Match3Configs.Levels
                 {
                     GetSlotCanAttribute(out var canHoldCell, slot, XmlFields.SLOT_HOLD_CELL_ATTRIBUTE);
                     GetSlotCanAttribute(out var canPassCell, slot, XmlFields.SLOT_PASS_CELL_ATTRIBUTE);
+                    GetSlotCanAttribute(out var isBlocked, slot, XmlFields.SLOT_BLOCKED_ATTRIBUTE);
                     GetSlotCoordinate(out var coordinate, slot);
 
                     //Debug.Log($"coordinate = {coordinate} HC = {canHoldCell} PC = {canPassCell}");
                     if (level.GetSlot(coordinate) != null) throw new Exception($"Duplication slot {coordinate} in {XmlFields.PATH_TO_DOCUMENT}");
-                    level.SetSlot(coordinate, new Slot(coordinate, canHoldCell, canPassCell));
+                    level.SetSlot(coordinate, new Slot(coordinate, canHoldCell, canPassCell, isBlocked));
                 }
                 levels.Add(level);
             }

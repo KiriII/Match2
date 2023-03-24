@@ -94,14 +94,15 @@ namespace Match3Core.gui
         {
             var slotObject = Instantiate(_slot, parent);
             _slotsObjects[coordinate.x, coordinate.y] = slotObject;
-            if (!_GUIBoardModel.GetCanHoldCell(coordinate.x, coordinate.y)) slotObject.GetComponent<Image>().enabled = false;
+            if (!_GUIBoardModel.GetCanHoldCell(coordinate)) slotObject.GetComponent<Image>().enabled = false;
+            if (_GUIBoardModel.GetBlocked(coordinate)) slotObject.GetComponent<Image>().color = Color.black;
             return slotObject.transform;
         }
 
         public void DrawOneCell(Coordinate coordinate, Transform parent)
         {
-            if (!_GUIBoardModel.GetCanHoldCell(coordinate.x, coordinate.y)) return;
-            var cell = _GUIBoardModel.GetCell(coordinate.x, coordinate.y);
+            if (!_GUIBoardModel.GetCanHoldCell(coordinate)) return;
+            var cell = _GUIBoardModel.GetCell(coordinate);
             var cellObject = Instantiate(_cell, _slotsObjects[coordinate.x, coordinate.y].transform);
             var cellColorObject = cellObject.GetComponent<Image>();
 

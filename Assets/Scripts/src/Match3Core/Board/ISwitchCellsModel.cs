@@ -8,6 +8,8 @@ namespace Match3Core.Board
 
         public bool GetCanHoldCell(Coordinate coordinate);
 
+        public bool GetBlocked(Coordinate coordinate);
+
         public void SetCell(Coordinate coordinate, Cell cell);
     }
 }

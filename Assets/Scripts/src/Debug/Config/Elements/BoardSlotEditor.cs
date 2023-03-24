@@ -37,6 +37,16 @@ namespace Match3Debug.Configs
                             XmlBoardsWriter.TogglePassCell(level.ID, i, j);
                         }
                         EditorGUILayout.EndHorizontal();
+                    } 
+                    else
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label("Blocked:");
+                        if (GUILayout.Button($"{level.slots[i, j].IsBlocked}", GUI.skin.label))
+                        {
+                            XmlBoardsWriter.ToggleBlocked(level.ID, i, j);
+                        }
+                        EditorGUILayout.EndHorizontal();
                     }
                     EditorGUILayout.EndVertical();
                 }

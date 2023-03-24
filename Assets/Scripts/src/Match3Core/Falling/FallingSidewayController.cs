@@ -16,7 +16,7 @@ namespace Match3Core.Falling
 
         protected override Coordinate GetNextCell(Coordinate coordinate)
         {
-            //Debug.Log($"{coordinate} 0 {CheckSideway(coordinate, 0)} -1 {CheckSideway(coordinate, -1)} 1 {CheckSideway(coordinate, 1)}");
+            Debug.Log($"{coordinate} 0 {CheckSideway(coordinate, 0)} -1 {CheckSideway(coordinate, -1)} 1 {CheckSideway(coordinate, 1)}");
             if (CheckSideway(coordinate, 0) != null)
             {
                 return GetCellFromAbove(coordinate);
@@ -29,8 +29,10 @@ namespace Match3Core.Falling
         {
             for (int x = coordinate.x; x >= 0; x--)
             {
-                if (!_fallLineModel.GetCanHoldCell(new Coordinate(x, coordinate.y)) && 
-                    !_fallLineModel.GetCanPassCell(new Coordinate(x, coordinate.y)))
+                var nextCoordinate = new Coordinate(x, coordinate.y);
+                if ((!_fallLineModel.GetCanHoldCell(nextCoordinate) 
+                    && !_fallLineModel.GetCanPassCell(nextCoordinate))
+                    || _fallLineModel.GetBlocked(nextCoordinate))
                 {
                     return false;
                 }
@@ -40,14 +42,15 @@ namespace Match3Core.Falling
 
         private Coordinate CheckSideway(Coordinate coordinate, int vector)
         {
-            var newCoordinate = new Coordinate(coordinate.x - 1, coordinate.y + vector);
-            if (newCoordinate.x == -1) return newCoordinate;
-            if (newCoordinate.y == -1 || newCoordinate.y > _fallLineModel.GetCollumns() - 1
-                || (!_fallLineModel.GetCanHoldCell(newCoordinate) &&
-                !_fallLineModel.GetCanPassCell(newCoordinate))) return null;
-            
-            if (_fallLineModel.HasCell(newCoordinate) || CheckWayToZeroCoordinate(newCoordinate) 
-                || CheckSideway(newCoordinate, vector) != null) return newCoordinate;
+            var nextCoordinate = new Coordinate(coordinate.x - 1, coordinate.y + vector);
+            if (nextCoordinate.x == -1) return nextCoordinate;
+            if (nextCoordinate.y == -1 || nextCoordinate.y > _fallLineModel.GetCollumns() - 1
+                || (!_fallLineModel.GetCanHoldCell(nextCoordinate) 
+                && !_fallLineModel.GetCanPassCell(nextCoordinate)) 
+                || _fallLineModel.GetBlocked(nextCoordinate)) return null;
+            Debug.Log($"{_fallLineModel.HasCell(nextCoordinate)}, {CheckWayToZeroCoordinate(nextCoordinate)}, {CheckSideway(nextCoordinate, vector) != null}");
+            if (_fallLineModel.HasCell(nextCoordinate) || CheckWayToZeroCoordinate(nextCoordinate) 
+                || CheckSideway(nextCoordinate, vector) != null) return nextCoordinate;
             return null;
         }
     }

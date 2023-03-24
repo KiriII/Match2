@@ -30,8 +30,8 @@ namespace Match3Configs.Levels
                 for (int j = 0; j < 5; j++)
                 {
                     slots.Add(new XElement(XmlFields.SLOT_ELEMENT,
-                        new XAttribute(XmlFields.SLOT_COORDINATE_ATTRIBUTE, $"{i}/{j}")
-                        ));
+                        new XAttribute(XmlFields.SLOT_COORDINATE_ATTRIBUTE, $"{i}/{j}"),
+                        new XAttribute(XmlFields.SLOT_BLOCKED_ATTRIBUTE, $"false")));
                 }
             }
 
@@ -46,6 +46,11 @@ namespace Match3Configs.Levels
         public static void TogglePassCell(int levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_PASS_CELL_ATTRIBUTE);
+        }
+
+        public static void ToggleBlocked(int levelID, int posX, int posY)
+        {
+            ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_BLOCKED_ATTRIBUTE);
         }
 
         private static void ToggleCanSlot(int levelID, int posX, int posY, string attributeName)

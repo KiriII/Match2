@@ -9,7 +9,8 @@ namespace Match3Core.Board
         public int GetRows();
         public int GetCollumns();
         public Slot[,] GetSlots();
-        public bool GetCanHoldCell(int x, int y);
-        public Cell GetCell(int x, int y);
+        public bool GetCanHoldCell(Coordinate coordinate);
+        public bool GetBlocked(Coordinate coordinate);
+        public Cell GetCell(Coordinate coordinate);
     }
 }

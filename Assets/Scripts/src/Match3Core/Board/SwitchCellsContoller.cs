@@ -40,9 +40,10 @@ namespace Match3Core.Board
 
         private bool CanSwitchCell(Coordinate switchCell)
         {
-            var canHoldSell1 = _switchCellsModel.GetCanHoldCell(switchCell);
+            var canHoldSell = _switchCellsModel.GetCanHoldCell(switchCell);
+            var isBlocked = _switchCellsModel.GetBlocked(switchCell);
 
-            return canHoldSell1;
+            return canHoldSell && !isBlocked;
         }
 
         private void OnCellSwitched()
