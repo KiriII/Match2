@@ -10,6 +10,7 @@ namespace Match3Core.Board
         public bool GetCanPassCell(Coordinate coordinate);
         public bool GetBlocked(Coordinate coordinate);
         public int GetCollumns();
+        public Slot[,] GetSlots();
         public bool HasCell(Coordinate coordinate);
     }
 }

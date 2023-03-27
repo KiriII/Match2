@@ -128,7 +128,7 @@ namespace Match3Core.gui
             }
 
             var cellButtonObject = cellObject.GetComponent<Button>();
-            cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
+            if (!_GUIBoardModel.GetBlocked(coordinate)) cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
 
             var draggingCell = cellObject.GetComponent<DraggingCell>();
             draggingCell.coordinate = coordinate;

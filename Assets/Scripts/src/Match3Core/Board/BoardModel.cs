@@ -9,7 +9,8 @@ namespace Match3Core.Board
         IFallLineModel, 
         IGUIBoardModel, 
         ICheckTriplesBoardModel, 
-        ITurnModel
+        ITurnModel,
+        ISlotUnblockBoard
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -52,6 +53,11 @@ namespace Match3Core.Board
             }
         }
 
+        public void UnblockSlot(Coordinate coordinate)
+        {
+            _board[coordinate.x, coordinate.y].IsBlocked = false;
+        }
+
         public void SetCell(Coordinate coordinate, Cell cell)
         {
             var slot = _board[coordinate.x, coordinate.y];
@@ -81,7 +87,18 @@ namespace Match3Core.Board
             }
             return collumn;
         }
-        
+
+        public List<Coordinate> GetNeighbourSlot(Coordinate coordinate)
+        {
+            var neighbours = new List<Coordinate>();
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up))) neighbours.Add(new Coordinate(coordinate, Vector2.up));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down))) neighbours.Add(new Coordinate(coordinate, Vector2.down));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.right))) neighbours.Add(new Coordinate(coordinate, Vector2.right));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.left))) neighbours.Add(new Coordinate(coordinate, Vector2.left));
+            return neighbours;
+        }
+
+
         public Cell GetCell(Coordinate coordinate)
         {
             if (!GetCanHoldCell(coordinate)) throw new Exception("Try to get Cell from Blocked Slot");

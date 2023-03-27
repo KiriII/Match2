@@ -26,11 +26,28 @@ namespace Match3Core.Falling
 
         public virtual void FallingWithDeadCells(List<Coordinate> deadCellsCoordinates)
         {
+            Debug.Log(String.Join(", ", deadCellsCoordinates));
+            if (deadCellsCoordinates.Count > 0) 
+            {
+                var emptySlots = EmptyCellsFinder.FindEmpty(_fallLineModel.GetSlots());
+                foreach (var slot in emptySlots)
+                {
+                    if (!deadCellsCoordinates.Contains(slot)) deadCellsCoordinates.Add(slot);
+                }
+            }
+            SortDestroyedCells(ref deadCellsCoordinates);
+            Debug.Log(String.Join(", ", deadCellsCoordinates));
+
             foreach (Coordinate c in deadCellsCoordinates)
             {
                 TrainOfSteals(c);
             }
             if (deadCellsCoordinates.Count > 0) OnCellsFell();
+        }
+
+        private void SortDestroyedCells(ref List<Coordinate> deadCellsCoordinates)
+        {
+            deadCellsCoordinates.Sort();
         }
 
         public virtual void TrainOfSteals(Coordinate coordinate)

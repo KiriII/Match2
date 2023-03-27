@@ -18,6 +18,7 @@ namespace Match3Core
 
         private SwitchCellsContoller _switchCellController;
         private FallingController _fallingController;
+        private SlotUnblockController _slotUnblockController;
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
         private TurnController _turnController;
@@ -27,20 +28,22 @@ namespace Match3Core
             _boardModel = new BoardModel(slots);
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
+            _slotUnblockController = new SlotUnblockController(_boardModel);
             _cellsDestroyController = new CellsDestroyController(_switchCellController);
             _fallingController = new FallingSidewayController(_boardModel, _switchCellController);
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
-            _checkTriplesController.EnableTriplesFindedListener(_cellsDestroyController.DestroyCells);
+            _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
+            _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
             _fallingController.EnableCellsFellListener(updateView);
 
             // Create Cells On Board
             //_cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
-            CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController); 
+            CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
         }
 
         public BoardModel GetBoardModel()

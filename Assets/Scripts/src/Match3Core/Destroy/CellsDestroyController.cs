@@ -26,18 +26,12 @@ namespace Match3Core.DestroyCells
 
         public void DestroyCells(List<Coordinate> tripledCells)
         {
-            SortDestroyedCells(ref tripledCells);
             foreach (var cell in tripledCells)
             {
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
 
             OnCellsDestroyed(tripledCells);
-        }
-
-        private void SortDestroyedCells(ref List<Coordinate> destroyedCells)
-        {
-            destroyedCells.Sort();
         }
 
         private void OnCellsDestroyed(List<Coordinate> destroyedCells)

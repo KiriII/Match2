@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Match3Core
 {
-    public class Coordinate : IComparable<Coordinate>
+    public class Coordinate : IComparable<Coordinate>, IEquatable<Coordinate>
     {
         public int x;
         public int y;
@@ -30,6 +30,14 @@ namespace Match3Core
         {
             if (x == other.x) return y.CompareTo(other.y);
             return x.CompareTo(other.x);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            Coordinate objAsPart = obj as Coordinate;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
         }
 
         public bool Equals(Coordinate coordinate)
