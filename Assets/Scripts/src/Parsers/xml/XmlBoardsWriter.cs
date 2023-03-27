@@ -10,7 +10,7 @@ namespace Match3Configs.Levels
 {
     public static class XmlBoardsWriter
     {
-        private const string DEFAULT_BOARD_SIZE = "5/5";
+        private const string DEFAULT_BOARD_SIZE = "9/9";
 
         public static void AddNewLevel(int levelID)
         {
@@ -25,9 +25,9 @@ namespace Match3Configs.Levels
 
             var slots = XmlBoardsReader.GetSlotElement(requiredLevel);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 9; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 9; j++)
                 {
                     slots.Add(new XElement(XmlFields.SLOT_ELEMENT,
                         new XAttribute(XmlFields.SLOT_COORDINATE_ATTRIBUTE, $"{i}/{j}"),

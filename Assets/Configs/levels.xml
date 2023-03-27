@@ -11,148 +11,343 @@ level id - уникальный
 -->
 <levels>
   <level id="1">
-    <slots size="5/5">
-      <slot coordinate="0/0" canHoldCell="false" />
-      <slot coordinate="0/1" />
-      <slot coordinate="0/2" />
-      <slot coordinate="0/3" />
-      <slot coordinate="0/4" canHoldCell="false" />
-      <slot coordinate="1/0" />
-      <slot coordinate="1/1" />
-      <slot coordinate="1/2" />
-      <slot coordinate="1/3" />
-      <slot coordinate="1/4" />
-      <slot coordinate="2/0" />
-      <slot coordinate="2/1" canHoldCell="false" />
-      <slot coordinate="2/2" />
-      <slot coordinate="2/3" canHoldCell="false" />
-      <slot coordinate="2/4" />
-      <slot coordinate="3/0" />
-      <slot coordinate="3/1" canHoldCell="false" />
-      <slot coordinate="3/2" />
-      <slot coordinate="3/3" canHoldCell="false" />
-      <slot coordinate="3/4" />
-      <slot coordinate="4/0" canHoldCell="false" />
-      <slot coordinate="4/1" />
-      <slot coordinate="4/2" canHoldCell="false" />
-      <slot coordinate="4/3" />
-      <slot coordinate="4/4" canHoldCell="false" />
-    </slots>
-  </level>
-  <level id="2">
-    <slots size="5/5">
-      <slot coordinate="0/0" canHoldCell="false" />
-      <slot coordinate="0/1" />
-      <slot coordinate="0/2" />
-      <slot coordinate="0/3" />
-      <slot coordinate="0/4" canHoldCell="false" />
-      <slot coordinate="1/0" />
-      <slot coordinate="1/1" canHoldCell="false" canPassCells="false" />
-      <slot coordinate="1/2" />
-      <slot coordinate="1/3" canHoldCell="false" canPassCells="false" />
-      <slot coordinate="1/4" />
-      <slot coordinate="2/0" />
-      <slot coordinate="2/1" />
-      <slot coordinate="2/2" />
-      <slot coordinate="2/3" />
-      <slot coordinate="2/4" />
-      <slot coordinate="3/0" />
-      <slot coordinate="3/1" canHoldCell="false" />
-      <slot coordinate="3/2" />
-      <slot coordinate="3/3" canHoldCell="false" />
-      <slot coordinate="3/4" />
-      <slot coordinate="4/0" canHoldCell="false" />
-      <slot coordinate="4/1" />
-      <slot coordinate="4/2" />
-      <slot coordinate="4/3" />
-      <slot coordinate="4/4" canHoldCell="false" />
-    </slots>
-  </level>
-  <level id="3">
-    <slots size="5/5">
-      <slot coordinate="0/0" isBlocked="false" />
-      <slot coordinate="0/1" />
-      <slot coordinate="0/2" />
-      <slot coordinate="0/3" />
-      <slot coordinate="0/4" isBlocked="false" />
-      <slot coordinate="1/0" isBlocked="false" />
-      <slot coordinate="1/1" isBlocked="false" />
-      <slot coordinate="1/2" />
-      <slot coordinate="1/3" isBlocked="false" />
-      <slot coordinate="1/4" isBlocked="false" />
-      <slot coordinate="2/0" isBlocked="false" />
-      <slot coordinate="2/1" />
-      <slot coordinate="2/2" />
-      <slot coordinate="2/3" />
-      <slot coordinate="2/4" isBlocked="false" />
-      <slot coordinate="3/0" isBlocked="false" />
-      <slot coordinate="3/1" isBlocked="false" />
-      <slot coordinate="3/2" isBlocked="false" />
-      <slot coordinate="3/3" isBlocked="false" />
-      <slot coordinate="3/4" isBlocked="false" />
-      <slot coordinate="4/0" isBlocked="false" />
-      <slot coordinate="4/1" isBlocked="false" />
-      <slot coordinate="4/2" isBlocked="false" />
-      <slot coordinate="4/3" isBlocked="false" />
-      <slot coordinate="4/4" isBlocked="false" />
-    </slots>
-  </level>
-  <level id="4">
-    <slots size="5/5">
-      <slot coordinate="0/0" isBlocked="false" />
+    <slots size="9/9">
+      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/2" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/3" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="0/4" isBlocked="false" />
-      <slot coordinate="1/0" isBlocked="false" />
-      <slot coordinate="1/1" isBlocked="false" />
+      <slot coordinate="0/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="1/2" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="1/3" isBlocked="false" />
-      <slot coordinate="1/4" isBlocked="false" />
-      <slot coordinate="2/0" canPassCells="false" isBlocked="false" />
-      <slot coordinate="2/1" canHoldCell="false" canPassCells="false" />
-      <slot coordinate="2/2" canHoldCell="false" canPassCells="false" />
-      <slot coordinate="2/3" canHoldCell="false" canPassCells="false" />
+      <slot coordinate="1/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/2" isBlocked="false" />
+      <slot coordinate="2/3" isBlocked="false" />
       <slot coordinate="2/4" isBlocked="false" />
-      <slot coordinate="3/0" isBlocked="false" />
-      <slot coordinate="3/1" isBlocked="false" />
+      <slot coordinate="2/5" isBlocked="false" />
+      <slot coordinate="2/6" isBlocked="false" />
+      <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="3/2" isBlocked="false" />
       <slot coordinate="3/3" isBlocked="false" />
       <slot coordinate="3/4" isBlocked="false" />
-      <slot coordinate="4/0" isBlocked="false" />
-      <slot coordinate="4/1" isBlocked="false" />
+      <slot coordinate="3/5" isBlocked="false" />
+      <slot coordinate="3/6" isBlocked="false" />
+      <slot coordinate="3/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="4/2" isBlocked="false" />
       <slot coordinate="4/3" isBlocked="false" />
       <slot coordinate="4/4" isBlocked="false" />
+      <slot coordinate="4/5" isBlocked="false" />
+      <slot coordinate="4/6" isBlocked="false" />
+      <slot coordinate="4/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/2" isBlocked="false" />
+      <slot coordinate="5/3" isBlocked="false" />
+      <slot coordinate="5/4" isBlocked="false" />
+      <slot coordinate="5/5" isBlocked="false" />
+      <slot coordinate="5/6" isBlocked="false" />
+      <slot coordinate="5/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/2" isBlocked="false" />
+      <slot coordinate="6/3" isBlocked="false" />
+      <slot coordinate="6/4" isBlocked="false" />
+      <slot coordinate="6/5" isBlocked="false" />
+      <slot coordinate="6/6" isBlocked="false" />
+      <slot coordinate="6/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" />
     </slots>
   </level>
-  <level id="5">
-    <slots size="5/5">
-      <slot coordinate="0/0" />
-      <slot coordinate="0/1" canHoldCell="false" />
-      <slot coordinate="0/2" />
-      <slot coordinate="0/3" canHoldCell="false" />
-      <slot coordinate="0/4" />
-      <slot coordinate="1/0" />
-      <slot coordinate="1/1" canHoldCell="false" />
-      <slot coordinate="1/2" />
-      <slot coordinate="1/3" canHoldCell="false" />
-      <slot coordinate="1/4" />
-      <slot coordinate="2/0" />
-      <slot coordinate="2/1" canHoldCell="false" />
-      <slot coordinate="2/2" />
-      <slot coordinate="2/3" canHoldCell="false" />
-      <slot coordinate="2/4" />
-      <slot coordinate="3/0" />
-      <slot coordinate="3/1" canHoldCell="false" />
+  <level id="2">
+    <slots size="9/9">
+      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/1" isBlocked="false" />
+      <slot coordinate="0/2" isBlocked="false" />
+      <slot coordinate="0/3" isBlocked="false" />
+      <slot coordinate="0/4" isBlocked="false" />
+      <slot coordinate="0/5" isBlocked="false" />
+      <slot coordinate="0/6" isBlocked="false" />
+      <slot coordinate="0/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/1" isBlocked="false" />
+      <slot coordinate="1/2" isBlocked="false" />
+      <slot coordinate="1/3" isBlocked="false" />
+      <slot coordinate="1/4" isBlocked="false" />
+      <slot coordinate="1/5" isBlocked="false" />
+      <slot coordinate="1/6" isBlocked="false" />
+      <slot coordinate="1/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/1" isBlocked="false" />
+      <slot coordinate="2/2" isBlocked="false" />
+      <slot coordinate="2/3" isBlocked="false" />
+      <slot coordinate="2/4" isBlocked="false" />
+      <slot coordinate="2/5" isBlocked="false" />
+      <slot coordinate="2/6" isBlocked="false" />
+      <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/1" />
       <slot coordinate="3/2" />
-      <slot coordinate="3/3" canHoldCell="false" />
+      <slot coordinate="3/3" />
       <slot coordinate="3/4" />
-      <slot coordinate="4/0" />
+      <slot coordinate="3/5" />
+      <slot coordinate="3/6" />
+      <slot coordinate="3/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/0" isBlocked="false" canHoldCell="false" />
       <slot coordinate="4/1" />
       <slot coordinate="4/2" />
       <slot coordinate="4/3" />
       <slot coordinate="4/4" />
+      <slot coordinate="4/5" />
+      <slot coordinate="4/6" />
+      <slot coordinate="4/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/1" />
+      <slot coordinate="5/2" />
+      <slot coordinate="5/3" />
+      <slot coordinate="5/4" />
+      <slot coordinate="5/5" />
+      <slot coordinate="5/6" />
+      <slot coordinate="5/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/1" />
+      <slot coordinate="6/2" />
+      <slot coordinate="6/3" />
+      <slot coordinate="6/4" />
+      <slot coordinate="6/5" />
+      <slot coordinate="6/6" />
+      <slot coordinate="6/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/1" isBlocked="false" />
+      <slot coordinate="7/2" />
+      <slot coordinate="7/3" />
+      <slot coordinate="7/4" />
+      <slot coordinate="7/5" />
+      <slot coordinate="7/6" isBlocked="false" />
+      <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" />
+    </slots>
+  </level>
+  <level id="3">
+    <slots size="9/9">
+      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/2" isBlocked="false" />
+      <slot coordinate="2/3" isBlocked="false" />
+      <slot coordinate="2/4" />
+      <slot coordinate="2/5" isBlocked="false" />
+      <slot coordinate="2/6" isBlocked="false" />
+      <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/2" isBlocked="false" />
+      <slot coordinate="3/3" />
+      <slot coordinate="3/4" />
+      <slot coordinate="3/5" />
+      <slot coordinate="3/6" isBlocked="false" />
+      <slot coordinate="3/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/1" isBlocked="false" />
+      <slot coordinate="4/2" isBlocked="false" />
+      <slot coordinate="4/3" />
+      <slot coordinate="4/4" />
+      <slot coordinate="4/5" />
+      <slot coordinate="4/6" isBlocked="false" />
+      <slot coordinate="4/7" isBlocked="false" />
+      <slot coordinate="4/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/1" />
+      <slot coordinate="5/2" isBlocked="false" />
+      <slot coordinate="5/3" isBlocked="false" />
+      <slot coordinate="5/4" />
+      <slot coordinate="5/5" isBlocked="false" />
+      <slot coordinate="5/6" isBlocked="false" />
+      <slot coordinate="5/7" />
+      <slot coordinate="5/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/1" isBlocked="false" />
+      <slot coordinate="6/2" />
+      <slot coordinate="6/3" isBlocked="false" />
+      <slot coordinate="6/4" />
+      <slot coordinate="6/5" isBlocked="false" />
+      <slot coordinate="6/6" />
+      <slot coordinate="6/7" isBlocked="false" />
+      <slot coordinate="6/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/2" isBlocked="false" />
+      <slot coordinate="7/3" />
+      <slot coordinate="7/4" isBlocked="false" />
+      <slot coordinate="7/5" />
+      <slot coordinate="7/6" isBlocked="false" />
+      <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" />
+    </slots>
+  </level>
+  <level id="4">
+    <slots size="9/9">
+      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/3" />
+      <slot coordinate="0/4" isBlocked="false" />
+      <slot coordinate="0/5" />
+      <slot coordinate="0/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/3" isBlocked="false" />
+      <slot coordinate="1/4" isBlocked="false" />
+      <slot coordinate="1/5" isBlocked="false" />
+      <slot coordinate="1/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/2" />
+      <slot coordinate="2/3" />
+      <slot coordinate="2/4" isBlocked="false" />
+      <slot coordinate="2/5" />
+      <slot coordinate="2/6" />
+      <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="2/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/2" />
+      <slot coordinate="3/3" />
+      <slot coordinate="3/4" isBlocked="false" />
+      <slot coordinate="3/5" />
+      <slot coordinate="3/6" />
+      <slot coordinate="3/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="3/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="4/1" isBlocked="false" />
+      <slot coordinate="4/2" />
+      <slot coordinate="4/3" isBlocked="false" />
+      <slot coordinate="4/4" />
+      <slot coordinate="4/5" isBlocked="false" />
+      <slot coordinate="4/6" />
+      <slot coordinate="4/7" isBlocked="false" />
+      <slot coordinate="4/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="5/1" isBlocked="false" />
+      <slot coordinate="5/2" />
+      <slot coordinate="5/3" isBlocked="false" />
+      <slot coordinate="5/4" />
+      <slot coordinate="5/5" isBlocked="false" />
+      <slot coordinate="5/6" />
+      <slot coordinate="5/7" isBlocked="false" />
+      <slot coordinate="5/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="6/1" isBlocked="false" />
+      <slot coordinate="6/2" />
+      <slot coordinate="6/3" />
+      <slot coordinate="6/4" />
+      <slot coordinate="6/5" />
+      <slot coordinate="6/6" />
+      <slot coordinate="6/7" isBlocked="false" />
+      <slot coordinate="6/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/2" />
+      <slot coordinate="7/3" />
+      <slot coordinate="7/4" isBlocked="false" />
+      <slot coordinate="7/5" />
+      <slot coordinate="7/6" />
+      <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/2" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/3" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/4" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/5" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/6" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" />
     </slots>
   </level>
 </levels>
