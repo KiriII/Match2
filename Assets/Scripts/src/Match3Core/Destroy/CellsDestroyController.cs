@@ -9,10 +9,13 @@ namespace Match3Core.DestroyCells
     public class CellsDestroyController
     {
         private SwitchCellsContoller _switchCellsContoller;
-        private event Action<List<Coordinate>> _cellsDestroyed;
 
-        public CellsDestroyController(SwitchCellsContoller switchCellsContoller)
+        private event Action<List<Coordinate>> _cellsDestroyed;
+        private event Action _updateView;
+
+        public CellsDestroyController(SwitchCellsContoller switchCellsContoller, Action updateView)
         {
+            _updateView = updateView;
             _switchCellsContoller = switchCellsContoller;
         }
 
@@ -30,7 +33,8 @@ namespace Match3Core.DestroyCells
             {
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
-
+            //Debug.Log(String.Join(" ", tripledCells));
+            _updateView?.Invoke();
             OnCellsDestroyed(tripledCells);
         }
 

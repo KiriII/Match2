@@ -9,12 +9,14 @@ using Match3Core.Falling;
 using Match3Core.Triples;
 using Match3Core.MakeTurn;
 using Match3Core.RandomGenerate;
+using Match3Core.gui;
 
 namespace Match3Core
 {
     public class Match3GameCore
     {
         private BoardModel _boardModel;
+        private IViewUpdater _viewUpdater;
 
         private SwitchCellsContoller _switchCellController;
         private FallingController _fallingController;
@@ -23,14 +25,19 @@ namespace Match3Core
         private CheckTriplesController _checkTriplesController;
         private TurnController _turnController;
 
-        public Match3GameCore(Slot[,] slots, Action updateView)  
+        private event Action _updateView;
+
+        public Match3GameCore(Slot[,] slots, IViewUpdater viewUpdater)  
         {
             _boardModel = new BoardModel(slots);
+            _viewUpdater = viewUpdater;
+
+            _updateView += UpdateView;
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _slotUnblockController = new SlotUnblockController(_boardModel);
-            _cellsDestroyController = new CellsDestroyController(_switchCellController);
-            _fallingController = new FallingSidewayController(_boardModel, _switchCellController);
+            _cellsDestroyController = new CellsDestroyController(_switchCellController, _updateView);
+            _fallingController = new FallingSidewayController(_boardModel, _switchCellController, _updateView);
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
 
@@ -39,7 +46,6 @@ namespace Match3Core
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
-            _fallingController.EnableCellsFellListener(updateView);
 
             // Create Cells On Board
             //_cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
@@ -62,7 +68,12 @@ namespace Match3Core
             _switchCellController.DesableCellSwitchedListener(methodInLitener);
         }
 
-        // ------ DEBUG ------
+        public void UpdateView()
+        {
+            _viewUpdater.UpdateBoardScreens(_boardModel.GetBoardCopy());
+        }
+
+            // ------ DEBUG ------
         public void DEADCELLS(List<Coordinate> tripledCells)
         {
             _cellsDestroyController.DestroyCells(tripledCells);

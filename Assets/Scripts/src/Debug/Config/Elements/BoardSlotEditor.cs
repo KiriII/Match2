@@ -19,9 +19,9 @@ namespace Match3Debug.Configs
                 {
                     var slotSkin = level.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
 
-                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(90), GUILayout.Height(70));
+                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(60), GUILayout.Height(50));
                     EditorGUILayout.BeginHorizontal();
-                    GUILayout.Label("Hold:");
+                    GUILayout.Label("H:");
                     if (GUILayout.Button($"{level.slots[i, j].CanHoldCell}", GUI.skin.label))
                     {
                         XmlBoardsWriter.ToggleHoldCell(level.ID, i, j);
@@ -31,7 +31,7 @@ namespace Match3Debug.Configs
                     if (!level.slots[i, j].CanHoldCell)
                     {
                         EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Pass:");
+                        GUILayout.Label("P:");
                         if (GUILayout.Button($"{level.slots[i, j].CanPassCell}", GUI.skin.label))
                         {
                             XmlBoardsWriter.TogglePassCell(level.ID, i, j);
@@ -41,7 +41,7 @@ namespace Match3Debug.Configs
                     else
                     {
                         EditorGUILayout.BeginHorizontal();
-                        GUILayout.Label("Blocked:");
+                        GUILayout.Label("B:");
                         if (GUILayout.Button($"{level.slots[i, j].IsBlocked}", GUI.skin.label))
                         {
                             XmlBoardsWriter.ToggleBlocked(level.ID, i, j);

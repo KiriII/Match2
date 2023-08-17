@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,14 +10,14 @@ namespace Match3Core.Falling
 {
     public class FallingSidewayController : FallingController
     {
-        public FallingSidewayController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller)
-            : base(fallLineModel, switchCellsContoller)
+        public FallingSidewayController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
+            : base(fallLineModel, switchCellsContoller, updateView)
         {
         }
 
         protected override Coordinate GetNextCell(Coordinate coordinate)
         {
-            Debug.Log($"{coordinate} 0 {CheckSideway(coordinate, 0)} -1 {CheckSideway(coordinate, -1)} 1 {CheckSideway(coordinate, 1)}");
+            //Debug.Log($"{coordinate} 0 {CheckSideway(coordinate, 0)} -1 {CheckSideway(coordinate, -1)} 1 {CheckSideway(coordinate, 1)}");
             if (CheckSideway(coordinate, 0) != null)
             {
                 return GetCellFromAbove(coordinate);

@@ -165,6 +165,19 @@ namespace Match3Core.Board
             return _board;
         }
 
+        public Slot[,] GetBoardCopy()
+        {
+            var copy = new Slot[_rows, _columns];
+            for (int i = 0; i < _rows; i++)
+            {
+                for (int j = 0; j < _columns; j++)
+                {
+                    copy[i, j] = new Slot(_board[i, j]);
+                }
+            }
+            return copy;
+        }
+
         public Cell[,] GetCells()
         {
             var cells = new Cell[_rows, _columns];

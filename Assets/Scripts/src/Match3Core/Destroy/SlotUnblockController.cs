@@ -32,7 +32,7 @@ namespace Match3Core.DestroyCells
                     blockedSlot.Add(cell);
                 }
             }
-            Debug.Log(String.Join(", ", blockedSlot));
+            //Debug.Log(String.Join(", ", blockedSlot));
             OnCellsUnblocked(blockedSlot);
         }
 

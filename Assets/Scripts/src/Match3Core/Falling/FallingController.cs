@@ -14,19 +14,21 @@ namespace Match3Core.Falling
         protected SwitchCellsContoller _switchCellsContoller;
 
         private event Action _cellsFell;
+        private event Action _updateView;
 
         public virtual IFallLineModel FallLineModel { get => _fallLineModel; set => _fallLineModel = value; }
         public virtual SwitchCellsContoller SwitchCellsContoller { get => _switchCellsContoller; set => _switchCellsContoller = value; }
 
-        public FallingController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller)
+        public FallingController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
         {
             FallLineModel = fallLineModel;
             SwitchCellsContoller = switchCellsContoller;
+            _updateView = updateView;
         }
 
         public virtual void FallingWithDeadCells(List<Coordinate> deadCellsCoordinates)
         {
-            Debug.Log(String.Join(", ", deadCellsCoordinates));
+            //Debug.Log(String.Join(", ", deadCellsCoordinates));
             if (deadCellsCoordinates.Count > 0) 
             {
                 var emptySlots = EmptyCellsFinder.FindEmpty(_fallLineModel.GetSlots());
@@ -36,13 +38,17 @@ namespace Match3Core.Falling
                 }
             }
             SortDestroyedCells(ref deadCellsCoordinates);
-            Debug.Log(String.Join(", ", deadCellsCoordinates));
+            //Debug.Log(String.Join(", ", deadCellsCoordinates));
 
             foreach (Coordinate c in deadCellsCoordinates)
             {
                 TrainOfSteals(c);
             }
-            if (deadCellsCoordinates.Count > 0) OnCellsFell();
+            if (deadCellsCoordinates.Count > 0) 
+            {
+                OnViewUpdate();
+                OnCellsFell();
+            }
         }
 
         private void SortDestroyedCells(ref List<Coordinate> deadCellsCoordinates)
@@ -94,6 +100,11 @@ namespace Match3Core.Falling
                 return null;
             }
             return newCoordinate;
+        }
+
+        private void OnViewUpdate()
+        {
+            _updateView?.Invoke();
         }
 
         private void OnCellsFell()

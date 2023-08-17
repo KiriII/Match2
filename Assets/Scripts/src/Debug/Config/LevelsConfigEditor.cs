@@ -15,6 +15,7 @@ namespace Match3Debug.Configs
         private Level _currentLevel;
         private HashSet<Level> _levels;
         private Vector2 _levelsScrollPosition;
+        private Vector2 _gridScrollPosition;
 
         [MenuItem("Match3/LevelsEditor")]
         public static void ShowWindow()
@@ -40,6 +41,8 @@ namespace Match3Debug.Configs
 
             EditorGUILayout.Space(25);
 
+            _gridScrollPosition = GUILayout.BeginScrollView(_gridScrollPosition);
+
             if (_currentLevel != null)
             {
                 // Как-то медленно работает
@@ -47,6 +50,8 @@ namespace Match3Debug.Configs
                 slotsGrid.CreateGrid(_currentLevel);
                 ReadFromConfigCurrentLevel();
             }
+
+            GUILayout.EndScrollView();
 
             EditorGUILayout.EndVertical();
         }

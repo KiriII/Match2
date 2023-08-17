@@ -10,7 +10,7 @@ using Match3Core.MakeTurn;
 
 namespace Match3Core.gui
 {
-    public class WindowMatch3Debug : MonoBehaviour
+    public class WindowMatch3Debug : MonoBehaviour, IViewUpdater
     {
         [SerializeField] private GridLayoutGroup _slotsGrid;
         [SerializeField] private GameObject _slot;
@@ -22,6 +22,10 @@ namespace Match3Core.gui
         private int _rows;
         private int _collumns;
         private int _currentLevelID;
+
+        private float _timeToUpdate = 1;
+
+        private Queue<Slot[,]> _boardScreens = new Queue<Slot[,]>();
 
         private HashSet<int> _levelsID;
 
@@ -37,6 +41,20 @@ namespace Match3Core.gui
             if (_cell == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
+        }
+
+        public void Update()
+        {
+            if (_boardScreens.Count > 0)
+            {
+                _timeToUpdate -= Time.deltaTime;
+                if (_timeToUpdate <= 0)
+                {
+                    _timeToUpdate = 1;
+                    var boardScreen = _boardScreens.Dequeue();
+                    UpdateView(boardScreen);
+                }
+            }
         }
 
         public void init(IGUIBoardModel GUIBoardModel, 
@@ -64,7 +82,7 @@ namespace Match3Core.gui
 
             _slotsGrid.constraintCount = _rows;
 
-            DrawField();
+            DrawField(_GUIBoardModel.GetSlots());
 
             _updateViewButton.onClick.AddListener(UpdateView);
         }
@@ -78,19 +96,22 @@ namespace Match3Core.gui
             _levelsList.onValueChanged.AddListener(createNewBoardAction);
         }
 
-        public void DrawField()
+        public void DrawField(Slot[,]? boardCopy)
         {
             var gridTransform = _slotsGrid.gameObject.transform;
             for (int x = 0; x < _rows; x++)
             {
                 for (int y = 0; y < _collumns; y++)
                 {
-                    DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform));
+                    if (boardCopy is not null)
+                    { 
+                        DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform), boardCopy[x, y]);
+                    }
                 }
             }
         }
 
-        public Transform DrawOneSlot(Coordinate coordinate, Transform parent)
+        private Transform DrawOneSlot(Coordinate coordinate, Transform parent)
         {
             var slotObject = Instantiate(_slot, parent);
             _slotsObjects[coordinate.x, coordinate.y] = slotObject;
@@ -99,10 +120,10 @@ namespace Match3Core.gui
             return slotObject.transform;
         }
 
-        public void DrawOneCell(Coordinate coordinate, Transform parent)
+        private void DrawOneCell(Coordinate coordinate, Transform parent, Slot slotScreen)
         {
-            if (!_GUIBoardModel.GetCanHoldCell(coordinate)) return;
-            var cell = _GUIBoardModel.GetCell(coordinate);
+            if (!slotScreen.CanHoldCell) return;
+            var cell = slotScreen.Cell;
             var cellObject = Instantiate(_cell, _slotsObjects[coordinate.x, coordinate.y].transform);
             var cellColorObject = cellObject.GetComponent<Image>();
 
@@ -135,10 +156,22 @@ namespace Match3Core.gui
             draggingCell.EnableTurnMadeListener(_turnMade);
         }
 
+        
         public void UpdateView()
         {
+            UpdateView(_GUIBoardModel.GetSlots());
+        }
+        
+
+        public void UpdateView(Slot[,] boardCopy)
+        {
             DestroyAllSlots();
-            DrawField();
+            DrawField(boardCopy);
+        }
+
+        public void UpdateBoardScreens(Slot[,] boardCopy)
+        {
+            _boardScreens.Enqueue(boardCopy);
         }
 
         private void DestroyCell(Coordinate coordinate)
@@ -146,7 +179,7 @@ namespace Match3Core.gui
             _destroyOneCellAction(coordinate);
         }
 
-        public void DestroyAllSlots()
+        private void DestroyAllSlots()
         {
             foreach (Transform s in _slotsGrid.transform)
             {
