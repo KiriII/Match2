@@ -105,18 +105,18 @@ namespace Match3Core.gui
                 {
                     if (boardCopy is not null)
                     { 
-                        DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform), boardCopy[x, y]);
+                        DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform, boardCopy[x, y]), boardCopy[x, y]);
                     }
                 }
             }
         }
 
-        private Transform DrawOneSlot(Coordinate coordinate, Transform parent)
+        private Transform DrawOneSlot(Coordinate coordinate, Transform parent, Slot slotScreen)
         {
             var slotObject = Instantiate(_slot, parent);
             _slotsObjects[coordinate.x, coordinate.y] = slotObject;
-            if (!_GUIBoardModel.GetCanHoldCell(coordinate)) slotObject.GetComponent<Image>().enabled = false;
-            if (_GUIBoardModel.GetBlocked(coordinate)) slotObject.GetComponent<Image>().color = Color.black;
+            if (!slotScreen.CanHoldCell) slotObject.GetComponent<Image>().enabled = false;
+            if (slotScreen.IsBlocked) slotObject.GetComponent<Image>().color = Color.black;
             return slotObject.transform;
         }
 
@@ -149,7 +149,7 @@ namespace Match3Core.gui
             }
 
             var cellButtonObject = cellObject.GetComponent<Button>();
-            if (!_GUIBoardModel.GetBlocked(coordinate)) cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
+            if (!slotScreen.IsBlocked) cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
 
             var draggingCell = cellObject.GetComponent<DraggingCell>();
             draggingCell.coordinate = coordinate;
