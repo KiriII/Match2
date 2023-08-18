@@ -14,6 +14,7 @@ public class Launcher : MonoBehaviour
     private Match3GameCore _match3GameCore;
     private LevelsHolder _levelsHolder;
     private GameObject mainUIObject;
+    private ViewUpdateStack _viewUpdate;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class Launcher : MonoBehaviour
         {
             _match3GameCore.FindTriples();
         }
+
+        _viewUpdate?.UpdateScreen();
     }
 
     private void CreateLevel(int levelNumber)
@@ -42,7 +45,9 @@ public class Launcher : MonoBehaviour
         var ñurrentLevel = _levelsHolder.GetCurrentLevel();
         var ids = _levelsHolder.GetLevelsID();
 
-        _match3GameCore = new Match3GameCore(ñurrentLevel.slots, mainUIObject.GetComponent<WindowMatch3Debug>());
+        _match3GameCore = new Match3GameCore(ñurrentLevel.slots);
+
+        _viewUpdate = new ViewUpdateStack(mainUIObject.GetComponent<WindowMatch3Debug>(), _match3GameCore);
 
         mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(), 
             ids, 

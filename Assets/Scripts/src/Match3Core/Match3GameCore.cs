@@ -16,7 +16,6 @@ namespace Match3Core
     public class Match3GameCore
     {
         private BoardModel _boardModel;
-        private IViewUpdater _viewUpdater;
 
         private SwitchCellsContoller _switchCellController;
         private FallingController _fallingController;
@@ -26,13 +25,13 @@ namespace Match3Core
         private TurnController _turnController;
 
         private event Action _updateView;
+        private event Action<Slot[,]> _boardScreen;
 
-        public Match3GameCore(Slot[,] slots, IViewUpdater viewUpdater)  
+        public Match3GameCore(Slot[,] slots)  
         {
-            _boardModel = new BoardModel(slots);
-            _viewUpdater = viewUpdater;
-
             _updateView += UpdateView;
+
+            _boardModel = new BoardModel(slots);
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _slotUnblockController = new SlotUnblockController(_boardModel);
@@ -57,6 +56,11 @@ namespace Match3Core
             return _boardModel;
         }
 
+        public void UpdateView()
+        {
+            _boardScreen?.Invoke(_boardModel.GetBoardCopy());
+        }
+
         // ------ ACTIONS ------
         public void EnableCellSwitchedListener(Action methodInLitener)
         {
@@ -68,12 +72,18 @@ namespace Match3Core
             _switchCellController.DesableCellSwitchedListener(methodInLitener);
         }
 
-        public void UpdateView()
+        public void EnableBoardScreenListener(Action<Slot[,]> methodInLitener)
         {
-            _viewUpdater.UpdateBoardScreens(_boardModel.GetBoardCopy());
+            _boardScreen += methodInLitener;
         }
 
-            // ------ DEBUG ------
+        public void DesableBoardScreenListener(Action<Slot[,]> methodInLitener)
+        {
+            _boardScreen -= methodInLitener;
+        }
+
+
+        // ------ DEBUG ------
         public void DEADCELLS(List<Coordinate> tripledCells)
         {
             _cellsDestroyController.DestroyCells(tripledCells);

@@ -23,10 +23,6 @@ namespace Match3Core.gui
         private int _collumns;
         private int _currentLevelID;
 
-        private float _timeToUpdate = 1;
-
-        private Queue<Slot[,]> _boardScreens = new Queue<Slot[,]>();
-
         private HashSet<int> _levelsID;
 
         private Action<Coordinate> _destroyOneCellAction;
@@ -41,20 +37,6 @@ namespace Match3Core.gui
             if (_cell == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
-        }
-
-        public void Update()
-        {
-            if (_boardScreens.Count > 0)
-            {
-                _timeToUpdate -= Time.deltaTime;
-                if (_timeToUpdate <= 0)
-                {
-                    _timeToUpdate = 1;
-                    var boardScreen = _boardScreens.Dequeue();
-                    UpdateView(boardScreen);
-                }
-            }
         }
 
         public void init(IGUIBoardModel GUIBoardModel, 
@@ -167,11 +149,6 @@ namespace Match3Core.gui
         {
             DestroyAllSlots();
             DrawField(boardCopy);
-        }
-
-        public void UpdateBoardScreens(Slot[,] boardCopy)
-        {
-            _boardScreens.Enqueue(boardCopy);
         }
 
         private void DestroyCell(Coordinate coordinate)

@@ -7,6 +7,6 @@ namespace Match3Core.gui
 {
     public interface IViewUpdater
     {
-        void UpdateBoardScreens(Slot[,] boardCopy);
+        void UpdateView(Slot[,] boardCopy);
     }
 }

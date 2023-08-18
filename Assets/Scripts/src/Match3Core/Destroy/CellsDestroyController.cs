@@ -34,8 +34,13 @@ namespace Match3Core.DestroyCells
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
             //Debug.Log(String.Join(" ", tripledCells));
-            _updateView?.Invoke();
+            OnViewUpdate();
             OnCellsDestroyed(tripledCells);
+        }
+
+        private void OnViewUpdate()
+        {
+            _updateView?.Invoke();
         }
 
         private void OnCellsDestroyed(List<Coordinate> destroyedCells)
