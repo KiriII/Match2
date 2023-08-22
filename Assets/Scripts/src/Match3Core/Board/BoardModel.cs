@@ -11,19 +11,13 @@ namespace Match3Core.Board
         ICheckTriplesBoardModel, 
         ITurnModel,
         ISlotUnblockBoard,
-        ISwitchSlotModel
+        ISwitchSlotModel,
+        ICellDestroyModel,
+        ISlotManipulateModel
     {
         private Slot[,] _board;
         private readonly int _rows;
         private readonly int _columns;
-
-        /*   �� ���� �� ������� ����� ������� ���� � �� ������ ������ ����
-        public BoardModel(int x, int y)
-        {
-            _board = new Slot[x, y];
-            _rows = x;
-            _columns = y;
-        }*/
 
         public BoardModel(bool[,] canHoldCellBoard)
         {

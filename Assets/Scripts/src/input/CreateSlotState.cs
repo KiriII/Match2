@@ -6,14 +6,14 @@ using Match3Core.MakeTurn;
 
 namespace Match3Input
 {
-    public class DestroyCellState : InputState
+    public class CreateSlotState : InputState
     {
         private Match3GameCore _gameCore;
         private InputController _inputController;
 
-        public DestroyCellState(InputController inputController, Match3GameCore gameCore)
+        public CreateSlotState(InputController inputController, Match3GameCore gameCore)
         {
-            state = States.DestroyCell;
+            state = States.CreateSlot;
             _inputController = inputController;
             _gameCore = gameCore;
         }
@@ -22,9 +22,9 @@ namespace Match3Input
         {
             if (turn.vector == Vector2.zero)
             {
-                Debug.Log($"Destroy Cell {turn.coordinate} {turn.vector}");
-                if (_gameCore.DestroyCell(turn.coordinate))
+                if (_gameCore.CreateSlot(turn.coordinate))
                 {
+                    Debug.Log($"Create Slot {turn.coordinate} {turn.vector}");
                     _inputController.ChangeState(0);
                 }
             }

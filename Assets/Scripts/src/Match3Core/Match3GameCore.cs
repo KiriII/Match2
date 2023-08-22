@@ -9,6 +9,7 @@ using Match3Core.Falling;
 using Match3Core.Triples;
 using Match3Core.MakeTurn;
 using Match3Core.RandomGenerate;
+using Match3Core.SlotManipulate;
 using Match3Core.gui;
 
 namespace Match3Core
@@ -18,11 +19,13 @@ namespace Match3Core
         private BoardModel _boardModel;
 
         private SwitchCellsContoller _switchCellController;
+        private SwitchSlotsController _switchSlotsController;
         private FallingController _fallingController;
         private SlotUnblockController _slotUnblockController;
         private CellsDestroyController _cellsDestroyController;
         private CheckTriplesController _checkTriplesController;
         private TurnController _turnController;
+        private SlotManipulateController _slotManipulateController;
 
         private event Action _updateView;
         private event Action<Slot[,]> _boardScreen;
@@ -34,16 +37,20 @@ namespace Match3Core
             _boardModel = new BoardModel(slots);
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
+            _switchSlotsController = new SwitchSlotsController(_boardModel);
+
             _slotUnblockController = new SlotUnblockController(_boardModel);
-            _cellsDestroyController = new CellsDestroyController(_switchCellController, _updateView);
+            _cellsDestroyController = new CellsDestroyController(_switchCellController, _boardModel, _updateView);
             _fallingController = new FallingSidewayController(_boardModel, _switchCellController, _updateView);
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
+            _slotManipulateController = new SlotManipulateController(_switchSlotsController, _boardModel, _updateView);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.DestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
+            _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
 
             // Create Cells On Board
@@ -60,6 +67,26 @@ namespace Match3Core
         {
             _boardScreen?.Invoke(_boardModel.GetBoardCopy());
         }
+
+        public void TurnMade(Turn turn)
+        {
+            _turnController.MakeTurn(turn);
+        }
+
+        public bool DestroyCell(Coordinate coordinate)
+        {
+            return _cellsDestroyController.DestroyCells(coordinate);
+        }
+
+        public bool DestroySlot(Coordinate coordinate)
+        {
+            return _slotManipulateController.DestroySlot(coordinate);
+        }
+        public bool CreateSlot(Coordinate coordinate)
+        {
+            return _slotManipulateController.CreateSlot(coordinate);
+        }
+
 
         // ------ ACTIONS ------
         public void EnableCellSwitchedListener(Action methodInLitener)
@@ -82,20 +109,9 @@ namespace Match3Core
             _boardScreen -= methodInLitener;
         }
 
-
         public void DEADCELLS(List<Coordinate> tripledCells)
         {
             _cellsDestroyController.DestroyCells(tripledCells);
-        }
-
-        public void DestroyCell(Coordinate coordinate)
-        {
-            _cellsDestroyController.DestroyCells(coordinate);
-        }
-
-        public void TurnMade(Turn turn)
-        {
-            _turnController.MakeTurn(turn);
         }
 
         public void FindTriples()

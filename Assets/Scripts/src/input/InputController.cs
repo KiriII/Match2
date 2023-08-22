@@ -30,8 +30,13 @@ namespace Match3Input
                 case 1:
                     State = new DestroyCellState(this, _gameCore);
                     break;
+                case 2:
+                    State = new DestroySlotState(this, _gameCore);
+                    break;
+                case 3:
+                    State = new CreateSlotState(this, _gameCore);
+                    break;
                 default:
-
                     break;
             }
         }

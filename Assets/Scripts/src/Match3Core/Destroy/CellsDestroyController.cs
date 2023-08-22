@@ -9,23 +9,27 @@ namespace Match3Core.DestroyCells
     public class CellsDestroyController
     {
         private SwitchCellsContoller _switchCellsContoller;
+        private ICellDestroyModel _cellDestroyModel;
 
         private event Action<List<Coordinate>> _cellsDestroyed;
         private event Action _updateView;
 
-        public CellsDestroyController(SwitchCellsContoller switchCellsContoller, Action updateView)
+        public CellsDestroyController(SwitchCellsContoller switchCellsContoller, ICellDestroyModel cellDestroyModel, Action updateView)
         {
+            _cellDestroyModel = cellDestroyModel;
             _updateView = updateView;
             _switchCellsContoller = switchCellsContoller;
         }
 
         // На самом деле не уничтожаем а перекрашиваем в пустой цвет
 
-        public void DestroyCells(Coordinate coordinate)
+        public bool DestroyCells(Coordinate coordinate)
         {
+            if (!_cellDestroyModel.GetCanHoldCell(coordinate)) return false;
             _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
             OnViewUpdate();
             OnCellsDestroyed(new List<Coordinate> { coordinate });
+            return true;
         }
 
         public void DestroyCells(List<Coordinate> tripledCells)

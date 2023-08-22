@@ -70,8 +70,8 @@ namespace Match3Core.gui
             DrawField(_GUIBoardModel.GetSlots());
 
             _updateViewButton.onClick.AddListener(UpdateView);
-            //_createSlotButton.onClick.AddListener(ChangeStateDestroyCell);
-            //_destroySlotButton.onClick.AddListener(_inputController.ChangeState);
+            _createSlotButton.onClick.AddListener(ChangeStateCreateSlot);
+            _destroySlotButton.onClick.AddListener(ChangeStateDestroySlot);
             _destroyCellButton.onClick.AddListener(ChangeStateDestroyCell);
         }
 
@@ -156,6 +156,16 @@ namespace Match3Core.gui
         public void ChangeStateDestroyCell()
         {
             _inputController.ChangeState(1);
+        }
+
+        public void ChangeStateDestroySlot()
+        {
+            _inputController.ChangeState(2);
+        }
+
+        public void ChangeStateCreateSlot()
+        {
+            _inputController.ChangeState(3);
         }
 
         public void UpdateView(Slot[,] boardCopy)
