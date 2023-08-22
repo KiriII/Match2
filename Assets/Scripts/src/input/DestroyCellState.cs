@@ -16,7 +16,6 @@ namespace Match3Input
             state = States.DestroyCell;
             _inputController = inputController;
             _gameCore = gameCore;
-            Debug.Log(state);
         }
 
         public override void MakeTurn(Turn turn)

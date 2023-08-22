@@ -83,7 +83,6 @@ namespace Match3Core
         }
 
 
-        // ------ DEBUG ------
         public void DEADCELLS(List<Coordinate> tripledCells)
         {
             _cellsDestroyController.DestroyCells(tripledCells);

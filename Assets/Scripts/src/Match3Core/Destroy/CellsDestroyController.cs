@@ -24,6 +24,7 @@ namespace Match3Core.DestroyCells
         public void DestroyCells(Coordinate coordinate)
         {
             _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
+            OnViewUpdate();
             OnCellsDestroyed(new List<Coordinate> { coordinate });
         }
 
