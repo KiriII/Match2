@@ -10,7 +10,8 @@ namespace Match3Core.Board
         IGUIBoardModel, 
         ICheckTriplesBoardModel, 
         ITurnModel,
-        ISlotUnblockBoard
+        ISlotUnblockBoard,
+        ISwitchSlotModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -68,6 +69,11 @@ namespace Match3Core.Board
             slot.Cell = cell;
         }
 
+        public void SetSlot(Coordinate coordinate, Slot slot)
+        {
+            _board[coordinate.x, coordinate.y] = slot;
+        }
+
         public Cell[] GetFullRow(int rowNumber)
         {
             var row = new Cell[_rows];
@@ -98,6 +104,15 @@ namespace Match3Core.Board
             return neighbours;
         }
 
+        public Slot GetSlot(Coordinate coordinate)
+        {
+            return _board[coordinate.x, coordinate.y];
+        }
+
+        public Slot GetSlot(int x, int y)
+        {
+            return GetSlot(new Coordinate(x, y));
+        }
 
         public Cell GetCell(Coordinate coordinate)
         {

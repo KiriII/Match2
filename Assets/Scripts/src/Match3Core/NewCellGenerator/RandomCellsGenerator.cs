@@ -46,7 +46,6 @@ namespace Match3Core.RandomGenerate
             var rnd = new System.Random();
             var number = rnd.Next(1, allWeight);
 
-            Debug.Log($"{String.Join(",", weightForColors)} {number}");
             for (int i = 0; i < weightForColors.Count; i++)
             {
                 number -= weightForColors[i];

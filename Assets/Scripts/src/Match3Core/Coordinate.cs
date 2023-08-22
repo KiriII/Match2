@@ -42,7 +42,12 @@ namespace Match3Core
 
         public bool Equals(Coordinate coordinate)
         {
-            return (this.x == coordinate.x && this.y == coordinate.y);
+            return (this.x == coordinate.x && this.y == coordinate.y && GetHashCode() == coordinate.GetHashCode());
+        }
+
+        public override int GetHashCode()
+        {
+            return System.HashCode.Combine(x, y);
         }
 
         public override string ToString()

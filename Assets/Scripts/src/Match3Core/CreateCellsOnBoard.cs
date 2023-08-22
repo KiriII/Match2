@@ -23,7 +23,6 @@ namespace Match3Core
 
             foreach (var cell in findedCells)
             {
-                Debug.Log(cell.Coordinate);
                 switchCellController.SwitchWithNewCell(cell.Coordinate, 
                     RandomCellsGenerator.GenerateNewCell(getPreviousCellsColor(slots, cell.Coordinate), 2));
             }

@@ -14,5 +14,10 @@ namespace Match3Core.MakeTurn
             this.coordinate = coordinate;
             this.vector = vector;
         }
+
+        public override string ToString()
+        {
+            return $"[{coordinate}:{vector}]";
+        }
     }
 }

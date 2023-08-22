@@ -7,7 +7,7 @@ namespace Match3Core.gui
 {
     public class ViewUpdateStack
     {
-        private float _timeToUpdate = 1;
+        private float _timeToUpdate = 0.5f;
 
         private Queue<Slot[,]> _boardScreens = new Queue<Slot[,]>();
 
@@ -27,7 +27,7 @@ namespace Match3Core.gui
                 _timeToUpdate -= Time.deltaTime;
                 if (_timeToUpdate <= 0)
                 {
-                    _timeToUpdate = 1;
+                    _timeToUpdate = 0.5f;
                     var boardScreen = _boardScreens.Dequeue();
                     UpdateView(boardScreen);
                 }

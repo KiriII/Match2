@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Match3Core.Board;
 using Match3Core.MakeTurn;
+using Match3Input;
 
 namespace Match3Core.gui
 {
@@ -16,17 +17,18 @@ namespace Match3Core.gui
         [SerializeField] private GameObject _slot;
         [SerializeField] private GameObject _cell;
         [SerializeField] private Button _updateViewButton;
+        [SerializeField] private Button _createSlotButton;
+        [SerializeField] private Button _destroySlotButton;
+        [SerializeField] private Button _destroyCellButton;
         [SerializeField] private Dropdown _levelsList;
 
         private IGUIBoardModel _GUIBoardModel;
+        private InputController _inputController;
         private int _rows;
         private int _collumns;
         private int _currentLevelID;
 
         private HashSet<int> _levelsID;
-
-        private Action<Coordinate> _destroyOneCellAction;
-        private Action<Turn> _turnMade;
 
         private GameObject[,] _slotsObjects;
 
@@ -36,20 +38,21 @@ namespace Match3Core.gui
             if (_slot == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_cell == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            if (_createSlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            if (_destroySlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            if (_destroyCellButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
         }
 
         public void init(IGUIBoardModel GUIBoardModel, 
             HashSet<int> levelsID, 
             int curentLevelID,
-            UnityAction<int> createNewBoardAction, 
-            Action<Coordinate> destroyOneCellAction,
-            Action<Turn> turnMade)
+            UnityAction<int> createNewBoardAction,
+            InputController inputController)
         {
             _currentLevelID = curentLevelID;
 
-            _destroyOneCellAction = destroyOneCellAction;
-            _turnMade = turnMade;
+            _inputController = inputController;
 
             _levelsID = levelsID;
             InitDropdownListView(createNewBoardAction);
@@ -67,6 +70,9 @@ namespace Match3Core.gui
             DrawField(_GUIBoardModel.GetSlots());
 
             _updateViewButton.onClick.AddListener(UpdateView);
+            //_createSlotButton.onClick.AddListener(ChangeStateDestroyCell);
+            //_destroySlotButton.onClick.AddListener(_inputController.ChangeState);
+            _destroyCellButton.onClick.AddListener(ChangeStateDestroyCell);
         }
 
         private void InitDropdownListView(UnityAction<int> createNewBoardAction)
@@ -78,7 +84,7 @@ namespace Match3Core.gui
             _levelsList.onValueChanged.AddListener(createNewBoardAction);
         }
 
-        public void DrawField(Slot[,]? boardCopy)
+        public void DrawField(Slot[,] boardCopy)
         {
             var gridTransform = _slotsGrid.gameObject.transform;
             for (int x = 0; x < _rows; x++)
@@ -87,7 +93,7 @@ namespace Match3Core.gui
                 {
                     if (boardCopy is not null)
                     { 
-                        DrawOneCell(new Coordinate(x, y), DrawOneSlot(new Coordinate(x, y), gridTransform, boardCopy[x, y]), boardCopy[x, y]);
+                        DrawOneCell(DrawOneSlot(new Coordinate(x, y), gridTransform, boardCopy[x, y]), boardCopy[x, y]);
                     }
                 }
             }
@@ -97,16 +103,26 @@ namespace Match3Core.gui
         {
             var slotObject = Instantiate(_slot, parent);
             _slotsObjects[coordinate.x, coordinate.y] = slotObject;
-            if (!slotScreen.CanHoldCell) slotObject.GetComponent<Image>().enabled = false;
+            if (!slotScreen.CanHoldCell)
+            {
+                var colorHalfVision = slotObject.GetComponent<Image>().color;
+                colorHalfVision.a = 0.5f;
+                slotObject.GetComponent<Image>().color = colorHalfVision;
+            }
             if (slotScreen.IsBlocked) slotObject.GetComponent<Image>().color = Color.black;
+
+            var draggingCell = slotObject.GetComponent<DraggingCell>();
+            draggingCell.coordinate = coordinate;
+            draggingCell.EnableTurnMadeListener(_inputController.TurnMade);
+
             return slotObject.transform;
         }
 
-        private void DrawOneCell(Coordinate coordinate, Transform parent, Slot slotScreen)
+        private void DrawOneCell(Transform parent, Slot slotScreen)
         {
             if (!slotScreen.CanHoldCell) return;
             var cell = slotScreen.Cell;
-            var cellObject = Instantiate(_cell, _slotsObjects[coordinate.x, coordinate.y].transform);
+            var cellObject = Instantiate(_cell, parent);
             var cellColorObject = cellObject.GetComponent<Image>();
 
             switch (cell.color)
@@ -129,13 +145,6 @@ namespace Match3Core.gui
                 default:
                     break;
             }
-
-            var cellButtonObject = cellObject.GetComponent<Button>();
-            if (!slotScreen.IsBlocked) cellButtonObject.onClick.AddListener(delegate { DestroyCell(coordinate); });
-
-            var draggingCell = cellObject.GetComponent<DraggingCell>();
-            draggingCell.coordinate = coordinate;
-            draggingCell.EnableTurnMadeListener(_turnMade);
         }
 
         
@@ -144,6 +153,10 @@ namespace Match3Core.gui
             UpdateView(_GUIBoardModel.GetSlots());
         }
         
+        public void ChangeStateDestroyCell()
+        {
+            _inputController.ChangeState(1);
+        }
 
         public void UpdateView(Slot[,] boardCopy)
         {
@@ -151,10 +164,6 @@ namespace Match3Core.gui
             DrawField(boardCopy);
         }
 
-        private void DestroyCell(Coordinate coordinate)
-        {
-            _destroyOneCellAction(coordinate);
-        }
 
         private void DestroyAllSlots()
         {
