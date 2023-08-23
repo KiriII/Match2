@@ -22,7 +22,6 @@ namespace Match3Core.MakeTurn
 
         public void MakeTurn(Turn turn)
         {
-            //Debug.Log($"{turn.coordinate} {turn.vector}");
             var firstCoordinate = turn.coordinate;
             var secondCoordinate = new Coordinate(firstCoordinate, turn.vector);
 
@@ -34,14 +33,11 @@ namespace Match3Core.MakeTurn
                 || _turnModel.GetCell(firstCoordinate).color == CellsColor.Empty
                 || _turnModel.GetCell(secondCoordinate).color == CellsColor.Empty) return;
 
-            //Debug.Log($"{firstCoordinate} {secondCoordinate}");
-
             var cells = CopyArray(_turnModel.GetCells());
             var c = new Cell(cells[firstCoordinate.x, firstCoordinate.y]);
             cells[firstCoordinate.x, firstCoordinate.y] = new Cell(cells[secondCoordinate.x, secondCoordinate.y]);
             cells[secondCoordinate.x, secondCoordinate.y] = new Cell(c);
             //var newTriples = SameCellsFinder.TriplesFinder(cells);
-            //Debug.Log(newTriples);
 
             if (SameCellsFinder.TriplesFinder(cells).Count > 0)
             {

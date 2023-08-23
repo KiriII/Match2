@@ -122,28 +122,36 @@ namespace Match3Core.gui
         {
             if (!slotScreen.CanHoldCell) return;
             var cell = slotScreen.Cell;
-            var cellObject = Instantiate(_cell, parent);
-            var cellColorObject = cellObject.GetComponent<Image>();
-
-            switch (cell.color)
+            var cellObject = Instantiate(_cell, parent).transform;
+            if (cell.color == CellsColor.Special)
             {
-                case CellsColor.Red:
-                    cellColorObject.color = Color.red;
-                    break;
-                case CellsColor.Green:
-                    cellColorObject.color = Color.green;
-                    break;
-                case CellsColor.Blue:
-                    cellColorObject.color = Color.blue;
-                    break;
-                case CellsColor.Yellow:
-                    cellColorObject.color = Color.yellow;
-                    break;
-                case CellsColor.Empty:
-                    cellColorObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
-                    break;
-                default:
-                    break;
+                var cellImageObject = Instantiate(cellObject.GetComponent<CellElement>().SpecialState, cellObject);
+            }
+            else
+            {
+                var cellImageObject = Instantiate(cellObject.GetComponent<CellElement>().NormalState, cellObject);
+                var image = cellImageObject.GetComponent<Image>();
+
+                switch (cell.color)
+                {
+                    case CellsColor.Red:
+                        image.color = Color.red;
+                        break;
+                    case CellsColor.Green:
+                        image.color = Color.green;
+                        break;
+                    case CellsColor.Blue:
+                        image.color = Color.blue;
+                        break;
+                    case CellsColor.Yellow:
+                        image.color = Color.yellow;
+                        break;
+                    case CellsColor.Empty:
+                        image.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

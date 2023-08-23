@@ -7,5 +7,6 @@ namespace Match3Core.Board
     public interface ICellDestroyModel
     {
         public bool GetCanHoldCell(Coordinate coordinate);
+        public bool GetCanDestroyCell(Coordinate coordinate);
     }
 }

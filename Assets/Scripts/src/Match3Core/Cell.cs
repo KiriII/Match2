@@ -22,7 +22,9 @@ namespace Match3Core
         public override bool Equals(object obj)
         {
             Cell cell = obj as Cell;
-            if (cell == null || color == CellsColor.Empty || cell.color == CellsColor.Empty)
+            if (cell == null 
+                || color == CellsColor.Empty || cell.color == CellsColor.Empty 
+                || color == CellsColor.Special || cell.color == CellsColor.Special)
             {
                 return false;
             }

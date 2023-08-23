@@ -131,6 +131,17 @@ namespace Match3Core.Board
             return GetCanHoldCell(new Coordinate(x, y));
         }
 
+        public bool GetCanDestroyCell(Coordinate coordinate)
+        {
+            var cell = _board[coordinate.x, coordinate.y].Cell;
+            return cell.color == CellsColor.Special || GetSlot(coordinate).IsActive;
+        }
+
+        public bool GetCanDestroyCell(int x, int y)
+        {
+            return GetCanDestroyCell(new Coordinate(x, y));
+        }
+
         public bool GetCanPassCell(Coordinate coordinate)
         {
             var slot = _board[coordinate.x, coordinate.y];

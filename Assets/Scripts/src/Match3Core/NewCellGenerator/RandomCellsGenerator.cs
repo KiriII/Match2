@@ -14,7 +14,7 @@ namespace Match3Core.RandomGenerate
         {
             var rnd = new System.Random();
             var colorCount = Enum.GetValues(typeof(CellsColor)).Length;
-            var number = rnd.Next(1, colorCount);
+            var number = rnd.Next(2, colorCount);
             return new Cell((CellsColor)number);
         }
 
@@ -28,7 +28,7 @@ namespace Match3Core.RandomGenerate
 
             foreach (var color in Enum.GetValues(typeof(CellsColor)))
             {
-                if ((int)color == 0) continue;
+                if ((CellsColor)color == CellsColor.Empty || (CellsColor)color == CellsColor.Special) continue;
                 var colorWeight = weight;
 
                 foreach (var c in colors)
@@ -51,7 +51,7 @@ namespace Match3Core.RandomGenerate
                 number -= weightForColors[i];
                 if (number <= 0)
                 {
-                    return new Cell((CellsColor)i+1);
+                    return new Cell((CellsColor)i+2);
                 }
             }
             return null;

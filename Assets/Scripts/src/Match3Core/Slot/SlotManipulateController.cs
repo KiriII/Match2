@@ -27,7 +27,7 @@ namespace Match3Core.SlotManipulate
             if (!_slotManipulateModel.GetCanHoldCell(coordinate)) return false;
 
             _switchSlotsController.SwitchWithNewSlot(coordinate, 
-                new Slot(coordinate, false, true, false, new Cell(CellsColor.Empty)));
+                new Slot(coordinate, false, true, false, true, new Cell(CellsColor.Empty)));
             OnViewUpdate();
             return true;
         }
@@ -37,7 +37,7 @@ namespace Match3Core.SlotManipulate
             if (_slotManipulateModel.GetCanHoldCell(coordinate)) return false;
 
             _switchSlotsController.SwitchWithNewSlot(coordinate,
-                new Slot(coordinate, true, true, false, new Cell(CellsColor.Empty)));
+                new Slot(coordinate, true, true, false, true, new Cell(CellsColor.Empty)));
             OnViewUpdate();
             OnSlotMoved(new List<Coordinate> { coordinate});
             return true;

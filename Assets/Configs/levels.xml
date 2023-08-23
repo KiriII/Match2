@@ -12,8 +12,8 @@ level id - уникальный
 <levels>
   <level id="1">
     <slots size="9/9">
-      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="0/1" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="0/0" isBlocked="false" canHoldCell="false" isActive="false"/>
+      <slot coordinate="0/1" isBlocked="false" canHoldCell="false" isActive="false"/>
       <slot coordinate="0/2" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/3" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/4" isBlocked="false" canHoldCell="false" />
@@ -21,7 +21,7 @@ level id - уникальный
       <slot coordinate="0/6" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/7" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/8" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="1/0" isBlocked="false" canHoldCell="false" isActive="false" />
       <slot coordinate="1/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="1/2" isBlocked="false" canHoldCell="false" />
       <slot coordinate="1/3" isBlocked="false" canHoldCell="false" />
@@ -83,7 +83,7 @@ level id - уникальный
       <slot coordinate="7/5" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/6" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="7/8" isBlocked="false" canHoldCell="false" isActive="false" />
       <slot coordinate="8/0" isBlocked="false" canHoldCell="false" />
       <slot coordinate="8/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="8/2" isBlocked="false" canHoldCell="false" />
@@ -91,8 +91,8 @@ level id - уникальный
       <slot coordinate="8/4" isBlocked="false" canHoldCell="false" />
       <slot coordinate="8/5" isBlocked="false" canHoldCell="false" />
       <slot coordinate="8/6" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" />
+      <slot coordinate="8/7" isBlocked="false" canHoldCell="false" isActive="false" />
+      <slot coordinate="8/8" isBlocked="false" canHoldCell="false" isActive="false" />
     </slots>
   </level>
   <level id="2">
