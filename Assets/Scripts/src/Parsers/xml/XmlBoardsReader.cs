@@ -45,12 +45,13 @@ namespace Match3Configs.Levels
                     GetSlotCanAttribute(out var isBlocked, slot, XmlFields.SLOT_BLOCKED_ATTRIBUTE);
                     GetSlotCanAttribute(out var isActive, slot, XmlFields.SLOT_ACTIVE_ATTRIBUTE);
                     GetSlotCoordinate(out var coordinate, slot);
+                    GetSlotCell(out var cell, slot);
 
                     //Debug.Log($"coordinate = {coordinate} HC = {canHoldCell} PC = {canPassCell}");
                     if (level.GetSlot(coordinate) != null) throw new Exception($"Duplication slot {coordinate} in {XmlFields.PATH_TO_DOCUMENT}");
                     if (isActive)
                     {
-                        level.SetSlot(coordinate, new Slot(coordinate, null, canHoldCell, canPassCell, isBlocked, isActive));
+                        level.SetSlot(coordinate, new Slot(coordinate, cell, canHoldCell, canPassCell, isBlocked, isActive));
                     }
                     else
                     {
@@ -162,6 +163,41 @@ namespace Match3Configs.Levels
             {
                 can = true;
             }
+        }
+
+        public static Cell GetSlotCell(out Cell cell, XElement slotElement)
+        {
+            cell = null;
+            var colorAttribute = slotElement.Attribute(XmlFields.SLOT_CELL_ATTRIBUTE);
+            if (colorAttribute is null)
+            {
+                return cell;
+            }
+            var color = colorAttribute.Value;
+
+            switch (color)
+            {
+                case "special":
+                    cell = new Cell(CellsColor.Special);
+                    break;
+                case "red":
+                    cell = new Cell(CellsColor.Red);
+                    break;
+                case "green":
+                    cell = new Cell(CellsColor.Green);
+                    break;
+                case "blue":
+                    cell = new Cell(CellsColor.Blue);
+                    break;
+                case "yellow":
+                    cell = new Cell(CellsColor.Yellow);
+                    break; 
+                default:
+                    Debug.LogWarning($"Unknown color {color} in level.xml");
+                    break;
+            }
+
+            return cell;
         }
     }
 }

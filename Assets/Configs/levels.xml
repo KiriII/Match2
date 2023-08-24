@@ -3,7 +3,7 @@
 level id - уникальный
 <level id = "LEVELID">
     <slots>
-        canHoldCell и canPassCells можно не указывать. Тогда true
+        isActive, canHoldCell и canPassCells можно не указывать. Тогда true
         position - уникальный для каждого slot
         <slot position = "X/Y" canHoldCell = "bool" canPassCells = "bool">
     </slots>
@@ -34,7 +34,7 @@ level id - уникальный
       <slot coordinate="2/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="2/2" isBlocked="false" />
       <slot coordinate="2/3" isBlocked="false" />
-      <slot coordinate="2/4" isBlocked="false" />
+      <slot coordinate="2/4" isBlocked="false" cell="special"/>
       <slot coordinate="2/5" isBlocked="false" />
       <slot coordinate="2/6" isBlocked="false" />
       <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />

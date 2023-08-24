@@ -24,7 +24,7 @@ namespace Match3Core.SlotManipulate
 
         public bool DestroySlot(Coordinate coordinate)
         {
-            if (!_slotManipulateModel.GetCanHoldCell(coordinate) || !_slotManipulateModel.GetActive(coordinate)) return false;
+            if (!_slotManipulateModel.GetCanDestroySlot(coordinate)) return false;
 
             _switchSlotsController.SwitchWithNewSlot(coordinate, 
                 new Slot(coordinate, new Cell(CellsColor.Empty), false, true, false, true));
