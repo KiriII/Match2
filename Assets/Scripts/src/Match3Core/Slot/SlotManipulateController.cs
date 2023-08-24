@@ -24,20 +24,20 @@ namespace Match3Core.SlotManipulate
 
         public bool DestroySlot(Coordinate coordinate)
         {
-            if (!_slotManipulateModel.GetCanHoldCell(coordinate)) return false;
+            if (!_slotManipulateModel.GetCanHoldCell(coordinate) || !_slotManipulateModel.GetActive(coordinate)) return false;
 
             _switchSlotsController.SwitchWithNewSlot(coordinate, 
-                new Slot(coordinate, false, true, false, true, new Cell(CellsColor.Empty)));
+                new Slot(coordinate, new Cell(CellsColor.Empty), false, true, false, true));
             OnViewUpdate();
             return true;
         }
 
         public bool CreateSlot(Coordinate coordinate)
         {
-            if (_slotManipulateModel.GetCanHoldCell(coordinate)) return false;
+            if (_slotManipulateModel.GetCanHoldCell(coordinate) || !_slotManipulateModel.GetActive(coordinate)) return false;
 
             _switchSlotsController.SwitchWithNewSlot(coordinate,
-                new Slot(coordinate, true, true, false, true, new Cell(CellsColor.Empty)));
+                new Slot(coordinate, new Cell(CellsColor.Empty), true, true, false, true));
             OnViewUpdate();
             OnSlotMoved(new List<Coordinate> { coordinate});
             return true;

@@ -19,6 +19,7 @@ namespace Match3Core.Board
         private readonly int _rows;
         private readonly int _columns;
 
+        /* Устарело
         public BoardModel(bool[,] canHoldCellBoard)
         {
             _rows = canHoldCellBoard.GetLength(0);
@@ -33,6 +34,7 @@ namespace Match3Core.Board
                 }
             }
         }
+        */
 
         public BoardModel(Slot[,] slots)
         {
@@ -123,7 +125,7 @@ namespace Match3Core.Board
         public bool GetCanHoldCell(Coordinate coordinate)
         {
             var slot = _board[coordinate.x, coordinate.y];
-            return slot.CanHoldCell;
+            return slot.CanHoldCell && slot.IsActive;
         }
 
         public bool GetCanHoldCell(int x, int y)
@@ -161,7 +163,18 @@ namespace Match3Core.Board
 
         public bool GetBlocked(int x, int y)
         {
-            return GetCanPassCell(new Coordinate(x, y));
+            return GetBlocked(new Coordinate(x, y));
+        }
+
+        public bool GetActive(Coordinate coordinate)
+        {
+            var slot = _board[coordinate.x, coordinate.y];
+            return slot.IsActive;
+        }
+
+        public bool GetActive(int x, int y)
+        {
+            return GetActive(new Coordinate(x, y));
         }
 
         public bool ContainCoordinate(Coordinate coordinate)

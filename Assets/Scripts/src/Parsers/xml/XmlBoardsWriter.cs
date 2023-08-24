@@ -38,6 +38,11 @@ namespace Match3Configs.Levels
             levels.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
+        public static void ToggleActive(int levelID, int posX, int posY)
+        {
+            ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_ACTIVE_ATTRIBUTE);
+        }
+
         public static void ToggleHoldCell(int levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_HOLD_CELL_ATTRIBUTE);

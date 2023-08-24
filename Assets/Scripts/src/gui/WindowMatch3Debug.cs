@@ -92,8 +92,9 @@ namespace Match3Core.gui
                 for (int y = 0; y < _collumns; y++)
                 {
                     if (boardCopy is not null)
-                    { 
-                        DrawOneCell(DrawOneSlot(new Coordinate(x, y), gridTransform, boardCopy[x, y]), boardCopy[x, y]);
+                    {
+                        var slot = DrawOneSlot(new Coordinate(x, y), gridTransform, boardCopy[x, y]);
+                        DrawOneCell(slot, boardCopy[x, y]);
                     }
                 }
             }
@@ -103,6 +104,13 @@ namespace Match3Core.gui
         {
             var slotObject = Instantiate(_slot, parent);
             _slotsObjects[coordinate.x, coordinate.y] = slotObject;
+            if (!slotScreen.IsActive)
+            {
+                var colorInvisible = slotObject.GetComponent<Image>().color;
+                colorInvisible.a = 0f;
+                slotObject.GetComponent<Image>().color = colorInvisible;
+                return slotObject.transform;
+            }
             if (!slotScreen.CanHoldCell)
             {
                 var colorHalfVision = slotObject.GetComponent<Image>().color;

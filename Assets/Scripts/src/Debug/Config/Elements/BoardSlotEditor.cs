@@ -18,17 +18,27 @@ namespace Match3Debug.Configs
                 for (int j = 0; j < level.collumns; j++)
                 {
                     var slotSkin = level.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
+                    if (!level.slots[i, j].IsActive) slotSkin = GUI.skin.box;
 
-                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(60), GUILayout.Height(50));
+                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(60), GUILayout.Height(60));
                     EditorGUILayout.BeginHorizontal();
-                    GUILayout.Label("H:");
-                    if (GUILayout.Button($"{level.slots[i, j].CanHoldCell}", GUI.skin.label))
+                    GUILayout.Label("A:");
+                    if (GUILayout.Button($"{level.slots[i, j].IsActive}", GUI.skin.label))
                     {
-                        XmlBoardsWriter.ToggleHoldCell(level.ID, i, j);
+                        XmlBoardsWriter.ToggleActive(level.ID, i, j);
                     }
                     EditorGUILayout.EndHorizontal();
-
-                    if (!level.slots[i, j].CanHoldCell)
+                    if (level.slots[i, j].IsActive)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Label("H:");
+                        if (GUILayout.Button($"{level.slots[i, j].CanHoldCell}", GUI.skin.label))
+                        {
+                            XmlBoardsWriter.ToggleHoldCell(level.ID, i, j);
+                        }
+                        EditorGUILayout.EndHorizontal();
+                    }
+                    if (!level.slots[i, j].CanHoldCell || !level.slots[i, j].IsActive)
                     {
                         EditorGUILayout.BeginHorizontal();
                         GUILayout.Label("P:");
@@ -38,7 +48,7 @@ namespace Match3Debug.Configs
                         }
                         EditorGUILayout.EndHorizontal();
                     } 
-                    else
+                    if (level.slots[i, j].CanHoldCell && level.slots[i, j].IsActive)
                     {
                         EditorGUILayout.BeginHorizontal();
                         GUILayout.Label("B:");

@@ -48,7 +48,14 @@ namespace Match3Configs.Levels
 
                     //Debug.Log($"coordinate = {coordinate} HC = {canHoldCell} PC = {canPassCell}");
                     if (level.GetSlot(coordinate) != null) throw new Exception($"Duplication slot {coordinate} in {XmlFields.PATH_TO_DOCUMENT}");
-                    level.SetSlot(coordinate, new Slot(coordinate, canHoldCell, canPassCell, isBlocked, isActive));
+                    if (isActive)
+                    {
+                        level.SetSlot(coordinate, new Slot(coordinate, null, canHoldCell, canPassCell, isBlocked, isActive));
+                    }
+                    else
+                    {
+                        level.SetSlot(coordinate, new Slot(coordinate, canPassCell, isActive));
+                    }
                 }
                 levels.Add(level);
             }

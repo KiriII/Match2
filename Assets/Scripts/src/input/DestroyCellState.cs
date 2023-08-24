@@ -22,9 +22,9 @@ namespace Match3Input
         {
             if (turn.vector == Vector2.zero)
             {
-                Debug.Log($"Destroy Cell {turn.coordinate} {turn.vector}");
                 if (_gameCore.DestroyCell(turn.coordinate))
                 {
+                    Debug.Log($"Destroy Cell {turn.coordinate} {turn.vector}");
                     _inputController.ChangeState(0);
                 }
             }

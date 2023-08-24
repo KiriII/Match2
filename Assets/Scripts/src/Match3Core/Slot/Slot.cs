@@ -1,3 +1,5 @@
+using System;
+
 namespace Match3Core
 {
     public class Slot
@@ -13,7 +15,7 @@ namespace Match3Core
         private Cell _cell;
         private Coordinate _coordinate;
 
-        public Slot(Coordinate coordinate, bool canHoldCell, bool canPassCell = true, bool isBlocked = false, bool isActive = true, Cell cell = null)
+        public Slot(Coordinate coordinate, Cell cell = null, bool canHoldCell = true, bool canPassCell = true, bool isBlocked = false, bool isActive = true)
         {
             IsActive = isActive;
             CanHoldCell = canHoldCell;
@@ -21,6 +23,17 @@ namespace Match3Core
             IsBlocked = isBlocked;
             Cell = cell;
             Coordinate = coordinate;
+        }
+
+        public Slot(Coordinate coordinate, bool canPassCell, bool isActive)
+        {
+            if (isActive) throw new Exception($"Try to create active Slot not correct in {coordinate}");
+            Coordinate = coordinate;
+            CanPassCell = canPassCell;
+            IsActive = isActive;
+            CanHoldCell = false;
+            IsBlocked = false;
+            Cell = null;
         }
 
         public Slot(Slot slot)
