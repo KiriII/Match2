@@ -26,7 +26,6 @@ namespace Match3Core.DestroyCells
         public bool DestroyCells(Coordinate coordinate)
         {
             if (!_cellDestroyModel.GetCanDestroyCell(coordinate)) return false;
-            Debug.Log(_cellDestroyModel.GetCanDestroyCell(coordinate));
             _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
             OnViewUpdate();
             OnCellsDestroyed(new List<Coordinate> { coordinate });
@@ -38,7 +37,6 @@ namespace Match3Core.DestroyCells
             foreach (var cell in tripledCells)
             {
                 if (!_cellDestroyModel.GetCanDestroyCell(cell)) continue;
-                Debug.Log(cell);
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
             //Debug.Log(String.Join(" ", tripledCells));

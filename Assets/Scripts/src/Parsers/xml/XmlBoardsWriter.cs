@@ -38,6 +38,42 @@ namespace Match3Configs.Levels
             levels.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
+        public static void SetColor(int levelID, int posX, int posY, CellsColor color)
+        {
+            var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
+
+            if (slot == null) return;
+
+            Debug.Log($"{posX} {posY} {color}");
+
+            switch (color)
+            {
+                case CellsColor.Special:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, "special");
+                    break;
+                case CellsColor.Red:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, "red");
+                    break;
+                case CellsColor.Green:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, "green");
+                    break;
+                case CellsColor.Blue:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, "blue");
+                    break;
+                case CellsColor.Yellow:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, "yellow");
+                    break;
+                case CellsColor.Empty:
+                    slot.SetAttributeValue(XmlFields.SLOT_CELL_ATTRIBUTE, null);
+                    break;
+                default:
+                    Debug.Log("NON");
+                    break;
+            }
+
+            slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
         public static void ToggleActive(int levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_ACTIVE_ATTRIBUTE);
