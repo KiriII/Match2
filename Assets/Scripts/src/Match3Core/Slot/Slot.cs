@@ -18,10 +18,10 @@ namespace Match3Core
         public Slot(Coordinate coordinate, Cell cell = null, bool canHoldCell = true, bool canPassCell = true, bool isBlocked = false, bool isActive = true)
         {
             IsActive = isActive;
-            CanHoldCell = canHoldCell;
+            CanHoldCell = canHoldCell && isActive;
             CanPassCell = canPassCell;
-            IsBlocked = isBlocked;
-            Cell = cell;
+            IsBlocked = isBlocked && canHoldCell;
+            Cell = canHoldCell && !isBlocked ? cell : null;
             Coordinate = coordinate;
         }
 

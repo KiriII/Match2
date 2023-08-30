@@ -24,11 +24,11 @@ namespace Match3Core
             foreach (var cell in findedCells)
             {
                 switchCellController.SwitchWithNewCell(cell.Coordinate, 
-                    RandomCellsGenerator.GenerateNewCell(getPreviousCellsColor(slots, cell.Coordinate), 2));
+                    RandomCellsGenerator.GenerateNewCell(GetPreviousCellsColor(slots, cell.Coordinate), 2));
             }
         }
 
-        private static List<CellsColor> getPreviousCellsColor(Slot[,] slots, Coordinate coordinate)
+        private static List<CellsColor> GetPreviousCellsColor(Slot[,] slots, Coordinate coordinate)
         {
             var previousColors = new List<CellsColor>();
 
@@ -52,6 +52,22 @@ namespace Match3Core
                 }
             }
 
+            if (x + 1 < slots.GetLength(0))
+            {
+                previousColors.Add(slots[x + 1, y].Cell.color);
+                if (x + 2 < slots.GetLength(0))
+                {
+                    previousColors.Add(slots[x + 2, y].Cell.color);
+                }
+            }
+            if (y + 1 < slots.GetLength(1))
+            {
+                previousColors.Add(slots[x, y + 1].Cell.color);
+                if (y + 2 < slots.GetLength(1))
+                {
+                    previousColors.Add(slots[x, y + 2].Cell.color);
+                }
+            }
             return previousColors;
         }
     }

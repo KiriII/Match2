@@ -54,7 +54,6 @@ namespace Match3Core
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
 
             // Create Cells On Board
-            //_cellsDestroyController.DestroyCells(CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots()));
             CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
         }
 
