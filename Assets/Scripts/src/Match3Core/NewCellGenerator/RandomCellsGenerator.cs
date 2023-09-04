@@ -40,7 +40,7 @@ namespace Match3Core.RandomGenerate
                 allWeight += colorWeight;
                 weightForColors.Add(colorWeight);
             }
-
+            if (allWeight < 1) return GenerateNewCell();
             var rnd = new System.Random();
             var number = rnd.Next(1, allWeight);
 
