@@ -44,8 +44,6 @@ namespace Match3Configs.Levels
 
             if (slot == null) return;
 
-            Debug.Log($"{posX} {posY} {color}");
-
             switch (color)
             {
                 case CellsColor.Special:

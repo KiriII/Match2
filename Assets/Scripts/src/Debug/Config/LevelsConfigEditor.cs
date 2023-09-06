@@ -17,6 +17,8 @@ namespace Match3Debug.Configs
         private Vector2 _levelsScrollPosition;
         private Vector2 _gridScrollPosition;
 
+        private BoardSlotWindow _boardSlotWindow;
+
         [MenuItem("Match3/LevelsEditor")]
         public static void ShowWindow()
         {
@@ -48,11 +50,11 @@ namespace Match3Debug.Configs
                 // Как-то медленно работает
                 var slotsGrid = ScriptableObject.CreateInstance<BoardSlotEditor>();
                 slotsGrid.CreateGrid(_currentLevel);
+                
                 ReadFromConfigCurrentLevel();
             }
 
             GUILayout.EndScrollView();
-
             EditorGUILayout.EndVertical();
         }
 
@@ -74,6 +76,7 @@ namespace Match3Debug.Configs
                 {
                     if (GUILayout.Button($"{l.ID}"))
                     {
+                        BoardSlotWindow.TryToCloseWindow();
                         _currentLevel = l;
                     }
                 }
