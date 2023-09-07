@@ -8,10 +8,10 @@ namespace Match3Core.DestroyCells
 {
     public class SlotUnblockController
     {
-        private ISlotUnblockBoard _slotUnblockBoard;
+        private IBoardSlotUnblockModel _slotUnblockBoard;
         private event Action<List<Coordinate>> _cellsUnblocked;
 
-        public SlotUnblockController(ISlotUnblockBoard slotUnblockBoard)
+        public SlotUnblockController(IBoardSlotUnblockModel slotUnblockBoard)
         {
             _slotUnblockBoard = slotUnblockBoard;
         }

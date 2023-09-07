@@ -4,7 +4,7 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public interface IFallLineModel
+    public interface IBoardFallLineModel
     {
         public bool GetCanHoldCell(Coordinate coordinate);
         public bool GetCanPassCell(Coordinate coordinate);

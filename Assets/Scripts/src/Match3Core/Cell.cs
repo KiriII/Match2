@@ -4,18 +4,22 @@ namespace Match3Core
 {
     public class Cell
     {
-        public CellsColor color { get; set; }
+        public CellsColor Color { get; set; }
+        public string Id { get; }
 
-        public Cell(CellsColor cellsColor = CellsColor.Empty)
+        public Cell(CellsColor cellsColor = CellsColor.Empty, string id = "")
         {
-            this.color = cellsColor;
+            Color = cellsColor;
+            Id = id;
+
         }
 
         public Cell(Cell cell)
         {
             if (cell is not null)
             {
-                color = cell.color;
+                Color = cell.Color;
+                Id = cell.Id;
             }
         }
 
@@ -23,12 +27,12 @@ namespace Match3Core
         {
             Cell cell = obj as Cell;
             if (cell == null 
-                || color == CellsColor.Empty || cell.color == CellsColor.Empty 
-                || color == CellsColor.Special || cell.color == CellsColor.Special)
+                || Color == CellsColor.Empty || cell.Color == CellsColor.Empty 
+                || Color == CellsColor.Special || cell.Color == CellsColor.Special)
             {
                 return false;
             }
-            return color == cell.color;
+            return Color == cell.Color;
         }
     }
 }

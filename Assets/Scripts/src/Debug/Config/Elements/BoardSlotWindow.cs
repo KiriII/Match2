@@ -100,7 +100,7 @@ namespace Match3Debug.Configs
                 if (!_slot.IsBlocked)
                 {
                     var options = Enum.GetNames(typeof(CellsColor));
-                    var color = _slot?.Cell?.color;
+                    var color = _slot?.Cell?.Color;
                     var index = color is null ? 0 : (int)color;
                     var indexOriginal = index;
                     index = EditorGUILayout.Popup(index, options);

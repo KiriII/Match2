@@ -10,7 +10,7 @@ namespace Match3Core.Falling
 {
     public class FallingSidewayController : FallingController
     {
-        public FallingSidewayController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
+        public FallingSidewayController(IBoardFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
             : base(fallLineModel, switchCellsContoller, updateView)
         {
         }

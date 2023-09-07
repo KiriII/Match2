@@ -19,7 +19,7 @@ public static class EmptyCellsFinder
         {
             for (int j = 0; j < collumns; j++)
             {
-                if (slots[i,j].CanHoldCell && !slots[i,j].IsBlocked && slots[i,j].Cell.color == CellsColor.Empty)
+                if (slots[i,j].CanHoldCell && !slots[i,j].IsBlocked && slots[i,j].Cell.Color == CellsColor.Empty)
                 {
                     emptyCells.Add(new Coordinate(i, j));
                 }

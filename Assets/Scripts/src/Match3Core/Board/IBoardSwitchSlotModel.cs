@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ISwitchSlotModel
+    public interface IBoardSwitchSlotModel
     {
         public Slot GetSlot(Coordinate coordinate);
 

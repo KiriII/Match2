@@ -15,7 +15,7 @@ namespace Match3Core
 
             foreach (var s in slots)
             {
-                if (s.CanHoldCell && !s.IsBlocked && (s.Cell == null || s.Cell.color == CellsColor.Empty))
+                if (s.CanHoldCell && !s.IsBlocked && (s.Cell == null || s.Cell.Color == CellsColor.Empty))
                 {
                     findedCells.Add(s);
                 }
@@ -37,35 +37,35 @@ namespace Match3Core
 
             if(x - 1 >= 0)
             {
-                previousColors.Add(slots[x - 1, y].Cell.color);
+                previousColors.Add(slots[x - 1, y].Cell.Color);
                 if (x - 2 >= 0)
                 {
-                    previousColors.Add(slots[x - 2, y].Cell.color);
+                    previousColors.Add(slots[x - 2, y].Cell.Color);
                 }
             }
             if (y - 1 >= 0)
             {
-                previousColors.Add(slots[x, y - 1].Cell.color);
+                previousColors.Add(slots[x, y - 1].Cell.Color);
                 if (y - 2 >= 0)
                 {
-                    previousColors.Add(slots[x, y - 2].Cell.color);
+                    previousColors.Add(slots[x, y - 2].Cell.Color);
                 }
             }
 
             if (x + 1 < slots.GetLength(0))
             {
-                previousColors.Add(slots[x + 1, y].Cell.color);
+                previousColors.Add(slots[x + 1, y].Cell.Color);
                 if (x + 2 < slots.GetLength(0))
                 {
-                    previousColors.Add(slots[x + 2, y].Cell.color);
+                    previousColors.Add(slots[x + 2, y].Cell.Color);
                 }
             }
             if (y + 1 < slots.GetLength(1))
             {
-                previousColors.Add(slots[x, y + 1].Cell.color);
+                previousColors.Add(slots[x, y + 1].Cell.Color);
                 if (y + 2 < slots.GetLength(1))
                 {
-                    previousColors.Add(slots[x, y + 2].Cell.color);
+                    previousColors.Add(slots[x, y + 2].Cell.Color);
                 }
             }
             return previousColors;

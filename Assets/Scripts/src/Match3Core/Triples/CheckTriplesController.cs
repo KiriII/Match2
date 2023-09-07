@@ -8,11 +8,11 @@ namespace Match3Core.Triples
 {
     public class CheckTriplesController
     {
-        private ICheckTriplesBoardModel _boardModel;
+        private IBoardCheckTriplesModel _boardModel;
 
         private event Action<List<Coordinate>> _triplesFinded;
 
-        public CheckTriplesController(ICheckTriplesBoardModel boardModel)
+        public CheckTriplesController(IBoardCheckTriplesModel boardModel)
         {
             _boardModel = boardModel;
         }

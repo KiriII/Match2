@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ISlotUnblockBoard
+    public interface IBoardSlotUnblockModel
     {
         public bool GetBlocked(Coordinate coordinate);
         public List<Coordinate> GetNeighbourSlot(Coordinate coordinate);

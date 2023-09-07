@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ISlotManipulateModel
+    public interface IBoardSlotManipulateModel
     {
         public bool GetCanHoldCell(Coordinate coordinate);
         public bool GetActive(Coordinate coordinate);

@@ -9,12 +9,12 @@ namespace Match3Core.MakeTurn
 {
     public class TurnController
     {
-        private ITurnModel _turnModel;
+        private IBoardTurnModel _turnModel;
         private SwitchCellsContoller _switchCellsContoller;
 
         private event Action _correctTurnDone;
 
-        public TurnController(ITurnModel turnModel, SwitchCellsContoller switchCellsContoller)
+        public TurnController(IBoardTurnModel turnModel, SwitchCellsContoller switchCellsContoller)
         {
             _turnModel = turnModel;
             _switchCellsContoller = switchCellsContoller;
@@ -30,8 +30,8 @@ namespace Match3Core.MakeTurn
                 || !_turnModel.ContainCoordinate(secondCoordinate)
                 || !_turnModel.GetCanHoldCell(firstCoordinate)
                 || !_turnModel.GetCanHoldCell(secondCoordinate)
-                || _turnModel.GetCell(firstCoordinate).color == CellsColor.Empty
-                || _turnModel.GetCell(secondCoordinate).color == CellsColor.Empty) return;
+                || _turnModel.GetCell(firstCoordinate).Color == CellsColor.Empty
+                || _turnModel.GetCell(secondCoordinate).Color == CellsColor.Empty) return;
 
             var cells = CopyArray(_turnModel.GetCells());
             var c = new Cell(cells[firstCoordinate.x, firstCoordinate.y]);

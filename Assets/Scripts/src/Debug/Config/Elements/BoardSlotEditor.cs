@@ -36,7 +36,7 @@ namespace Match3Debug.Configs
                         }
                         else
                         {
-                            switch (level.slots[i, j].Cell?.color)
+                            switch (level.slots[i, j].Cell?.Color)
                             {
                                 case CellsColor.Special:
                                     EditorGUILayout.ColorField(Color.white);

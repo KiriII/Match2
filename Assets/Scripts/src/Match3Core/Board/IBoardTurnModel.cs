@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ITurnModel
+    public interface IBoardTurnModel
     {
         public Cell[,] GetCells();
         public bool ContainCoordinate(Coordinate coordinate);

@@ -10,12 +10,12 @@ namespace Match3Core.SlotManipulate
     public class SlotManipulateController
     {
         private SwitchSlotsController _switchSlotsController;
-        private ISlotManipulateModel _slotManipulateModel;
+        private IBoardSlotManipulateModel _slotManipulateModel;
 
         private event Action<List<Coordinate>> _slotMoved;
         private event Action _updateView;
 
-        public SlotManipulateController(SwitchSlotsController switchSlotsController, ISlotManipulateModel slotManipulateModel, Action updateView)
+        public SlotManipulateController(SwitchSlotsController switchSlotsController, IBoardSlotManipulateModel slotManipulateModel, Action updateView)
         {
             _updateView = updateView;
             _switchSlotsController = switchSlotsController;

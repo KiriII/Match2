@@ -5,11 +5,11 @@ namespace Match3Core.Board
 {
     public class SwitchCellsContoller
     {
-        private ISwitchCellsModel _switchCellsModel;
+        private IBoardSwitchCellsModel _switchCellsModel;
 
         private event Action _CellSwitched;
 
-        public SwitchCellsContoller(ISwitchCellsModel switchCellsModel)
+        public SwitchCellsContoller(IBoardSwitchCellsModel switchCellsModel)
         {
             _switchCellsModel = switchCellsModel;
         }

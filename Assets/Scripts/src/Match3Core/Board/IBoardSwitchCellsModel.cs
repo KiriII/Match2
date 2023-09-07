@@ -2,7 +2,7 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public interface ISwitchCellsModel
+    public interface IBoardSwitchCellsModel
     {
         public Cell GetCell(Coordinate coordinate);
 

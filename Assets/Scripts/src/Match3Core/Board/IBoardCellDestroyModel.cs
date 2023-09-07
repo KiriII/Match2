@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ICellDestroyModel
+    public interface IBoardCellDestroyModel
     {
         public bool GetCanHoldCell(Coordinate coordinate);
         public bool GetCanDestroyCell(Coordinate coordinate);

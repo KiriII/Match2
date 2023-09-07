@@ -9,12 +9,12 @@ namespace Match3Core.DestroyCells
     public class CellsDestroyController
     {
         private SwitchCellsContoller _switchCellsContoller;
-        private ICellDestroyModel _cellDestroyModel;
+        private IBoardCellDestroyModel _cellDestroyModel;
 
         private event Action<List<Coordinate>> _cellsDestroyed;
         private event Action _updateView;
 
-        public CellsDestroyController(SwitchCellsContoller switchCellsContoller, ICellDestroyModel cellDestroyModel, Action updateView)
+        public CellsDestroyController(SwitchCellsContoller switchCellsContoller, IBoardCellDestroyModel cellDestroyModel, Action updateView)
         {
             _cellDestroyModel = cellDestroyModel;
             _updateView = updateView;

@@ -10,16 +10,16 @@ namespace Match3Core.Falling
 {
     public class FallingController
     {
-        protected IFallLineModel _fallLineModel;
+        protected IBoardFallLineModel _fallLineModel;
         protected SwitchCellsContoller _switchCellsContoller;
 
         private event Action _cellsFell;
         private event Action _updateView;
 
-        public virtual IFallLineModel FallLineModel { get => _fallLineModel; set => _fallLineModel = value; }
+        public virtual IBoardFallLineModel FallLineModel { get => _fallLineModel; set => _fallLineModel = value; }
         public virtual SwitchCellsContoller SwitchCellsContoller { get => _switchCellsContoller; set => _switchCellsContoller = value; }
 
-        public FallingController(IFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
+        public FallingController(IBoardFallLineModel fallLineModel, SwitchCellsContoller switchCellsContoller, Action updateView)
         {
             FallLineModel = fallLineModel;
             SwitchCellsContoller = switchCellsContoller;

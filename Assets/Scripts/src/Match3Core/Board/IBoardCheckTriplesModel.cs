@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Match3Core.Board
 {
-    public interface ICheckTriplesBoardModel 
+    public interface IBoardCheckTriplesModel
     {
         public int GetRows();
         public int GetCollumns();

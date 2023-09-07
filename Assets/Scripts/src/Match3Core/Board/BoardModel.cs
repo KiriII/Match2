@@ -5,36 +5,20 @@ using Match3Core;
 
 namespace Match3Core.Board
 {
-    public class BoardModel : ISwitchCellsModel, 
-        IFallLineModel, 
-        IGUIBoardModel, 
-        ICheckTriplesBoardModel, 
-        ITurnModel,
-        ISlotUnblockBoard,
-        ISwitchSlotModel,
-        ICellDestroyModel,
-        ISlotManipulateModel
+    public class BoardModel : IBoardSwitchCellsModel, 
+        IBoardFallLineModel, 
+        IGUIBoardModel,
+        IBoardCheckTriplesModel,
+        IBoardTurnModel,
+        IBoardSlotUnblockModel,
+        IBoardSwitchSlotModel,
+        IBoardCellDestroyModel,
+        IBoardSlotManipulateModel,
+        IBoardBoxModel
     {
         private Slot[,] _board;
         private readonly int _rows;
         private readonly int _columns;
-
-        /* Устарело
-        public BoardModel(bool[,] canHoldCellBoard)
-        {
-            _rows = canHoldCellBoard.GetLength(0);
-            _columns = canHoldCellBoard.GetLength(1);
-            _board = new Slot[_rows, _columns];
-            for (int i = 0; i < _rows; i++)
-            {
-                for (int j = 0; j < _columns; j++)
-                {
-                    var coordinate = new Coordinate(i , j);
-                    _board[i, j] = canHoldCellBoard[i, j] ? new Slot(coordinate, true) : new Slot(coordinate, false);
-                }
-            }
-        }
-        */
 
         public BoardModel(Slot[,] slots)
         {
@@ -112,7 +96,7 @@ namespace Match3Core.Board
 
         public Cell GetCell(Coordinate coordinate)
         {
-            if (!GetCanHoldCell(coordinate)) throw new Exception("Try to get Cell from Blocked Slot");
+            if (!GetCanHoldCell(coordinate)) throw new Exception($"Try to get Cell from Blocked Slot {coordinate}");
             var slot = _board[coordinate.x, coordinate.y];
             return slot.Cell;
         }
@@ -136,8 +120,8 @@ namespace Match3Core.Board
         public bool GetCanDestroyCell(Coordinate coordinate)
         {
             var cell = _board[coordinate.x, coordinate.y].Cell;
-            return !(cell.color == CellsColor.Empty) && 
-                !(cell.color == CellsColor.Special) && 
+            return !(cell.Color == CellsColor.Empty) && 
+                !(cell.Color == CellsColor.Special) && 
                 GetSlot(coordinate).IsActive &&
                 GetSlot(coordinate).CanHoldCell;
         }
@@ -150,7 +134,7 @@ namespace Match3Core.Board
         public bool GetCanDestroySlot(Coordinate coordinate)
         {
             var cell = _board[coordinate.x, coordinate.y].Cell;
-            return !(cell.color == CellsColor.Special) &&
+            return !(cell.Color == CellsColor.Special) &&
                 GetSlot(coordinate).IsActive &&
                 GetSlot(coordinate).CanHoldCell;
         }
@@ -252,7 +236,7 @@ namespace Match3Core.Board
 
         public bool HasCell(Coordinate coordinate)
         {
-            var result = (GetCanHoldCell(coordinate) && !GetBlocked(coordinate)) ? GetCell(coordinate).color != CellsColor.Empty : false;
+            var result = (GetCanHoldCell(coordinate) && !GetBlocked(coordinate)) ? GetCell(coordinate).Color != CellsColor.Empty : false;
             return result;
         }
 
@@ -271,7 +255,7 @@ namespace Match3Core.Board
                     }
                     else
                     {
-                        result += String.Format("{0,3}", (_board[i, j].CanHoldCell ? (int)cell.color : "X"));
+                        result += String.Format("{0,3}", (_board[i, j].CanHoldCell ? (int)cell.Color : "X"));
                     }
                 }
                 result += "\n";

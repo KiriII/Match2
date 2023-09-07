@@ -131,7 +131,7 @@ namespace Match3Core.gui
             if (!slotScreen.CanHoldCell) return;
             var cell = slotScreen.Cell;
             var cellObject = Instantiate(_cell, parent).transform;
-            if (cell.color == CellsColor.Special)
+            if (cell.Color == CellsColor.Special)
             {
                 var cellImageObject = Instantiate(cellObject.GetComponent<CellElement>().SpecialState, cellObject);
             }
@@ -140,7 +140,7 @@ namespace Match3Core.gui
                 var cellImageObject = Instantiate(cellObject.GetComponent<CellElement>().NormalState, cellObject);
                 var image = cellImageObject.GetComponent<Image>();
 
-                switch (cell.color)
+                switch (cell.Color)
                 {
                     case CellsColor.Red:
                         image.color = Color.red;

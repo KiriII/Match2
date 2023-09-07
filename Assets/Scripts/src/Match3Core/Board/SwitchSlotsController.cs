@@ -7,11 +7,11 @@ namespace Match3Core.Board
 {
     public class SwitchSlotsController
     {
-        private ISwitchSlotModel _switchSlotsModel;
+        private IBoardSwitchSlotModel _switchSlotsModel;
 
         private event Action _slotSwitched;
 
-        public SwitchSlotsController(ISwitchSlotModel switchSlotModel)
+        public SwitchSlotsController(IBoardSwitchSlotModel switchSlotModel)
         {
             _switchSlotsModel = switchSlotModel;
         }
