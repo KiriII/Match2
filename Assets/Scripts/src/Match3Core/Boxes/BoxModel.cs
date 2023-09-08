@@ -11,7 +11,7 @@ namespace Match3Core.Box
 
         public BoxModel(Dictionary<Coordinate, string> boxes)
         {
-            _boxes = boxes;
+            _boxes = new Dictionary<Coordinate, string>(boxes);
         }
 
         public List<Coordinate> GetCoordinates()

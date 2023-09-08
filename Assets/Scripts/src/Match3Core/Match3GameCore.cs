@@ -34,14 +34,12 @@ namespace Match3Core
         private event Action _updateView;
         private event Action<Slot[,]> _boardScreen;
 
-        public Match3GameCore(Slot[,] slots)  
+        public Match3GameCore(Slot[,] slots, Dictionary<Coordinate, string> boxes)  
         {
             _updateView += UpdateView;
 
             _boardModel = new BoardModel(slots);
-            var TEST = new Dictionary<Coordinate, string>();
-            TEST.Add(new Coordinate(7, 4), "228");
-            _boxModel = new BoxModel(TEST);
+            _boxModel = new BoxModel(boxes);
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _switchSlotsController = new SwitchSlotsController(_boardModel);

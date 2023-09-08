@@ -19,24 +19,24 @@ namespace Match3Debug.Configs
                 EditorGUILayout.BeginHorizontal();
                 for (int j = 0; j < level.collumns; j++)
                 {
-                    var slotSkin = level.slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
-                    if (!level.slots[i, j].IsActive) slotSkin = GUI.skin.box;
+                    var slotSkin = level.Slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
+                    if (!level.Slots[i, j].IsActive) slotSkin = GUI.skin.box;
                     EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(70), GUILayout.Height(60));
                     EditorGUILayout.Space();
                     if (GUILayout.Button($"edit", GUI.skin.button))
                     {
-                        var window = BoardSlotWindow.GetInstance(level.slots[i,j], level.ID);
+                        var window = BoardSlotWindow.GetInstance(level.Slots[i,j], level.ID);
                     }
 
-                    if (level.slots[i, j].CanHoldCell && level.slots[i, j].IsActive)
+                    if (level.Slots[i, j].CanHoldCell && level.Slots[i, j].IsActive)
                     {
-                        if (level.slots[i, j].IsBlocked)
+                        if (level.Slots[i, j].IsBlocked)
                         {
                             EditorGUILayout.ColorField(Color.black);
                         }
                         else
                         {
-                            switch (level.slots[i, j].Cell?.Color)
+                            switch (level.Slots[i, j].Cell?.Color)
                             {
                                 case CellsColor.Special:
                                     EditorGUILayout.ColorField(Color.white);

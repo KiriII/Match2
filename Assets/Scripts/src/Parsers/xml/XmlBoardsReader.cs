@@ -34,7 +34,8 @@ namespace Match3Configs.Levels
                 GetFieldSize(out var rows, out var collumns, levelElement);
                 level.rows = rows;
                 level.collumns = collumns;
-                level.slots = new Slot[rows, collumns];
+                level.Slots = new Slot[rows, collumns];
+                level.Boxes = new Dictionary<Coordinate, string>();
 
                 var slotsElements = GetSlotsFromLevel(levelElement);
 
@@ -56,6 +57,8 @@ namespace Match3Configs.Levels
                     else
                     {
                         level.SetSlot(coordinate, new Slot(coordinate, canPassCell, isActive));
+                        var boxID = TryGetBoxIdFromSlot(coordinate, slot);
+                        if (boxID != null) level.AddBox(coordinate, boxID);
                     }
                 }
                 levels.Add(level);
@@ -198,6 +201,17 @@ namespace Match3Configs.Levels
             }
 
             return cell;
+        }
+
+        public static string TryGetBoxIdFromSlot(Coordinate coordinate, XElement slotElement)
+        {
+            var boxAttribute = slotElement.Attribute(XmlFields.SLOT_BOX_ATTRIBUTE);
+            if (boxAttribute != null)
+            {
+                var boxID = boxAttribute.Value;
+                return boxID;
+            }
+            return null;
         }
     }
 }

@@ -30,15 +30,14 @@ namespace Match3Core.Box
                 var checkingCellCoordinate = new Coordinate(coordinate, Vector2.up);
                 var dropDownCell = _boardModel.GetCell(checkingCellCoordinate);
                 var desiredId = _boxModel.GetIdByCoordinate(coordinate);
+                Debug.Log($"{checkingCellCoordinate} {dropDownCell?.Color}");
                 if (dropDownCell.Color == CellsColor.Special) //&& dropDownCell.Id == desiredId)
                 {
-                    Debug.Log($"Find booba in {checkingCellCoordinate}");
                     findedDroppedCells.Add(checkingCellCoordinate);
                 }
             }
             if (findedDroppedCells.Count > 0)
             {
-               
                 OnSpecialCellDroppedDown(findedDroppedCells);
             }
         }

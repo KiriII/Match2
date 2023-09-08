@@ -23,7 +23,6 @@ public class Launcher : MonoBehaviour
     {
         var levels = XmlBoardsReader.GetBoards();
         _levelsHolder = new LevelsHolder(levels, 0);
-
         CreateLevel(0);
     }
 
@@ -52,8 +51,9 @@ public class Launcher : MonoBehaviour
 
         var ñurrentLevel = _levelsHolder.GetCurrentLevel();
         var ids = _levelsHolder.GetLevelsID();
+        var boxes = ñurrentLevel.Boxes;
 
-        _match3GameCore = new Match3GameCore(ñurrentLevel.slots);
+        _match3GameCore = new Match3GameCore(ñurrentLevel.Slots, boxes);
 
         _viewUpdate = new ViewUpdateStack(mainUIObject.GetComponent<WindowMatch3Debug>(), _match3GameCore);
         _inputController = new InputController(_match3GameCore);

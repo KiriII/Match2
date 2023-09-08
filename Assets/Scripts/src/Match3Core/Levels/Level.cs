@@ -9,16 +9,22 @@ namespace Match3Core.Levels
         public int ID { get; set; }
         public int rows { get; set; }
         public int collumns { get; set; }
-        public Slot[,] slots { get; set; }
+        public Slot[,] Slots { get; set; }
+        public Dictionary<Coordinate, string> Boxes { get; set; }
 
         public Slot GetSlot(Coordinate coordinate)
         {
-            return slots[coordinate.x, coordinate.y];
+            return Slots[coordinate.x, coordinate.y];
         }
 
         public void SetSlot(Coordinate coordinate, Slot slot)
         {
-            slots[coordinate.x, coordinate.y] = slot;
+            Slots[coordinate.x, coordinate.y] = slot;
+        }
+
+        public void AddBox(Coordinate coordinate, string id)
+        {
+            Boxes.Add(coordinate, id);
         }
     }
 }

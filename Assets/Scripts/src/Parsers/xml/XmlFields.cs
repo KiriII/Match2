@@ -20,5 +20,6 @@ namespace Match3Configs.Levels
         public const string SLOT_PASS_CELL_ATTRIBUTE = "canPassCells";
         public const string SLOT_BLOCKED_ATTRIBUTE = "isBlocked";
         public const string SLOT_ACTIVE_ATTRIBUTE = "isActive";
+        public const string SLOT_BOX_ATTRIBUTE = "box";
     }
 }
