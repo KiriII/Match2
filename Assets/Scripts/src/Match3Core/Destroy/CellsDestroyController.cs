@@ -23,23 +23,32 @@ namespace Match3Core.DestroyCells
 
         // На самом деле не уничтожаем а перекрашиваем в пустой цвет
 
-        public bool DestroyCells(Coordinate coordinate)
+        public void ForceDestroyCells(List<Coordinate> tripledCells)
         {
-            if (!_cellDestroyModel.GetCanDestroyCell(coordinate)) return false;
+            DestroyCells(tripledCells, true);
+        }
+
+        public void SimpleDestroyCells(List<Coordinate> tripledCells)
+        {
+            DestroyCells(tripledCells, false);
+        }
+
+        public bool DestroyCells(Coordinate coordinate, bool forceDestroy = false)
+        {
+            if (!(_cellDestroyModel.GetCanDestroyCell(coordinate) || forceDestroy)) return false;
             _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
             OnViewUpdate();
             OnCellsDestroyed(new List<Coordinate> { coordinate });
             return true;
         }
 
-        public void DestroyCells(List<Coordinate> tripledCells)
+        private void DestroyCells(List<Coordinate> tripledCells, bool forceDestroy = false)
         {
             foreach (var cell in tripledCells)
             {
-                if (!_cellDestroyModel.GetCanDestroyCell(cell)) continue;
+                if (!(_cellDestroyModel.GetCanDestroyCell(cell) || forceDestroy)) continue;
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
-            //Debug.Log(String.Join(" ", tripledCells));
             OnViewUpdate();
             OnCellsDestroyed(tripledCells);
         }

@@ -57,12 +57,12 @@ namespace Match3Core
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
-            _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.DestroyCells);
-            _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.DestroyCells);
+            _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.SimpleDestroyCells);
+            _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.ForceDestroyCells);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
-            _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
             _fallingController.EnableCellsFellListener(_boxController.FindBoxDropdown);
+            _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);   
 
             // Create Cells On Board
             CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
@@ -117,11 +117,6 @@ namespace Match3Core
         public void DesableBoardScreenListener(Action<Slot[,]> methodInLitener)
         {
             _boardScreen -= methodInLitener;
-        }
-
-        public void DEADCELLS(List<Coordinate> tripledCells)
-        {
-            _cellsDestroyController.DestroyCells(tripledCells);
         }
 
         public void FindTriples()
