@@ -53,64 +53,116 @@ namespace Match3Debug.Configs
 
         void OnGUI()
         {
+            DrawActiveField();
+            if (_slot.IsActive)
+            {
+                DrawHoldCellField();
+            }
+            else
+            {
+                DrawBoxField();
+            }
+            if (!_slot.CanHoldCell || !_slot.IsActive)
+            {
+                DrawPassCellField();
+            }
+            if (_slot.CanHoldCell && _slot.IsActive)
+            {
+                DrawBlockedField();
+                if (!_slot.IsBlocked)
+                {
+                    DrawCellColorField();
+                }
+            }
+        }
+
+        private void DrawActiveField()
+        {
             EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("A:");
+            GUILayout.Label("Active:");
             if (GUILayout.Button($"{_slot.IsActive}", GUI.skin.label))
             {
                 XmlBoardsWriter.ToggleActive(_levelId, x, y);
                 _slot.IsActive = !_slot.IsActive;
             }
             EditorGUILayout.EndHorizontal();
-            if (_slot.IsActive)
-            {
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("H:");
-                if (GUILayout.Button($"{_slot.CanHoldCell}", GUI.skin.label))
-                {
-                    XmlBoardsWriter.ToggleHoldCell(_levelId, x, y);
-                    XmlBoardsWriter.SetColor(_levelId, x, y, CellsColor.Empty);
+        }
 
-                    _slot.CanHoldCell = !_slot.CanHoldCell;
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-            if (!_slot.CanHoldCell || !_slot.IsActive)
+        private void DrawHoldCellField()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Hold cell:");
+            if (GUILayout.Button($"{_slot.CanHoldCell}", GUI.skin.label))
             {
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("P:");
-                if (GUILayout.Button($"{_slot.CanPassCell}", GUI.skin.label))
-                {
-                    XmlBoardsWriter.TogglePassCell(_levelId, x, y);
+                XmlBoardsWriter.ToggleHoldCell(_levelId, x, y);
+                XmlBoardsWriter.SetColor(_levelId, x, y, CellsColor.Empty);
 
-                    _slot.CanPassCell = !_slot.CanPassCell;
-                }
-                EditorGUILayout.EndHorizontal();
+                _slot.CanHoldCell = !_slot.CanHoldCell;
             }
-            if (_slot.CanHoldCell && _slot.IsActive)
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawPassCellField()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Pass cell:");
+            if (GUILayout.Button($"{_slot.CanPassCell}", GUI.skin.label))
             {
-                EditorGUILayout.BeginHorizontal();
-                GUILayout.Label("B:");
-                if (GUILayout.Button($"{_slot.IsBlocked}", GUI.skin.label))
-                {
-                    XmlBoardsWriter.ToggleBlocked(_levelId, x, y);
+                XmlBoardsWriter.TogglePassCell(_levelId, x, y);
 
-                    _slot.IsBlocked = !_slot.IsBlocked;
-                }
-                EditorGUILayout.EndHorizontal();
-                if (!_slot.IsBlocked)
+                _slot.CanPassCell = !_slot.CanPassCell;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawBlockedField()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Blocked:");
+            if (GUILayout.Button($"{_slot.IsBlocked}", GUI.skin.label))
+            {
+                XmlBoardsWriter.ToggleBlocked(_levelId, x, y);
+
+                _slot.IsBlocked = !_slot.IsBlocked;
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawCellColorField()
+        {
+            var options = Enum.GetNames(typeof(CellsColor));
+            var color = _slot?.Cell?.Color;
+            var index = color is null ? 0 : (int)color;
+            var indexOriginal = index;
+            index = EditorGUILayout.Popup(index, options);
+            if (index != indexOriginal)
+            {
+                XmlBoardsWriter.SetColor(_levelId, x, y, (CellsColor)index);
+                _slot.Cell = new Cell((CellsColor)index);
+            }
+        }
+
+        private void DrawBoxField()
+        {
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Box:");
+            var boxId = XmlBoardsReader.TryGetBoxIdFromSlot(_slot.Coordinate, _levelId);
+            var haveBox = boxId != null;
+            if (GUILayout.Button($"{haveBox}", GUI.skin.label))
+            {
+                XmlBoardsWriter.ToggleBox(_levelId, x, y);
+            }
+            
+            if (boxId != null)
+            {
+                var stringToEdit = boxId;
+                stringToEdit = GUILayout.TextField(stringToEdit, 25);
+                if (stringToEdit != boxId)
                 {
-                    var options = Enum.GetNames(typeof(CellsColor));
-                    var color = _slot?.Cell?.Color;
-                    var index = color is null ? 0 : (int)color;
-                    var indexOriginal = index;
-                    index = EditorGUILayout.Popup(index, options);
-                    if (index != indexOriginal)
-                    {
-                        XmlBoardsWriter.SetColor(_levelId, x, y, (CellsColor)index);
-                        _slot.Cell = new Cell((CellsColor)index);
-                    }
+                    XmlBoardsWriter.SetBoxId(_levelId, x, y, stringToEdit);
                 }
             }
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

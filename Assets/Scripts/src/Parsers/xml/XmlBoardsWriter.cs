@@ -92,6 +92,29 @@ namespace Match3Configs.Levels
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_BLOCKED_ATTRIBUTE);
         }
 
+        public static void ToggleBox(int levelID, int posX, int posY, string boxId = "0")
+        {
+            var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
+            var boxAttribute = slot.Attribute(XmlFields.SLOT_BOX_ATTRIBUTE);
+            if (boxAttribute != null)
+            {
+                boxAttribute.Remove();
+            }
+            else
+            {
+                slot.SetAttributeValue(XmlFields.SLOT_BOX_ATTRIBUTE, boxId);
+            }
+
+            slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void SetBoxId(int levelID, int posX, int posY, string boxId)
+        {
+            var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
+            slot.SetAttributeValue(XmlFields.SLOT_BOX_ATTRIBUTE, boxId);
+            slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
         private static void ToggleCanSlot(int levelID, int posX, int posY, string attributeName)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);

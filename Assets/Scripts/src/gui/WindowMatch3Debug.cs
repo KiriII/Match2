@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Match3Core.Board;
+using Match3Core.Box;
 using Match3Core.MakeTurn;
 using Match3Input;
 
@@ -23,6 +24,7 @@ namespace Match3Core.gui
         [SerializeField] private Dropdown _levelsList;
 
         private IGUIBoardModel _GUIBoardModel;
+        private IGUIBoxModel _GUIBoxModdel;
         private InputController _inputController;
         private int _rows;
         private int _collumns;
@@ -44,7 +46,8 @@ namespace Match3Core.gui
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
         }
 
-        public void init(IGUIBoardModel GUIBoardModel, 
+        public void init(IGUIBoardModel boardModel,
+            IGUIBoxModel boxModel,
             HashSet<int> levelsID, 
             int curentLevelID,
             UnityAction<int> createNewBoardAction,
@@ -57,7 +60,8 @@ namespace Match3Core.gui
             _levelsID = levelsID;
             InitDropdownListView(createNewBoardAction);
 
-            _GUIBoardModel = GUIBoardModel;
+            _GUIBoardModel = boardModel;
+            _GUIBoxModdel = boxModel;
 
             var slots = _GUIBoardModel.GetSlots();
             _rows = _GUIBoardModel.GetRows();
@@ -109,6 +113,11 @@ namespace Match3Core.gui
                 var colorInvisible = slotObject.GetComponent<Image>().color;
                 colorInvisible.a = 0f;
                 slotObject.GetComponent<Image>().color = colorInvisible;
+                var boxId = _GUIBoxModdel.GetIdByCoordinate(coordinate);
+                if (boxId != null)
+                {
+                    slotObject.GetComponentInChildren<Text>().text = boxId; 
+                }
                 return slotObject.transform;
             }
             if (!slotScreen.CanHoldCell)

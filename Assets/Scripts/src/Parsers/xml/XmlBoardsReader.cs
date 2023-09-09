@@ -213,5 +213,11 @@ namespace Match3Configs.Levels
             }
             return null;
         }
+
+        public static string TryGetBoxIdFromSlot(Coordinate coordinate, int levelId)
+        {
+            var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
+            return TryGetBoxIdFromSlot(coordinate, slotElement);
+        }
     }
 }

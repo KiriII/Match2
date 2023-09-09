@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Match3Core.Box
 {
-    public class BoxModel : MonoBehaviour
+    public class BoxModel : IGUIBoxModel
     {
         private Dictionary<Coordinate, string> _boxes;
 
@@ -21,6 +21,7 @@ namespace Match3Core.Box
 
         public string GetIdByCoordinate(Coordinate coordinate)
         {
+            if (!_boxes.ContainsKey(coordinate)) return null;
             return _boxes[coordinate];
         }
     }

@@ -71,6 +71,11 @@ namespace Match3Core
             return _boardModel;
         }
 
+        public BoxModel GetBoxModel()
+        {
+            return _boxModel;
+        }
+
         public void UpdateView()
         {
             _boardScreen?.Invoke(_boardModel.GetBoardCopy());
