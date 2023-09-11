@@ -116,7 +116,8 @@ namespace Match3Core.gui
                 var boxId = _GUIBoxModdel.GetIdByCoordinate(coordinate);
                 if (boxId != null)
                 {
-                    slotObject.GetComponentInChildren<Text>().text = boxId; 
+                    //Debug.Log(boxId);
+                    //slotObject.GetComponentInChildren<Text>().text = boxId; 
                 }
                 return slotObject.transform;
             }

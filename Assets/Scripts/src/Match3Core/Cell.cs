@@ -11,7 +11,6 @@ namespace Match3Core
         {
             Color = cellsColor;
             Id = id;
-
         }
 
         public Cell(Cell cell)

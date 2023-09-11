@@ -34,7 +34,7 @@ level id - уникальный
       <slot coordinate="2/1" canHoldCell="false" />
       <slot coordinate="2/2" isBlocked="false" cell="red" />
       <slot coordinate="2/3" isBlocked="false" cell="red" />
-      <slot coordinate="2/4" isBlocked="false" cell="special" />
+      <slot coordinate="2/4" isBlocked="false" cell="special" cellId="228" />
       <slot coordinate="2/5" isBlocked="false" cell="red" />
       <slot coordinate="2/6" isBlocked="false" cell="red" />
       <slot coordinate="2/7" isBlocked="false" canHoldCell="false" />
@@ -79,7 +79,7 @@ level id - уникальный
       <slot coordinate="7/1" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/2" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/3" isBlocked="false" canHoldCell="false" />
-      <slot coordinate="7/4" isBlocked="false" canHoldCell="false" isActive="false" box="228"/>
+      <slot coordinate="7/4" isBlocked="false" canHoldCell="false" isActive="false" box="228" />
       <slot coordinate="7/5" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/6" isBlocked="false" canHoldCell="false" />
       <slot coordinate="7/7" isBlocked="false" canHoldCell="false" />

@@ -38,7 +38,7 @@ namespace Match3Configs.Levels
             levels.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetColor(int levelID, int posX, int posY, CellsColor color)
+        public static void SetCellColor(int levelID, int posX, int posY, CellsColor color)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
 
@@ -68,6 +68,17 @@ namespace Match3Configs.Levels
                     Debug.Log("NON");
                     break;
             }
+
+            slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void SetCellId(int levelID, int posX, int posY, string id)
+        {
+            var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
+
+            if (slot == null) return;
+
+            slot.SetAttributeValue(XmlFields.SLOT_CELL_ID, id);
 
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }

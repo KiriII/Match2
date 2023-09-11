@@ -57,7 +57,7 @@ namespace Match3Configs.Levels
                     else
                     {
                         level.SetSlot(coordinate, new Slot(coordinate, canPassCell, isActive));
-                        var boxID = TryGetBoxIdFromSlot(coordinate, slot);
+                        var boxID = TryGetBoxIdFromSlot(slot);
                         if (boxID != null) level.AddBox(coordinate, boxID);
                     }
                 }
@@ -181,19 +181,19 @@ namespace Match3Configs.Levels
             switch (color)
             {
                 case "special":
-                    cell = new Cell(CellsColor.Special);
+                    cell = new Cell(CellsColor.Special, TryGetCellIdFromCell(slotElement));
                     break;
                 case "red":
-                    cell = new Cell(CellsColor.Red);
+                    cell = new Cell(CellsColor.Red, TryGetCellIdFromCell(slotElement));
                     break;
                 case "green":
-                    cell = new Cell(CellsColor.Green);
+                    cell = new Cell(CellsColor.Green, TryGetCellIdFromCell(slotElement));
                     break;
                 case "blue":
-                    cell = new Cell(CellsColor.Blue);
+                    cell = new Cell(CellsColor.Blue, TryGetCellIdFromCell(slotElement));
                     break;
                 case "yellow":
-                    cell = new Cell(CellsColor.Yellow);
+                    cell = new Cell(CellsColor.Yellow, TryGetCellIdFromCell(slotElement));
                     break; 
                 default:
                     Debug.LogWarning($"Unknown color {color} in level.xml");
@@ -203,7 +203,24 @@ namespace Match3Configs.Levels
             return cell;
         }
 
-        public static string TryGetBoxIdFromSlot(Coordinate coordinate, XElement slotElement)
+        public static string TryGetCellIdFromCell(XElement slotElement)
+        {
+            var celIdAttribute = slotElement.Attribute(XmlFields.SLOT_CELL_ID);
+            if (celIdAttribute != null)
+            {
+                var cellID = celIdAttribute.Value;
+                return cellID;
+            }
+            return "";
+        }
+
+        public static string TryGetCellIdFromCell(Coordinate coordinate, int levelId)
+        {
+            var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
+            return TryGetCellIdFromCell(slotElement);
+        }
+
+        public static string TryGetBoxIdFromSlot(XElement slotElement)
         {
             var boxAttribute = slotElement.Attribute(XmlFields.SLOT_BOX_ATTRIBUTE);
             if (boxAttribute != null)
@@ -217,7 +234,7 @@ namespace Match3Configs.Levels
         public static string TryGetBoxIdFromSlot(Coordinate coordinate, int levelId)
         {
             var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
-            return TryGetBoxIdFromSlot(coordinate, slotElement);
+            return TryGetBoxIdFromSlot(slotElement);
         }
     }
 }

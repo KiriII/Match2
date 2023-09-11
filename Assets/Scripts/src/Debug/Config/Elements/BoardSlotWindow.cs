@@ -95,7 +95,7 @@ namespace Match3Debug.Configs
             if (GUILayout.Button($"{_slot.CanHoldCell}", GUI.skin.label))
             {
                 XmlBoardsWriter.ToggleHoldCell(_levelId, x, y);
-                XmlBoardsWriter.SetColor(_levelId, x, y, CellsColor.Empty);
+                XmlBoardsWriter.SetCellColor(_levelId, x, y, CellsColor.Empty);
 
                 _slot.CanHoldCell = !_slot.CanHoldCell;
             }
@@ -129,17 +129,30 @@ namespace Match3Debug.Configs
         }
 
         private void DrawCellColorField()
-        {
+        { 
+            EditorGUILayout.BeginHorizontal();
             var options = Enum.GetNames(typeof(CellsColor));
             var color = _slot?.Cell?.Color;
             var index = color is null ? 0 : (int)color;
             var indexOriginal = index;
+            var cellId = XmlBoardsReader.TryGetCellIdFromCell(_slot.Coordinate, _levelId);
             index = EditorGUILayout.Popup(index, options);
             if (index != indexOriginal)
             {
-                XmlBoardsWriter.SetColor(_levelId, x, y, (CellsColor)index);
-                _slot.Cell = new Cell((CellsColor)index);
+                XmlBoardsWriter.SetCellColor(_levelId, x, y, (CellsColor)index);
+                _slot.Cell = new Cell((CellsColor)index, cellId);
             }
+
+            if (_slot.Cell != null)
+            {
+                var stringToEdit = cellId;
+                stringToEdit = GUILayout.TextField(stringToEdit, 25);
+                if (stringToEdit != cellId)
+                {
+                    XmlBoardsWriter.SetCellId(_levelId, x, y, stringToEdit);
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
 
         private void DrawBoxField()
