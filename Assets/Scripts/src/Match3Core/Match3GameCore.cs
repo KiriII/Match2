@@ -31,6 +31,8 @@ namespace Match3Core
 
         private BoxController _boxController;
 
+        private ScoreHolder _scoreHolder;
+
         private event Action _updateView;
         private event Action<Slot[,]> _boardScreen;
 
@@ -40,6 +42,8 @@ namespace Match3Core
 
             _boardModel = new BoardModel(slots);
             _boxModel = new BoxModel(boxes);
+
+            _scoreHolder = new ScoreHolder();
 
             _switchCellController = new SwitchCellsContoller(_boardModel);
             _switchSlotsController = new SwitchSlotsController(_boardModel);
@@ -54,6 +58,7 @@ namespace Match3Core
             _boxController = new BoxController(_boxModel, _boardModel);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
+            _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.SimpleDestroyCells);
             _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.ForceDestroyCells);
@@ -83,6 +88,7 @@ namespace Match3Core
 
         public void TurnMade(Turn turn)
         {
+            _scoreHolder.ResetRowAfterTurn();
             _turnController.MakeTurn(turn);
         }
 
@@ -120,11 +126,6 @@ namespace Match3Core
         public void DesableBoardScreenListener(Action<Slot[,]> methodInLitener)
         {
             _boardScreen -= methodInLitener;
-        }
-
-        public void FindTriples()
-        {
-            _checkTriplesController.FindTriples();
         }
     }
 }

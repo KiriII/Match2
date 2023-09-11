@@ -28,11 +28,6 @@ public class Launcher : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _match3GameCore.FindTriples();
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             _inputController?.ChangeState(0);

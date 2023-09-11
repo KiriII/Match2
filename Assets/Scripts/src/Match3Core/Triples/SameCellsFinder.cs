@@ -8,7 +8,7 @@ namespace Match3Core.Triples
     {
         private const int CELLS_COUNT_IN_A_ROW = 3;
 
-        private static List<int> CheckSameInArray(Cell[] cells)
+        private static List<int> CheckSameInArray(Cell[] cells, Action<int> triplesCount)
         {
             var findedCells = new List<int>();
             for (int cellPosition = 0; cellPosition <= cells.Length - CELLS_COUNT_IN_A_ROW; cellPosition++)
@@ -31,12 +31,13 @@ namespace Match3Core.Triples
                     var sameCells = Enumerable.Range(cellPosition, sameCellsCount).ToList();
                     findedCells.AddRange(sameCells);
                     cellPosition += sameCellsCount;
+                    triplesCount?.Invoke(sameCellsCount);
                 }
             }
             return findedCells;
         }
 
-        public static List<Coordinate> TriplesFinder(Cell[,] cells)
+        public static List<Coordinate> TriplesFinder(Cell[,] cells, Action<int> triplesCount = null)
         {
             var findedCells = new List<Coordinate>();
 
@@ -47,14 +48,13 @@ namespace Match3Core.Triples
 
             for (int i = 0; i < rows; i++)
             {
-                var YcoordinatesOfTriples = CheckSameInArray(GetFullRow(cells, i));
-                var XcoordinatesOfTriples = CheckSameInArray(GetFullCollumn(cells, i));
+                var YcoordinatesOfTriples = CheckSameInArray(GetFullRow(cells, i), triplesCount);
+                var XcoordinatesOfTriples = CheckSameInArray(GetFullCollumn(cells, i), triplesCount);
 
                 foreach (var y in YcoordinatesOfTriples)
                 {
                     if (!FindCoordinateInFinded(findedCells, i, y))
                     {
-                        //Debug.Log($"{new Coordinate(i, y)}");
                         findedCells.Add(new Coordinate(i, y));
                     }
                 }
@@ -62,7 +62,6 @@ namespace Match3Core.Triples
                 {
                     if (!FindCoordinateInFinded(findedCells, x, i))
                     {
-                        //Debug.Log($"{new Coordinate(x, i)}");
                         findedCells.Add(new Coordinate(x, i));
                     }
                 }

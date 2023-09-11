@@ -11,6 +11,7 @@ namespace Match3Core.Triples
         private IBoardCheckTriplesModel _boardModel;
 
         private event Action<List<Coordinate>> _triplesFinded;
+        private event Action<int> _triplesCount;
 
         public CheckTriplesController(IBoardCheckTriplesModel boardModel)
         {
@@ -21,7 +22,7 @@ namespace Match3Core.Triples
         {
             var cells = _boardModel.GetCells();
 
-            var findedCells = SameCellsFinder.TriplesFinder(cells);
+            var findedCells = SameCellsFinder.TriplesFinder(cells, _triplesCount);
 
             OnTriplesFinded(findedCells);
         }
@@ -39,6 +40,21 @@ namespace Match3Core.Triples
         public void DesableTriplesFindedListener(Action<List<Coordinate>> methodInLitener)
         {
             _triplesFinded -= methodInLitener;
+        }
+
+        private void OnTriplesCount(int triplesCount)
+        {
+            _triplesCount?.Invoke(triplesCount);
+        }
+
+        public void EnableTriplesCountListener(Action<int> methodInLitener)
+        {
+            _triplesCount += methodInLitener;
+        }
+
+        public void DesableTriplesCountListener(Action<int> methodInLitener)
+        {
+            _triplesCount -= methodInLitener;
         }
     }
 }
