@@ -53,8 +53,7 @@ public class Launcher : MonoBehaviour
         _viewUpdate = new ViewUpdateStack(mainUIObject.GetComponent<WindowMatch3Debug>(), _match3GameCore);
         _inputController = new InputController(_match3GameCore);
 
-        mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore.GetBoardModel(),
-            _match3GameCore.GetBoxModel(),
+        mainUIObject.GetComponent<WindowMatch3Debug>().init(_match3GameCore,
             ids,
             _levelsHolder.currentLevelID,
             CreateLevel,

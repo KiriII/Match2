@@ -22,9 +22,9 @@ namespace Match3Core.gui
         [SerializeField] private Button _destroySlotButton;
         [SerializeField] private Button _destroyCellButton;
         [SerializeField] private Dropdown _levelsList;
+        [SerializeField] private Text _score;
 
-        private IGUIBoardModel _GUIBoardModel;
-        private IGUIBoxModel _GUIBoxModdel;
+        private Match3GameCore _gameCore;
         private InputController _inputController;
         private int _rows;
         private int _collumns;
@@ -44,10 +44,10 @@ namespace Match3Core.gui
             if (_destroySlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_destroyCellButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            if (_score == null) throw new Exception($"Missing component in {this.gameObject.name}");
         }
 
-        public void init(IGUIBoardModel boardModel,
-            IGUIBoxModel boxModel,
+        public void init(Match3GameCore gameCore,
             HashSet<int> levelsID, 
             int curentLevelID,
             UnityAction<int> createNewBoardAction,
@@ -60,18 +60,17 @@ namespace Match3Core.gui
             _levelsID = levelsID;
             InitDropdownListView(createNewBoardAction);
 
-            _GUIBoardModel = boardModel;
-            _GUIBoxModdel = boxModel;
+            _gameCore = gameCore;
 
-            var slots = _GUIBoardModel.GetSlots();
-            _rows = _GUIBoardModel.GetRows();
-            _collumns = _GUIBoardModel.GetCollumns();
+            var slots = _gameCore.GetSlots();
+            _rows = _gameCore.GetRows();
+            _collumns = _gameCore.GetCollumns();
 
             _slotsObjects = new GameObject[_rows, _collumns];
 
             _slotsGrid.constraintCount = _rows;
 
-            DrawField(_GUIBoardModel.GetSlots());
+            DrawField(_gameCore.GetSlots());
 
             _updateViewButton.onClick.AddListener(UpdateView);
             _createSlotButton.onClick.AddListener(ChangeStateCreateSlot);
@@ -90,6 +89,8 @@ namespace Match3Core.gui
 
         public void DrawField(Slot[,] boardCopy)
         {
+            _score.text = _gameCore.GetScore().ToString();
+
             var gridTransform = _slotsGrid.gameObject.transform;
             for (int x = 0; x < _rows; x++)
             {
@@ -113,7 +114,7 @@ namespace Match3Core.gui
                 var colorInvisible = slotObject.GetComponent<Image>().color;
                 colorInvisible.a = 0f;
                 slotObject.GetComponent<Image>().color = colorInvisible;
-                var boxId = _GUIBoxModdel.GetIdByCoordinate(coordinate);
+                var boxId = _gameCore.GetIdByCoordinate(coordinate);
                 if (boxId != null)
                 {
                     //Debug.Log(boxId);
@@ -176,7 +177,7 @@ namespace Match3Core.gui
         
         public void UpdateView()
         {
-            UpdateView(_GUIBoardModel.GetSlots());
+            UpdateView(_gameCore.GetSlots());
         }
         
         public void ChangeStateDestroyCell()

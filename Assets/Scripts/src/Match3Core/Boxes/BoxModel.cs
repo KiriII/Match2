@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Match3Core.Box
 {
-    public class BoxModel : IGUIBoxModel
+    public class BoxModel
     {
         private Dictionary<Coordinate, string> _boxes;
 

@@ -7,7 +7,6 @@ namespace Match3Core.Board
 {
     public class BoardModel : IBoardSwitchCellsModel, 
         IBoardFallLineModel, 
-        IGUIBoardModel,
         IBoardCheckTriplesModel,
         IBoardTurnModel,
         IBoardSlotUnblockModel,

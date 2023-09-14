@@ -71,16 +71,6 @@ namespace Match3Core
             CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
         }
 
-        public BoardModel GetBoardModel()
-        {
-            return _boardModel;
-        }
-
-        public BoxModel GetBoxModel()
-        {
-            return _boxModel;
-        }
-
         public void UpdateView()
         {
             _boardScreen?.Invoke(_boardModel.GetBoardCopy());
@@ -101,11 +91,38 @@ namespace Match3Core
         {
             return _slotManipulateController.DestroySlot(coordinate);
         }
+
         public bool CreateSlot(Coordinate coordinate)
         {
             return _slotManipulateController.CreateSlot(coordinate);
         }
 
+        // ---------- GETTERS ------------------
+
+        public int GetScore()
+        {
+            return _scoreHolder.GetScore();
+        }
+
+        public Slot[,] GetSlots()
+        {
+            return _boardModel.GetSlots();
+        }
+
+        public int GetRows()
+        {
+            return _boardModel.GetRows();
+        }
+
+        public int GetCollumns()
+        {
+            return _boardModel.GetCollumns();
+        }
+
+        public string GetIdByCoordinate(Coordinate coordinate)
+        {
+            return _boxModel.GetIdByCoordinate(coordinate);
+        }
 
         // ------ ACTIONS ------
         public void EnableCellSwitchedListener(Action methodInLitener)

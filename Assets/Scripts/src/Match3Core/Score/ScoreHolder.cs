@@ -20,7 +20,7 @@ namespace Match3Core
         {
             triplesInRow += 1;
             var addedScore = 10 * tripleCount * triplesInRow + 5 * Math.Pow(tripleCount, 3);
-            Debug.Log($"{Score} += 10 * {tripleCount} * {triplesInRow} + 5 * {Math.Pow(tripleCount, 3)} \n {Score + addedScore}");
+            //Debug.Log($"{Score} += 10 * {tripleCount} * {triplesInRow} + 5 * {Math.Pow(tripleCount, 3)} \n {Score + addedScore}");
             Score += (int)addedScore;
         }
 
