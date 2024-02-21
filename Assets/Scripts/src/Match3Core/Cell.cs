@@ -33,5 +33,10 @@ namespace Match3Core
             }
             return Color == cell.Color;
         }
+
+        public override string ToString()
+        {
+            return $"{Color}";
+        }
     }
 }

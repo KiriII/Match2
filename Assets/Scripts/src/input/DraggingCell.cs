@@ -5,26 +5,34 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Match3Core;
 using Match3Core.MakeTurn;
+using Match3Core.gui;
 
 namespace Match3Input
 {
-    public class DraggingCell : MonoBehaviour
+    public class DraggingCell : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDropHandler
     {
         private Vector2 initialPos;
         private event Action<Turn> _turnMade;
 
         public Coordinate coordinate;
 
-        public void OnMouseDown()
+        public void OnPointerDown(PointerEventData eventData)
         {
-            initialPos = Input.mousePosition;
+            initialPos = eventData.position;
         }
 
-        public void OnMouseUp()
+        public void OnPointerUp(PointerEventData eventData)
         {
-            OnTurnMade(Calculate(Input.mousePosition));
+            OnTurnMade(Calculate(eventData.position));
         }
-        
+
+        public void OnDrop(PointerEventData eventData)
+        {
+            Debug.Log($"Drop {eventData.pointerDrag}");
+            var fallenSlotObject = eventData.pointerDrag;
+            OnTurnMade(new Turn(coordinate, fallenSlotObject.GetComponent<FallenSlotHolder>().fallenSlot, fallenSlotObject));
+        }
+
         private Turn Calculate(Vector3 finalPos)
         {
             float disX = Mathf.Abs(initialPos.x - finalPos.x);
@@ -61,8 +69,8 @@ namespace Match3Input
                     }
                 }
             }
-
-            return new Turn(coordinate, vector);
+            var localPosition = gameObject.transform.localPosition;
+            return new Turn(coordinate, vector, new Vector3(localPosition.x, localPosition.y, localPosition.z)); ;
         }
 
         private void OnTurnMade(Turn turn)

@@ -45,5 +45,10 @@ namespace Match3Core
             Cell = new Cell(slot.Cell);
             Coordinate = slot.Coordinate;
         }
+
+        public override string ToString()
+        {
+            return $"C={Coordinate} Cell={Cell}";
+        }
     }
 }

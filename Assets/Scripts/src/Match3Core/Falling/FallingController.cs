@@ -34,6 +34,7 @@ namespace Match3Core.Falling
                 var emptySlots = EmptyCellsFinder.FindEmpty(_fallLineModel.GetSlots());
                 foreach (var slot in emptySlots)
                 {
+                    // Check slot in coordinate is empty color 
                     if (!deadCellsCoordinates.Contains(slot)) deadCellsCoordinates.Add(slot);
                 }
             }

@@ -132,10 +132,10 @@ namespace Match3Core.Board
 
         public bool GetCanDestroySlot(Coordinate coordinate)
         {
+            if (!GetSlot(coordinate).IsActive ||
+                !GetSlot(coordinate).CanHoldCell) return false;
             var cell = _board[coordinate.x, coordinate.y].Cell;
-            return !(cell.Color == CellsColor.Special) &&
-                GetSlot(coordinate).IsActive &&
-                GetSlot(coordinate).CanHoldCell;
+            return !(cell.Color == CellsColor.Special);
         }
 
         public bool GetCanDestroySlot(int x, int y)

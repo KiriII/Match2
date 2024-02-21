@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 341274844883251181}
   - component: {fileID: 3064549847107534815}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: WindowMatch3debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,6 +36,7 @@ RectTransform:
   - {fileID: 7202751412028895664}
   - {fileID: 7983494280609351689}
   - {fileID: 9074561087341277904}
+  - {fileID: 5281909180086649936}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64,6 +65,7 @@ MonoBehaviour:
   _destroySlotButton: {fileID: 1913287936831640828}
   _destroyCellButton: {fileID: 7993601741863098501}
   _levelsList: {fileID: 318835072199584852}
+  _score: {fileID: 4771279663272029894}
 --- !u!1 &341274845556953632
 GameObject:
   m_ObjectHideFlags: 0
@@ -75,7 +77,7 @@ GameObject:
   - component: {fileID: 341274845556953635}
   - component: {fileID: 341274845556953693}
   - component: {fileID: 341274845556953634}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +153,7 @@ GameObject:
   - component: {fileID: 1914717667035957684}
   - component: {fileID: 5773233328748506107}
   - component: {fileID: 7824943022678156919}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +235,7 @@ GameObject:
   - component: {fileID: 7167386001773896084}
   - component: {fileID: 6444631563707607473}
   - component: {fileID: 5294733032438364313}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Item Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +312,7 @@ GameObject:
   - component: {fileID: 3146623316418992257}
   - component: {fileID: 6284248827086746986}
   - component: {fileID: 4150792658273881548}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Viewport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,7 +402,7 @@ GameObject:
   - component: {fileID: 5137281825618786090}
   - component: {fileID: 994350469126907319}
   - component: {fileID: 2526509936308780682}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,7 +479,7 @@ GameObject:
   - component: {fileID: 5526923793409470441}
   - component: {fileID: 2773830316687434171}
   - component: {fileID: 6170457242629328721}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +601,7 @@ GameObject:
   - component: {fileID: 552328721840209415}
   - component: {fileID: 5741989535236148007}
   - component: {fileID: 318835072199584852}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Dropdown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +733,7 @@ GameObject:
   - component: {fileID: 1570891545516501670}
   - component: {fileID: 6473499733660918833}
   - component: {fileID: 2166317050599423331}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +815,7 @@ GameObject:
   - component: {fileID: 3884893733382032433}
   - component: {fileID: 833531809250345081}
   - component: {fileID: 6708785766415690634}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,7 +895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5765117705726443363}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -933,7 +935,7 @@ GameObject:
   - component: {fileID: 3588185023725618621}
   - component: {fileID: 3024863256435177772}
   - component: {fileID: 1913287936831640828}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: DestroySlotButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1057,7 @@ GameObject:
   - component: {fileID: 5926618752389335530}
   - component: {fileID: 5682621095791135613}
   - component: {fileID: 8175820696061859014}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Scrollbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1179,7 +1181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837825631100457902}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Sliding Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,7 +1219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6739250400324518603}
   - component: {fileID: 4950474454698170516}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: GridSlots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1280,7 +1282,7 @@ GameObject:
   - component: {fileID: 2186452515221524706}
   - component: {fileID: 120200167525207642}
   - component: {fileID: 9153745805578400396}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1388,7 +1390,7 @@ GameObject:
   - component: {fileID: 4119021836004119557}
   - component: {fileID: 4638137538544545496}
   - component: {fileID: 5161531174710166116}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Item Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1457,6 +1459,86 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!1 &5698682521046749558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5281909180086649936}
+  - component: {fileID: 1391853996324700303}
+  - component: {fileID: 4771279663272029894}
+  m_Layer: 6
+  m_Name: Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5281909180086649936
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5698682521046749558}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 341274844883251181}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -336, y: 178}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1391853996324700303
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5698682521046749558}
+  m_CullTransparentMesh: 1
+--- !u!114 &4771279663272029894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5698682521046749558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 22
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: asdfasdf
 --- !u!1 &6895188223185306122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1550,7 @@ GameObject:
   - component: {fileID: 8512213517524560416}
   - component: {fileID: 7941874070482960701}
   - component: {fileID: 6590712180765052943}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1548,7 +1630,7 @@ GameObject:
   - component: {fileID: 2427206802157202106}
   - component: {fileID: 2449340345931593730}
   - component: {fileID: 2153558359358531798}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1631,7 +1713,7 @@ GameObject:
   - component: {fileID: 6232756357598938513}
   - component: {fileID: 3712046094747848944}
   - component: {fileID: 3212626028988793044}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: CreateSlotButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1753,7 +1835,7 @@ GameObject:
   - component: {fileID: 3807287055733554515}
   - component: {fileID: 4976762047881978230}
   - component: {fileID: 7993601741863098501}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: DestroyCellButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1874,7 +1956,7 @@ GameObject:
   - component: {fileID: 7356448860688096396}
   - component: {fileID: 8457427002443995743}
   - component: {fileID: 9108811791717380909}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1950,7 +2032,7 @@ GameObject:
   - component: {fileID: 3276291110395293090}
   - component: {fileID: 7164358270806120503}
   - component: {fileID: 2282071870971686572}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Item Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2025,7 +2107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6648865867166314507}
   - component: {fileID: 5293608988805887321}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}

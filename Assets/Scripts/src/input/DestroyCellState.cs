@@ -20,6 +20,11 @@ namespace Match3Input
 
         public override void MakeTurn(Turn turn)
         {
+            if (turn.fallenSlot != null)
+            {
+                _inputController.ChangeState(3);
+                _inputController.TurnMade(turn);
+            }
             if (turn.vector == Vector2.zero)
             {
                 if (_gameCore.DestroyCell(turn.coordinate))

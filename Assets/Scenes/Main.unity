@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 553867119}
   _mainUI: {fileID: 341274844883251186, guid: 51fd9ca9edb6e0f41b85c525e8d69ef8, type: 3}
+  _fallenSlots: {fileID: 6533078741600885803, guid: 2471b25f7f343b54083b4c39d6b45879, type: 3}
 --- !u!1 &553867115
 GameObject:
   m_ObjectHideFlags: 0

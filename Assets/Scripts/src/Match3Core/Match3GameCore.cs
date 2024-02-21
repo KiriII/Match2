@@ -12,6 +12,7 @@ using Match3Core.RandomGenerate;
 using Match3Core.SlotManipulate;
 using Match3Core.gui;
 using Match3Core.Box;
+using Match3Core.FallenOff;
 
 namespace Match3Core
 {
@@ -19,6 +20,7 @@ namespace Match3Core
     {
         private BoardModel _boardModel;
         private BoxModel _boxModel;
+        private FallenOffSlotsModel _fallenOffSlotsModel;
 
         private SwitchCellsContoller _switchCellController;
         private SwitchSlotsController _switchSlotsController;
@@ -42,6 +44,7 @@ namespace Match3Core
 
             _boardModel = new BoardModel(slots);
             _boxModel = new BoxModel(boxes);
+            _fallenOffSlotsModel = new FallenOffSlotsModel();
 
             _scoreHolder = new ScoreHolder();
 
@@ -53,7 +56,7 @@ namespace Match3Core
             _fallingController = new FallingSidewayController(_boardModel, _switchCellController, _updateView);
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
-            _slotManipulateController = new SlotManipulateController(_switchSlotsController, _boardModel, _updateView);
+            _slotManipulateController = new SlotManipulateController(_switchSlotsController, _boardModel, _fallenOffSlotsModel, _updateView);
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
@@ -65,7 +68,8 @@ namespace Match3Core
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_boxController.FindBoxDropdown);
-            _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);   
+            _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
+            _switchSlotsController.EnableSlotSwitchedListener(_checkTriplesController.FindTriples);
 
             // Create Cells On Board
             CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
@@ -92,9 +96,10 @@ namespace Match3Core
             return _slotManipulateController.DestroySlot(coordinate);
         }
 
-        public bool CreateSlot(Coordinate coordinate)
+        public bool CreateSlot(Coordinate coordinate, Slot slot)
         {
-            return _slotManipulateController.CreateSlot(coordinate);
+            Debug.Log($"{coordinate} {slot}");
+            return _slotManipulateController.CreateSlot(coordinate, slot);
         }
 
         // ---------- GETTERS ------------------
@@ -122,6 +127,11 @@ namespace Match3Core
         public string GetIdByCoordinate(Coordinate coordinate)
         {
             return _boxModel.GetIdByCoordinate(coordinate);
+        }
+
+        public Slot GetFallenSlot()
+        {
+            return _fallenOffSlotsModel.GetFallenSlot();
         }
 
         // ------ ACTIONS ------

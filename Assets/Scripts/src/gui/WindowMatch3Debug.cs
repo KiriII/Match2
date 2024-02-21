@@ -18,7 +18,6 @@ namespace Match3Core.gui
         [SerializeField] private GameObject _slot;
         [SerializeField] private GameObject _cell;
         [SerializeField] private Button _updateViewButton;
-        [SerializeField] private Button _createSlotButton;
         [SerializeField] private Button _destroySlotButton;
         [SerializeField] private Button _destroyCellButton;
         [SerializeField] private Dropdown _levelsList;
@@ -40,7 +39,6 @@ namespace Match3Core.gui
             if (_slot == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_cell == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_createSlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_destroySlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_destroyCellButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
@@ -73,7 +71,6 @@ namespace Match3Core.gui
             DrawField(_gameCore.GetSlots());
 
             _updateViewButton.onClick.AddListener(UpdateView);
-            _createSlotButton.onClick.AddListener(ChangeStateCreateSlot);
             _destroySlotButton.onClick.AddListener(ChangeStateDestroySlot);
             _destroyCellButton.onClick.AddListener(ChangeStateDestroyCell);
         }

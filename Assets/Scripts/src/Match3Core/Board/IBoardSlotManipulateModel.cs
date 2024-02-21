@@ -10,5 +10,6 @@ namespace Match3Core.Board
         public bool GetCanHoldCell(Coordinate coordinate);
         public bool GetActive(Coordinate coordinate);
         public bool GetCanDestroySlot(Coordinate coordinate);
+        public Slot GetSlot(Coordinate coordinate);
     }
 }

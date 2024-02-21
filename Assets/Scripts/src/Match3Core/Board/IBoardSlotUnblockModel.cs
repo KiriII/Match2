@@ -6,8 +6,8 @@ namespace Match3Core.Board
 {
     public interface IBoardSlotUnblockModel
     {
-        public bool GetBlocked(Coordinate coordinate);
         public List<Coordinate> GetNeighbourSlot(Coordinate coordinate);
         public void UnblockSlot(Coordinate coordinate);
+        public bool GetBlocked(Coordinate coordinate);
     }
 }
