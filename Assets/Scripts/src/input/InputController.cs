@@ -9,7 +9,11 @@ namespace Match3Input
 {
     public class InputController
     {
-        public InputState State { get; set; }
+        public InputStateMachine inputSM;
+        public TurnState turnState;
+        public DestroyCellState destroyCellState;
+        public DestroySlotState destroySlotState;
+        public CreateSlotState createSlotState;
 
         private Match3GameCore _gameCore;
 
@@ -20,34 +24,55 @@ namespace Match3Input
         {
             _gameCore = gameCore;
 
-            this.State = new TurnState(this, _gameCore);
+            inputSM = new InputStateMachine();
+
+            turnState = new TurnState(this, inputSM);
+            destroyCellState = new DestroyCellState(this, inputSM);
+            destroySlotState = new DestroySlotState(this, inputSM);
+            createSlotState = new CreateSlotState(this, inputSM);
+
+            inputSM.Initialize(turnState);
         }
 
-        public void ChangeState(int state)
+        public void AbilityButtonPressed(int buttonId)
         {
-            if ((int)State.state == state) return;
-            switch (state)
-            {
-                case 0:
-                    State = new TurnState(this, _gameCore);
-                    break;
-                case 1:
-                    State = new DestroyCellState(this, _gameCore);
-                    break;
-                case 2:
-                    State = new DestroySlotState(this, _gameCore, _slotDestroyed);
-                    break;
-                case 3:
-                    State = new CreateSlotState(this, _gameCore, _slotCreated);
-                    break;
-                default:
-                    break;
-            }
+            turnState.AbilityButtonPressed(buttonId);
         }
 
         public void TurnMade(Turn turn)
         {
-            State.MakeTurn(turn);
+            Debug.Log(turn);
+            inputSM.currentState.MakeTurn(turn);
+        }
+
+        public void MakeSwapTurn(Turn turn)
+        {
+            _gameCore.TurnMade(turn);
+        }
+
+        public bool DestroyCell(Coordinate coordinate)
+        {
+            return _gameCore.DestroyCell(coordinate);
+        }
+
+        public bool DestroySlot(Coordinate coordinate, Vector3 position)
+        {
+            if (_gameCore.DestroySlot(coordinate))
+            {
+                _slotDestroyed?.Invoke(position);
+                return true;
+            }
+            return false;   
+        }
+
+        public bool CreateSlot(Coordinate coordinate, Slot fallenSlot, GameObject fallenSlotObject)
+        {
+            if (_gameCore.CreateSlot(coordinate, fallenSlot))
+            {
+                _slotCreated?.Invoke(fallenSlotObject);
+                return true;
+            }
+            return false;
         }
 
         public void EnableSlotDestroyedListener(Action<Vector3> methodInLitener)

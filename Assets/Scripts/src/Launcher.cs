@@ -32,7 +32,7 @@ public class Launcher : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            _inputController?.ChangeState(0);
+            _inputController?.AbilityButtonPressed(0);
         }
 
         _viewUpdate?.UpdateScreen();

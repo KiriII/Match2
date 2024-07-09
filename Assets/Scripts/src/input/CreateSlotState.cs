@@ -9,29 +9,20 @@ namespace Match3Input
 {
     public class CreateSlotState : InputState
     {
-        private Match3GameCore _gameCore;
-        private InputController _inputController;
-
-        private event Action<GameObject> _slotCreated;
-
-        public CreateSlotState(InputController inputController, Match3GameCore gameCore, Action<GameObject> slotCreated)
+        public CreateSlotState(InputController controller, InputStateMachine stateMachine) : base(controller, stateMachine)
         {
-            state = States.CreateSlot;
-            _inputController = inputController;
-            _gameCore = gameCore;
-            _slotCreated = slotCreated;
         }
 
         public override void MakeTurn(Turn turn)
         {
+            Debug.Log("CREATE SLOT");
             if (turn.fallenSlot == null) throw new Exception("NullReferenceException. Try to create null slot");
             if (turn.vector == Vector2.zero)
             {
-                if (_gameCore.CreateSlot(turn.coordinate, turn.fallenSlot))
+                if (controller.CreateSlot(turn.coordinate, turn.fallenSlot, turn.fallenSlotObject))
                 {
-                    _slotCreated?.Invoke(turn.fallenSlotObject);
                     Debug.Log($"Create Slot {turn}");
-                    _inputController.ChangeState(0);
+                    stateMachine.ChangeState(controller.turnState);
                 }
             }
         }

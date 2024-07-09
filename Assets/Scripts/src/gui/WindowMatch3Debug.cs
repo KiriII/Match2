@@ -179,17 +179,12 @@ namespace Match3Core.gui
         
         public void ChangeStateDestroyCell()
         {
-            _inputController.ChangeState(1);
+            _inputController.AbilityButtonPressed(1);
         }
 
         public void ChangeStateDestroySlot()
         {
-            _inputController.ChangeState(2);
-        }
-
-        public void ChangeStateCreateSlot()
-        {
-            _inputController.ChangeState(3);
+            _inputController.AbilityButtonPressed(2);
         }
 
         public void UpdateView(Slot[,] boardCopy)

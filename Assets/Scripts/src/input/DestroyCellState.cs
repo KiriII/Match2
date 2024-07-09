@@ -8,29 +8,20 @@ namespace Match3Input
 {
     public class DestroyCellState : InputState
     {
-        private Match3GameCore _gameCore;
-        private InputController _inputController;
-
-        public DestroyCellState(InputController inputController, Match3GameCore gameCore)
+        public DestroyCellState(InputController controller, InputStateMachine stateMachine) : base(controller, stateMachine)
         {
-            state = States.DestroyCell;
-            _inputController = inputController;
-            _gameCore = gameCore;
         }
 
         public override void MakeTurn(Turn turn)
         {
-            if (turn.fallenSlot != null)
-            {
-                _inputController.ChangeState(3);
-                _inputController.TurnMade(turn);
-            }
+            Debug.Log("DESTROY CELL");
+            base.MakeTurn(turn);
             if (turn.vector == Vector2.zero)
             {
-                if (_gameCore.DestroyCell(turn.coordinate))
+                if (controller.DestroyCell(turn.coordinate))
                 {
                     Debug.Log($"Destroy Cell {turn.coordinate} {turn.vector}");
-                    _inputController.ChangeState(0);
+                    stateMachine.ChangeState(controller.turnState);
                 }
             }
         }

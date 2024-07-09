@@ -9,32 +9,19 @@ namespace Match3Input
 {
     public class DestroySlotState : InputState
     {
-        private Match3GameCore _gameCore;
-        private InputController _inputController;
-
-        private event Action<Vector3> _slotDestroyed;
-
-        public DestroySlotState(InputController inputController, Match3GameCore gameCore, Action<Vector3> slotDestroyed)
+        public DestroySlotState(InputController controller, InputStateMachine stateMachine) : base(controller, stateMachine)
         {
-            state = States.DestroySlot;
-            _inputController = inputController;
-            _gameCore = gameCore;
-            _slotDestroyed = slotDestroyed;
         }
 
         public override void MakeTurn(Turn turn)
         {
-            if (turn.fallenSlot != null)
-            {
-                _inputController.ChangeState(3);
-                _inputController.TurnMade(turn);
-            }
+            Debug.Log("DESTROY SLOT");
+            base.MakeTurn(turn);
             if (turn.vector == Vector2.zero)
             {
-                if (_gameCore.DestroySlot(turn.coordinate))
+                if (controller.DestroySlot(turn.coordinate, turn.position))
                 {
-                    _slotDestroyed?.Invoke(turn.position);
-                    _inputController.ChangeState(0);
+                    stateMachine.ChangeState(controller.turnState);
                 }
             }
         }
