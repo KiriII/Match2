@@ -13,7 +13,6 @@ namespace Match3Input
 
         public override void MakeTurn(Turn turn)
         {
-            Debug.Log("CREATE SLOT");
             if (turn.fallenSlot == null) throw new Exception("NullReferenceException. Try to create null slot");
             if (turn.vector == Vector2.zero)
             {

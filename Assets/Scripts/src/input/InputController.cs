@@ -74,6 +74,16 @@ namespace Match3Input
             return false;
         }
 
+        public bool CreateShockerSlot(Coordinate coordinate, Slot fallenSlot, GameObject fallenSlotObject)
+        {
+            if (_gameCore.CreateShockerSlot(coordinate, fallenSlot))
+            {
+                _slotCreated?.Invoke(fallenSlotObject);
+                return true;
+            }
+            return false;
+        }
+
         public void EnableSlotDestroyedListener(Action<Vector3> methodInLitener)
         {
             _slotDestroyed += methodInLitener;

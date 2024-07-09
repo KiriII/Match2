@@ -98,9 +98,15 @@ namespace Match3Core
 
         public bool CreateSlot(Coordinate coordinate, Slot slot)
         {
-            Debug.Log($"{coordinate} {slot}");
             return _slotManipulateController.CreateSlot(coordinate, slot);
         }
+
+        public bool CreateShockerSlot(Coordinate coordinate, Slot slot)
+        {
+            //TODO ADD SHOCKER CTRL
+            return _slotManipulateController.CreateSlot(coordinate, slot);
+        }
+
 
         // ---------- GETTERS ------------------
 
