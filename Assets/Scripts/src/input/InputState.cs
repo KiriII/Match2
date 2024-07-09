@@ -15,18 +15,16 @@ namespace Match3Input
             this.stateMachine = stateMachine;  
         }
 
-        public virtual void MakeTurn(Turn turn)
+        public abstract void MakeTurn(Turn turn);
+
+        protected void ChangeToCreateSlotState(Turn turn)
         {
-            if (turn.fallenSlot != null)
-            {
-                stateMachine.ChangeState(controller.createSlotState);
-                controller.TurnMade(turn);
-            }
+            stateMachine.ChangeState(controller.createSlotState);
+            controller.TurnMade(turn);
         }
 
         public void AbilityButtonPressed(int buttonId)
         {
-            Debug.Log($"button {buttonId}");
             switch (buttonId)
             {
                 case 0:

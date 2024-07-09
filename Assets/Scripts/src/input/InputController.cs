@@ -41,7 +41,6 @@ namespace Match3Input
 
         public void TurnMade(Turn turn)
         {
-            Debug.Log(turn);
             inputSM.currentState.MakeTurn(turn);
         }
 

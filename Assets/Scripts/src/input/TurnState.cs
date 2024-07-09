@@ -10,10 +10,12 @@ namespace Match3Input
         }
         
         public override void MakeTurn(Turn turn)
-        {
-            Debug.Log("TURN");
-            base.MakeTurn(turn);
-            if (turn.vector != Vector2.zero)
+        { 
+            if (turn.fallenSlot != null)
+            {
+                ChangeToCreateSlotState(turn);
+            }
+            else if (turn.vector != Vector2.zero)
             {
                 Debug.Log($"TURN {turn}");
                 controller.MakeSwapTurn(turn);

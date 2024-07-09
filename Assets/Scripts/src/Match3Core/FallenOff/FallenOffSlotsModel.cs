@@ -22,7 +22,7 @@ namespace Match3Core.FallenOff
         public void AddSlot(Slot slot)
         {
             _fallenSlots.Add(slot);
-            Debug.Log("FallenOff " + string.Join(", ", _fallenSlots));
+            Debug.Log("Add Slot " + string.Join(", ", _fallenSlots));
         }
 
         public void RemoveSlot(Slot slot)

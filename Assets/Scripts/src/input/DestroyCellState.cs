@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Match3Core;
 using Match3Core.MakeTurn;
 
 namespace Match3Input
@@ -14,9 +11,11 @@ namespace Match3Input
 
         public override void MakeTurn(Turn turn)
         {
-            Debug.Log("DESTROY CELL");
-            base.MakeTurn(turn);
-            if (turn.vector == Vector2.zero)
+            if (turn.fallenSlot != null)
+            {
+                ChangeToCreateSlotState(turn);
+            }
+            else if (turn.vector == Vector2.zero)
             {
                 if (controller.DestroyCell(turn.coordinate))
                 {

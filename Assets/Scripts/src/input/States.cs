@@ -10,5 +10,6 @@ namespace Match3Input
         DestroyCell = 1,
         DestroySlot = 2,
         CreateSlot = 3,
+        Shocker = 4,
     }
 }

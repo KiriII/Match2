@@ -34,7 +34,7 @@ public class Launcher : MonoBehaviour
         {
             _inputController?.AbilityButtonPressed(0);
         }
-
+        //Debug.Log(_inputController?.inputSM.currentState);
         _viewUpdate?.UpdateScreen();
     }
 
