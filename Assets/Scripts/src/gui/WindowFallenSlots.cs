@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Match3Core.FallenOff;
+using Match3Core;
 using Match3Input;
 
 namespace Match3Core.gui

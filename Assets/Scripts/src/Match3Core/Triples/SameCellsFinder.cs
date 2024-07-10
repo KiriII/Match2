@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Match3Core.Triples
+namespace Match3Core
 {
     public static class SameCellsFinder
     {

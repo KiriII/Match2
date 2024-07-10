@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Match3Core;
-using Match3Core.MakeTurn;
 
 namespace Match3Input
 {
@@ -14,6 +13,7 @@ namespace Match3Input
         public DestroyCellState destroyCellState;
         public DestroySlotState destroySlotState;
         public CreateSlotState createSlotState;
+        public ShockerState shockerState;
 
         private Match3GameCore _gameCore;
 
@@ -30,6 +30,7 @@ namespace Match3Input
             destroyCellState = new DestroyCellState(this, inputSM);
             destroySlotState = new DestroySlotState(this, inputSM);
             createSlotState = new CreateSlotState(this, inputSM);
+            shockerState = new ShockerState(this, inputSM);
 
             inputSM.Initialize(turnState);
         }

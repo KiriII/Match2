@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Match3Core;
 using Match3Core.Board;
 using Match3Core.Box;
-using Match3Core.MakeTurn;
 using Match3Input;
 
 namespace Match3Core.gui
@@ -20,6 +20,7 @@ namespace Match3Core.gui
         [SerializeField] private Button _updateViewButton;
         [SerializeField] private Button _destroySlotButton;
         [SerializeField] private Button _destroyCellButton;
+        [SerializeField] private Button _shockerButton;
         [SerializeField] private Dropdown _levelsList;
         [SerializeField] private Text _score;
 
@@ -41,6 +42,7 @@ namespace Match3Core.gui
             if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_destroySlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_destroyCellButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            if (_shockerButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
             if (_score == null) throw new Exception($"Missing component in {this.gameObject.name}");
         }
@@ -73,6 +75,7 @@ namespace Match3Core.gui
             _updateViewButton.onClick.AddListener(UpdateView);
             _destroySlotButton.onClick.AddListener(ChangeStateDestroySlot);
             _destroyCellButton.onClick.AddListener(ChangeStateDestroyCell);
+            _shockerButton.onClick.AddListener(ChangeStateShocker);
         }
 
         private void InitDropdownListView(UnityAction<int> createNewBoardAction)
@@ -185,6 +188,11 @@ namespace Match3Core.gui
         public void ChangeStateDestroySlot()
         {
             _inputController.AbilityButtonPressed(2);
+        }
+
+        public void ChangeStateShocker()
+        {
+            _inputController.AbilityButtonPressed(4);
         }
 
         public void UpdateView(Slot[,] boardCopy)

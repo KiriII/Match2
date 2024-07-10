@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Match3Core.MakeTurn
+namespace Match3Core
 {
     public class Turn
     {

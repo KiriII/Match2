@@ -2,17 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Match3Core;
 using Match3Core.Board;
-using Match3Core.DestroyCells;
-using Match3Core.Falling;
-using Match3Core.Triples;
-using Match3Core.MakeTurn;
 using Match3Core.RandomGenerate;
-using Match3Core.SlotManipulate;
 using Match3Core.gui;
 using Match3Core.Box;
-using Match3Core.FallenOff;
 
 namespace Match3Core
 {
@@ -30,6 +23,7 @@ namespace Match3Core
         private CheckTriplesController _checkTriplesController;
         private TurnController _turnController;
         private SlotManipulateController _slotManipulateController;
+        private ShockerController _shockerController;
 
         private BoxController _boxController;
 
@@ -57,6 +51,7 @@ namespace Match3Core
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
             _slotManipulateController = new SlotManipulateController(_switchSlotsController, _boardModel, _fallenOffSlotsModel, _updateView);
+            _shockerController = new ShockerController(_boardModel, _slotManipulateController, _cellsDestroyController);
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
@@ -103,8 +98,7 @@ namespace Match3Core
 
         public bool CreateShockerSlot(Coordinate coordinate, Slot slot)
         {
-            //TODO ADD SHOCKER CTRL
-            return _slotManipulateController.CreateSlot(coordinate, slot);
+            return _shockerController.CreateRowShocker(coordinate, slot);
         }
 
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Match3Core.Board;
 
-namespace Match3Core.DestroyCells
+namespace Match3Core
 {
     public class SlotUnblockController
     {

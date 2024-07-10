@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Match3Core;
-using Match3Core.MakeTurn;
 
 namespace Match3Input
 {

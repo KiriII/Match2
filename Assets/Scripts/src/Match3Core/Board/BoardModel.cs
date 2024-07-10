@@ -13,7 +13,8 @@ namespace Match3Core.Board
         IBoardSwitchSlotModel,
         IBoardCellDestroyModel,
         IBoardSlotManipulateModel,
-        IBoardBoxModel
+        IBoardBoxModel,
+        IBoardShockerModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -38,6 +39,18 @@ namespace Match3Core.Board
             _board[coordinate.x, coordinate.y].IsBlocked = false;
         }
 
+        public bool HasCell(Coordinate coordinate)
+        {
+            var result = (GetCanHoldCell(coordinate) && !GetBlocked(coordinate)) ? GetCell(coordinate).Color != CellsColor.Empty : false;
+            return result;
+        }
+
+        public bool ContainCoordinate(Coordinate coordinate)
+        {
+            if (coordinate.x >= 0 && coordinate.x < _rows && coordinate.y >= 0 && coordinate.y < _columns) return true;
+            return false;
+        }
+
         public void SetCell(Coordinate coordinate, Cell cell)
         {
             var slot = _board[coordinate.x, coordinate.y];
@@ -53,6 +66,7 @@ namespace Match3Core.Board
             _board[coordinate.x, coordinate.y] = slot;
         }
 
+        #region Getters
         public Cell[] GetFullRow(int rowNumber)
         {
             var row = new Cell[_rows];
@@ -62,7 +76,7 @@ namespace Match3Core.Board
             }
             return row;
         }
-        
+
         public Cell[] GetFullCollumn(int collumnNumber)
         {
             var collumn = new Cell[_columns];
@@ -176,12 +190,6 @@ namespace Match3Core.Board
             return GetActive(new Coordinate(x, y));
         }
 
-        public bool ContainCoordinate(Coordinate coordinate)
-        {
-            if (coordinate.x >= 0 && coordinate.x < _rows && coordinate.y >= 0 && coordinate.y < _columns) return true;
-            return false;
-        }
-
         public int GetRows()
         {
             return _rows;
@@ -225,18 +233,43 @@ namespace Match3Core.Board
             return cells;
         }
 
+        public List<Coordinate> GetCoordinateSlotsWithCellsInRow(Coordinate coordinate)
+        {
+            Debug.Log(coordinate);
+            int rowIndex = coordinate.x;
+            var slotsWithCells = new List<Coordinate>();
+            for (int i = 0; i < _rows; i++)
+            {
+                if (GetCanHoldCell(rowIndex, i))
+                {
+                    slotsWithCells.Add(new Coordinate(rowIndex, i));
+                }
+            }
+            return slotsWithCells;
+        }
+
+        public List<Coordinate> GetCoordinateSlotsWithCellsInCollumn(Coordinate coordinate)
+        {
+            Debug.Log(coordinate);
+            int collumnIndex = coordinate.y;
+            var slotsWithCells = new List<Coordinate>();
+            for (int i = 0; i < _columns; i++)
+            {
+                if (GetCanHoldCell(i, collumnIndex))
+                {
+                    slotsWithCells.Add(new Coordinate(i, collumnIndex));
+                }
+            }
+            return slotsWithCells;
+        }
+        #endregion
+
         public void ClearBoard()
         {
             foreach (var s in _board)
             {
                 s.Cell = null;
             }
-        }
-
-        public bool HasCell(Coordinate coordinate)
-        {
-            var result = (GetCanHoldCell(coordinate) && !GetBlocked(coordinate)) ? GetCell(coordinate).Color != CellsColor.Empty : false;
-            return result;
         }
 
         // --- Debug ---

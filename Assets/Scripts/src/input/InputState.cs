@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Match3Core.MakeTurn;
+using Match3Core;
 
 namespace Match3Input
 {
@@ -39,6 +39,9 @@ namespace Match3Input
                     break;
                 case 3:
                     stateMachine.ChangeState(controller.createSlotState);
+                    break;
+                case 4:
+                    stateMachine.ChangeState(controller.shockerState);
                     break;
                 default:
                     throw new Exception($"Unknown ability button with id {buttonId} pressed");

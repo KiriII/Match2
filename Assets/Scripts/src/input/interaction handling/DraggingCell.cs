@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Match3Core;
-using Match3Core.MakeTurn;
 using Match3Core.gui;
 
 namespace Match3Input

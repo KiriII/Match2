@@ -1,5 +1,5 @@
 using UnityEngine;
-using Match3Core.MakeTurn;
+using Match3Core;
 
 namespace Match3Input
 {

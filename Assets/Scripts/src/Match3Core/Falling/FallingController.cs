@@ -6,7 +6,7 @@ using Match3Core.Board;
 using Match3Core;
 using Match3Core.RandomGenerate;
 
-namespace Match3Core.Falling
+namespace Match3Core
 {
     public class FallingController
     {

@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Match3Core.Board;
-using Match3Core.Triples;
 
-namespace Match3Core.MakeTurn
+namespace Match3Core
 {
     public class TurnController
     {
