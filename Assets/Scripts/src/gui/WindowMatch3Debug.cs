@@ -12,8 +12,9 @@ using Match3Input;
 
 namespace Match3Core.gui
 {
-    public class WindowMatch3Debug : MonoBehaviour, IViewUpdater
+    public class WindowMatch3Debug : UIComp, IViewUpdater
     {
+        #region object references
         [SerializeField] private GridLayoutGroup _slotsGrid;
         [SerializeField] private GameObject _slot;
         [SerializeField] private GameObject _cell;
@@ -23,6 +24,7 @@ namespace Match3Core.gui
         [SerializeField] private Button _shockerButton;
         [SerializeField] private Dropdown _levelsList;
         [SerializeField] private Text _score;
+        #endregion
 
         private Match3GameCore _gameCore;
         private InputController _inputController;
@@ -34,17 +36,17 @@ namespace Match3Core.gui
 
         private GameObject[,] _slotsObjects;
 
-        public void Awake()
+        public override void Validate()
         {
-            if (_slotsGrid == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_slot == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_cell == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_updateViewButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_destroySlotButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_destroyCellButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_shockerButton == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_levelsList == null) throw new Exception($"Missing component in {this.gameObject.name}");
-            if (_score == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            AssertNotNull(_slotsGrid, nameof(_slotsGrid));
+            AssertNotNull(_slot, nameof(_slot));
+            AssertNotNull(_cell, nameof(_cell));
+            AssertNotNull(_updateViewButton, nameof(_updateViewButton));
+            AssertNotNull(_destroySlotButton, nameof(_destroySlotButton));
+            AssertNotNull(_destroyCellButton, nameof(_destroyCellButton));
+            AssertNotNull(_shockerButton, nameof(_shockerButton));
+            AssertNotNull(_levelsList, nameof(_levelsList));
+            AssertNotNull(_score, nameof(_score));
         }
 
         public void init(Match3GameCore gameCore,

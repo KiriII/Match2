@@ -8,16 +8,17 @@ using Match3Input;
 
 namespace Match3Core.gui
 {
-    public class WindowFallenSlots : MonoBehaviour
+    public class WindowFallenSlots : UIComp
     {
         [SerializeField] private GameObject _fallenSlot;
         [SerializeField] private GameObject _cell;
 
         private Match3GameCore _gameCore;
 
-        public void Awake()
+        public override void Validate()
         {
-            if (_fallenSlot == null) throw new Exception($"Missing component in {this.gameObject.name}");
+            AssertNotNull(_fallenSlot, nameof(_fallenSlot));
+            AssertNotNull(_cell, nameof(_cell));
         }
 
         public void init(Match3GameCore gameCore)
