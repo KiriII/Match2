@@ -14,7 +14,7 @@ namespace Match3Core
             var rows = slots.GetLength(0);
             var collumns = slots.GetLength(1);
 
-            if (rows != collumns) throw new Exception($"Board have uncorrect size {rows}x{collumns}");
+            if (rows != collumns) Debug.LogWarning($"Board have uncorrect size {rows}x{collumns}");
 
             for (int i = 0; i < rows; i++)
             {

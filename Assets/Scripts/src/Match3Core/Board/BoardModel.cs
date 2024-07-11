@@ -262,6 +262,11 @@ namespace Match3Core.Board
             }
             return slotsWithCells;
         }
+
+        public List<Coordinate> GetEmptyCoordinates()
+        {
+            return EmptyCellsFinder.FindEmpty(_board);
+        }
         #endregion
 
         public void ClearBoard()

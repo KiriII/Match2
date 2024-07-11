@@ -37,7 +37,7 @@ namespace Match3Core
             return true;
         }
 
-        public bool CreateSlot(Coordinate coordinate, Slot slot)
+        public bool CreateSlot(Coordinate coordinate, Slot slot, bool instaTriples = true)
         {
             if (_slotManipulateModel.GetCanHoldCell(coordinate) 
                 || !_slotManipulateModel.GetActive(coordinate)) return false;
@@ -48,13 +48,9 @@ namespace Match3Core
             _fallenOffSlotsModel.RemoveSlot(slot);
             _switchSlotsController.SwitchWithNewSlot(coordinate,
                 new Slot(slot));
-            OnViewUpdate();
-            var emptySlots = new List<Coordinate> { };
-            if (slot.Cell.Color == CellsColor.Empty)
-            {
-                emptySlots.Add(coordinate);
-            }
+            List<Coordinate> emptySlots = _slotManipulateModel.GetEmptyCoordinates();
             OnSlotMoved(emptySlots);
+            OnViewUpdate();
             return true;
         }
 

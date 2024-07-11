@@ -23,7 +23,7 @@ namespace Match3Core
 
         public bool CreateRowShocker(Coordinate coordinate, Slot slot)
         {
-            if (_slotManipulateController.CreateSlot(coordinate, slot))
+            if (_slotManipulateController.CreateSlot(coordinate, slot, false))
             {
                 List<Coordinate> slotsInRow = _boardModel.GetCoordinateSlotsWithCellsInRow(coordinate);
                 _cellsDestroyController.SimpleDestroyCells(slotsInRow);

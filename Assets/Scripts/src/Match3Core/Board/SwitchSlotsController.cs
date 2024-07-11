@@ -10,10 +10,12 @@ namespace Match3Core.Board
         private IBoardSwitchSlotModel _switchSlotsModel;
 
         private event Action _slotSwitched;
+        private event Action _updateView;
 
-        public SwitchSlotsController(IBoardSwitchSlotModel switchSlotModel)
+        public SwitchSlotsController(IBoardSwitchSlotModel switchSlotModel, Action updateView)
         {
             _switchSlotsModel = switchSlotModel;
+            _updateView = updateView;
         }
 
         public void SwitchSlots(Coordinate switchCoordinate1, Coordinate switchCoordinate2)
@@ -24,6 +26,7 @@ namespace Match3Core.Board
             _switchSlotsModel.SetSlot(switchCoordinate2, slot1);
             _switchSlotsModel.SetSlot(switchCoordinate1, slot2);
 
+            OnViewUpdate();
             OnSlotSwitched();
         }
 
@@ -31,7 +34,13 @@ namespace Match3Core.Board
         {
             _switchSlotsModel.SetSlot(coordinate, newSlot);
 
+            OnViewUpdate();
             OnSlotSwitched();
+        }
+
+        private void OnViewUpdate()
+        {
+            _updateView?.Invoke();
         }
 
         private void OnSlotSwitched()

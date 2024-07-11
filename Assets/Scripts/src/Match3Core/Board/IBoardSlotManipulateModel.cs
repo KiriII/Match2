@@ -11,5 +11,6 @@ namespace Match3Core.Board
         public bool GetActive(Coordinate coordinate);
         public bool GetCanDestroySlot(Coordinate coordinate);
         public Slot GetSlot(Coordinate coordinate);
+        public List<Coordinate> GetEmptyCoordinates();
     }
 }

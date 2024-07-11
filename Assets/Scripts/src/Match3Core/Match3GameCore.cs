@@ -42,8 +42,8 @@ namespace Match3Core
 
             _scoreHolder = new ScoreHolder();
 
-            _switchCellController = new SwitchCellsContoller(_boardModel);
-            _switchSlotsController = new SwitchSlotsController(_boardModel);
+            _switchCellController = new SwitchCellsContoller(_boardModel, _updateView);
+            _switchSlotsController = new SwitchSlotsController(_boardModel, _updateView);
 
             _slotUnblockController = new SlotUnblockController(_boardModel);
             _cellsDestroyController = new CellsDestroyController(_switchCellController, _boardModel, _updateView);

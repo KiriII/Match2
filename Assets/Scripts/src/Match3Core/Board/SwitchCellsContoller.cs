@@ -8,10 +8,12 @@ namespace Match3Core.Board
         private IBoardSwitchCellsModel _switchCellsModel;
 
         private event Action _CellSwitched;
+        private event Action _updateView;
 
-        public SwitchCellsContoller(IBoardSwitchCellsModel switchCellsModel)
+        public SwitchCellsContoller(IBoardSwitchCellsModel switchCellsModel, Action updateView)
         {
             _switchCellsModel = switchCellsModel;
+            _updateView = updateView;
         }
 
         public void SwitchCells(Coordinate switchCoordinate1, Coordinate switchCoordinate2)
@@ -26,6 +28,7 @@ namespace Match3Core.Board
             _switchCellsModel.SetCell(switchCoordinate2, cell1);
             _switchCellsModel.SetCell(switchCoordinate1, cell2);
 
+            OnViewUpdate();
             OnCellSwitched();
         }
 
@@ -35,6 +38,7 @@ namespace Match3Core.Board
 
             _switchCellsModel.SetCell(CellCoordinate, newCell);
 
+            OnViewUpdate();
             OnCellSwitched();
         }
 
@@ -44,6 +48,11 @@ namespace Match3Core.Board
             var isBlocked = _switchCellsModel.GetBlocked(switchCell);
 
             return canHoldSell && !isBlocked;
+        }
+
+        private void OnViewUpdate()
+        {
+            _updateView?.Invoke();
         }
 
         private void OnCellSwitched()
