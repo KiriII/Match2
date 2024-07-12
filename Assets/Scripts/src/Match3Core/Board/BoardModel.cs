@@ -122,7 +122,7 @@ namespace Match3Core.Board
         public bool GetCanHoldCell(Coordinate coordinate)
         {
             var slot = _board[coordinate.x, coordinate.y];
-            return slot.CanHoldCell && slot.IsActive;
+            return slot.CanHoldCell && slot.IsActive && !GetBlocked(coordinate);
         }
 
         public bool GetCanHoldCell(int x, int y)
@@ -134,9 +134,8 @@ namespace Match3Core.Board
         {
             var cell = _board[coordinate.x, coordinate.y].Cell;
             return !(cell.Color == CellsColor.Empty) && 
-                !(cell.Color == CellsColor.Special) && 
-                GetSlot(coordinate).IsActive &&
-                GetSlot(coordinate).CanHoldCell;
+                !(cell.Color == CellsColor.Special) &&
+                GetCanHoldCell(coordinate);
         }
 
         public bool GetCanDestroyCell(int x, int y)
@@ -146,8 +145,7 @@ namespace Match3Core.Board
 
         public bool GetCanDestroySlot(Coordinate coordinate)
         {
-            if (!GetSlot(coordinate).IsActive ||
-                !GetSlot(coordinate).CanHoldCell) return false;
+            if (!GetCanHoldCell(coordinate)) return false;
             var cell = _board[coordinate.x, coordinate.y].Cell;
             return !(cell.Color == CellsColor.Special);
         }

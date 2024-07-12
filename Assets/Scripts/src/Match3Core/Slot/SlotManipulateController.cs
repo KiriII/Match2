@@ -46,8 +46,7 @@ namespace Match3Core
                 return false;
             }
             _fallenOffSlotsModel.RemoveSlot(slot);
-            _switchSlotsController.SwitchWithNewSlot(coordinate,
-                new Slot(slot));
+            _switchSlotsController.SwitchWithNewSlot(coordinate, new Slot(slot), instaTriples);
             List<Coordinate> emptySlots = _slotManipulateModel.GetEmptyCoordinates();
             OnSlotMoved(emptySlots);
             OnViewUpdate();

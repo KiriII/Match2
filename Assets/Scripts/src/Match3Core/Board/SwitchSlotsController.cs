@@ -30,12 +30,12 @@ namespace Match3Core.Board
             OnSlotSwitched();
         }
 
-        public void SwitchWithNewSlot(Coordinate coordinate, Slot newSlot)
+        public void SwitchWithNewSlot(Coordinate coordinate, Slot newSlot, bool instaTriples = true)
         {
             _switchSlotsModel.SetSlot(coordinate, newSlot);
 
             OnViewUpdate();
-            OnSlotSwitched();
+            if (instaTriples) OnSlotSwitched();
         }
 
         private void OnViewUpdate()

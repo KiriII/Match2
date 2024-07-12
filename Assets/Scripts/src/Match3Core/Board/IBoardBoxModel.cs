@@ -7,5 +7,6 @@ namespace Match3Core.Board
     public interface IBoardBoxModel
     {
         public Cell GetCell(Coordinate coordinate);
+        public bool GetCanHoldCell(Coordinate coordinate);
     }
 }

@@ -28,6 +28,7 @@ namespace Match3Core.Box
             {
                 if (coordinate.x <= 0) continue;
                 var checkingCellCoordinate = new Coordinate(coordinate, Vector2.up);
+                if (!_boardModel.GetCanHoldCell(checkingCellCoordinate)) return;
                 var dropDownCell = _boardModel.GetCell(checkingCellCoordinate);
                 var desiredId = _boxModel.GetIdByCoordinate(coordinate);
                 if (dropDownCell.Color == CellsColor.Special && dropDownCell.Id == desiredId)

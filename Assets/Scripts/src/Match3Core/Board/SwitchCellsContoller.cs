@@ -28,7 +28,7 @@ namespace Match3Core.Board
             _switchCellsModel.SetCell(switchCoordinate2, cell1);
             _switchCellsModel.SetCell(switchCoordinate1, cell2);
 
-            OnViewUpdate();
+            //OnViewUpdate();
             OnCellSwitched();
         }
 
@@ -38,7 +38,7 @@ namespace Match3Core.Board
 
             _switchCellsModel.SetCell(CellCoordinate, newCell);
 
-            OnViewUpdate();
+            //OnViewUpdate();
             OnCellSwitched();
         }
 
