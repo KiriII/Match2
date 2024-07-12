@@ -23,7 +23,7 @@ namespace Match3Core
         private CheckTriplesController _checkTriplesController;
         private TurnController _turnController;
         private SlotManipulateController _slotManipulateController;
-        private ShockerController _shockerController;
+        private AbilityController _abilityController;
 
         private BoxController _boxController;
 
@@ -51,7 +51,7 @@ namespace Match3Core
             _checkTriplesController = new CheckTriplesController(_boardModel);
             _turnController = new TurnController(_boardModel, _switchCellController);
             _slotManipulateController = new SlotManipulateController(_switchSlotsController, _boardModel, _fallenOffSlotsModel, _updateView);
-            _shockerController = new ShockerController(_boardModel, _slotManipulateController, _cellsDestroyController);
+            _abilityController = new AbilityController(_boardModel, _slotManipulateController, _cellsDestroyController);
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
@@ -98,9 +98,13 @@ namespace Match3Core
 
         public bool CreateShockerSlot(Coordinate coordinate, Slot slot)
         {
-            return _shockerController.CreateRowShocker(coordinate, slot);
+            return _abilityController.CreateRowShocker(coordinate, slot);
         }
 
+        public bool CreateBombSlot(Coordinate coordinate, Slot slot)
+        {
+            return _abilityController.CreateBomb(coordinate, slot);
+        }
 
         // ---------- GETTERS ------------------
 

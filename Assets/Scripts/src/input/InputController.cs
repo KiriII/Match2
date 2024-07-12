@@ -14,6 +14,7 @@ namespace Match3Input
         public DestroySlotState destroySlotState;
         public CreateSlotState createSlotState;
         public ShockerState shockerState;
+        public BombState bombState;
 
         private Match3GameCore _gameCore;
 
@@ -31,6 +32,7 @@ namespace Match3Input
             destroySlotState = new DestroySlotState(this, inputSM);
             createSlotState = new CreateSlotState(this, inputSM);
             shockerState = new ShockerState(this, inputSM);
+            bombState = new BombState(this, inputSM);
 
             inputSM.Initialize(turnState);
         }
@@ -78,6 +80,16 @@ namespace Match3Input
         public bool CreateShockerSlot(Coordinate coordinate, Slot fallenSlot, GameObject fallenSlotObject)
         {
             if (_gameCore.CreateShockerSlot(coordinate, fallenSlot))
+            {
+                _slotCreated?.Invoke(fallenSlotObject);
+                return true;
+            }
+            return false;
+        }
+
+        public bool CreateBombSlot(Coordinate coordinate, Slot fallenSlot, GameObject fallenSlotObject)
+        {
+            if (_gameCore.CreateBombSlot(coordinate, fallenSlot))
             {
                 _slotCreated?.Invoke(fallenSlotObject);
                 return true;

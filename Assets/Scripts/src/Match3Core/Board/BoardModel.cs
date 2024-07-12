@@ -14,7 +14,7 @@ namespace Match3Core.Board
         IBoardCellDestroyModel,
         IBoardSlotManipulateModel,
         IBoardBoxModel,
-        IBoardShockerModel
+        IBoardAbilityModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -95,6 +95,24 @@ namespace Match3Core.Board
             if (ContainCoordinate(new Coordinate(coordinate, Vector2.right))) neighbours.Add(new Coordinate(coordinate, Vector2.right));
             if (ContainCoordinate(new Coordinate(coordinate, Vector2.left))) neighbours.Add(new Coordinate(coordinate, Vector2.left));
             return neighbours;
+        }
+
+        public List<Coordinate> GetDiagonalsSlot(Coordinate coordinate)
+        {
+            var diagonals = new List<Coordinate>();
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.left));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.right));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.left));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.right));
+            return diagonals;
+        }
+
+        public List<Coordinate> GetAroundSlot(Coordinate coordinate)
+        {
+            var arounders = new List<Coordinate>();
+            arounders.AddRange(GetNeighbourSlot(coordinate));
+            arounders.AddRange(GetDiagonalsSlot(coordinate));
+            return arounders;
         }
 
         public Slot GetSlot(Coordinate coordinate)
@@ -233,7 +251,6 @@ namespace Match3Core.Board
 
         public List<Coordinate> GetCoordinateSlotsWithCellsInRow(Coordinate coordinate)
         {
-            Debug.Log(coordinate);
             int rowIndex = coordinate.x;
             var slotsWithCells = new List<Coordinate>();
             for (int i = 0; i < _rows; i++)
@@ -248,7 +265,6 @@ namespace Match3Core.Board
 
         public List<Coordinate> GetCoordinateSlotsWithCellsInCollumn(Coordinate coordinate)
         {
-            Debug.Log(coordinate);
             int collumnIndex = coordinate.y;
             var slotsWithCells = new List<Coordinate>();
             for (int i = 0; i < _columns; i++)
@@ -256,6 +272,20 @@ namespace Match3Core.Board
                 if (GetCanHoldCell(i, collumnIndex))
                 {
                     slotsWithCells.Add(new Coordinate(i, collumnIndex));
+                }
+            }
+            return slotsWithCells;
+        }
+
+        public List<Coordinate> GetCoordinateSlotsWithCellsAround(Coordinate coordinate)
+        {
+            List<Coordinate> arounders = GetAroundSlot(coordinate);
+            var slotsWithCells = new List<Coordinate>();
+            foreach (Coordinate c in arounders)
+            {
+                if (GetCanHoldCell(c))
+                {
+                    slotsWithCells.Add(new Coordinate(c));
                 }
             }
             return slotsWithCells;

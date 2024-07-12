@@ -43,6 +43,9 @@ namespace Match3Input
                 case 4:
                     stateMachine.ChangeState(controller.shockerState);
                     break;
+                case 5:
+                    stateMachine.ChangeState(controller.bombState);
+                    break;
                 default:
                     throw new Exception($"Unknown ability button with id {buttonId} pressed");
             }

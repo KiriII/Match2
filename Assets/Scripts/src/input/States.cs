@@ -11,5 +11,6 @@ namespace Match3Input
         DestroySlot = 2,
         CreateSlot = 3,
         Shocker = 4,
+        Bomb = 5,
     }
 }

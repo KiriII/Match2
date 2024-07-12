@@ -22,6 +22,7 @@ namespace Match3Core.gui
         [SerializeField] private Button _destroySlotButton;
         [SerializeField] private Button _destroyCellButton;
         [SerializeField] private Button _shockerButton;
+        [SerializeField] private Button _bombButton;
         [SerializeField] private Dropdown _levelsList;
         [SerializeField] private Text _score;
         #endregion
@@ -45,6 +46,7 @@ namespace Match3Core.gui
             AssertNotNull(_destroySlotButton, nameof(_destroySlotButton));
             AssertNotNull(_destroyCellButton, nameof(_destroyCellButton));
             AssertNotNull(_shockerButton, nameof(_shockerButton));
+            AssertNotNull(_bombButton, nameof(_bombButton));
             AssertNotNull(_levelsList, nameof(_levelsList));
             AssertNotNull(_score, nameof(_score));
         }
@@ -78,6 +80,7 @@ namespace Match3Core.gui
             _destroySlotButton.onClick.AddListener(ChangeStateDestroySlot);
             _destroyCellButton.onClick.AddListener(ChangeStateDestroyCell);
             _shockerButton.onClick.AddListener(ChangeStateShocker);
+            _bombButton.onClick.AddListener(ChangeStateBomb);
         }
 
         private void InitDropdownListView(UnityAction<int> createNewBoardAction)
@@ -197,6 +200,11 @@ namespace Match3Core.gui
             _inputController.AbilityButtonPressed(4);
         }
 
+        public void ChangeStateBomb()
+        {
+            _inputController.AbilityButtonPressed(5);
+        }
+       
         public void UpdateView(Slot[,] boardCopy)
         {
             DestroyAllSlots();

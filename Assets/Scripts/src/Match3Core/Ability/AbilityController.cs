@@ -6,14 +6,14 @@ using Match3Core.Board;
 
 namespace Match3Core
 {
-    public class ShockerController
+    public class AbilityController
     {
-        private IBoardShockerModel _boardModel;
+        private IBoardAbilityModel _boardModel;
 
         private SlotManipulateController _slotManipulateController;
         private CellsDestroyController _cellsDestroyController;
 
-        public ShockerController(IBoardShockerModel model, SlotManipulateController slotManipulateCtrl, CellsDestroyController _cellsDestroyCtrl)
+        public AbilityController(IBoardAbilityModel model, SlotManipulateController slotManipulateCtrl, CellsDestroyController _cellsDestroyCtrl)
         {
             _boardModel = model;
 
@@ -34,6 +34,18 @@ namespace Match3Core
 
         public bool CreateCollumnShocker(Coordinate coordinate, Slot slot)
         {
+            return false;
+        }
+
+        public bool CreateBomb(Coordinate coordinate, Slot slot)
+        {
+            if (_slotManipulateController.CreateSlot(coordinate, slot, false))
+            {
+                List<Coordinate> slotsInRow = _boardModel.GetCoordinateSlotsWithCellsAround(coordinate);
+                slotsInRow.Add(coordinate);
+                _cellsDestroyController.SimpleDestroyCells(slotsInRow);
+                return true;
+            }
             return false;
         }
     }
