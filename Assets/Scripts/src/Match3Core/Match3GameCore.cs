@@ -27,6 +27,8 @@ namespace Match3Core
 
         private BoxController _boxController;
 
+        private WinContoller _winContoller;
+
         private ScoreHolder _scoreHolder;
 
         private event Action _updateView;
@@ -54,6 +56,8 @@ namespace Match3Core
             _abilityController = new AbilityController(_boardModel, _slotManipulateController, _cellsDestroyController);
 
             _boxController = new BoxController(_boxModel, _boardModel);
+
+            _winContoller = new WinContoller(3);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);

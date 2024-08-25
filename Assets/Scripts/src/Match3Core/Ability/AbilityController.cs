@@ -34,6 +34,7 @@ namespace Match3Core
 
         public bool CreateCollumnShocker(Coordinate coordinate, Slot slot)
         {
+            // TODO
             return false;
         }
 
