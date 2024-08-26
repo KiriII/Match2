@@ -3,7 +3,7 @@ using System;
 namespace Match3Core
 {
     [Flags]
-    public enum Conditions
+    public enum ConditionFlags
     {
         None = 0,
         ColorCounter = 1 << 0,

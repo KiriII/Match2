@@ -10,6 +10,7 @@ namespace Match3Core.Levels
         public int rows { get; set; }
         public int collumns { get; set; }
         public Slot[,] Slots { get; set; }
+        public Condition condition { get; set; }
         public Dictionary<Coordinate, string> Boxes { get; set; }
 
         public Slot GetSlot(Coordinate coordinate)

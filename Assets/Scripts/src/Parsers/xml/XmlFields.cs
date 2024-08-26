@@ -22,5 +22,9 @@ namespace Match3Configs.Levels
         public const string SLOT_ACTIVE_ATTRIBUTE = "isActive";
         public const string SLOT_BOX_ATTRIBUTE = "box";
         public const string SLOT_CELL_ID = "cellId";
+
+        //win conditions
+        public const string WIN_ELEMENT = "winCondition";
+        public const string CELL_COUNT_CONDITION = "cellCount";
     }
 }

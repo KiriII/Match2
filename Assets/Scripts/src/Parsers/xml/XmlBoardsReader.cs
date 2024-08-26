@@ -31,6 +31,8 @@ namespace Match3Configs.Levels
 
                 level.ID = id;
 
+                level.condition = GetWinConditions(levelElement);
+
                 GetFieldSize(out var rows, out var collumns, levelElement);
                 level.rows = rows;
                 level.collumns = collumns;
@@ -100,6 +102,18 @@ namespace Match3Configs.Levels
             var idText = levelElement.Attribute(XmlFields.LEVEL_ID_ATTRIBUTE).Value;
             var id = Int32.Parse(idText);
             return id;
+        }
+
+        public static Condition GetWinConditions(XElement levelElement)
+        {
+            XElement conditions = levelElement.Element(XmlFields.WIN_ELEMENT);
+            byte flags = 0;
+            if (TryGetColorCountCondition(conditions, out byte color, out byte count).Length > 0)
+            {
+                flags += (byte)ConditionFlags.ColorCounter;
+            }
+
+            return new Condition(flags, (CellsColor)color, count);
         }
 
         public static XElement GetSlotElement(XElement levelElement)
@@ -194,13 +208,29 @@ namespace Match3Configs.Levels
                     break;
                 case "yellow":
                     cell = new Cell(CellsColor.Yellow, TryGetCellIdFromCell(slotElement));
-                    break; 
+                    break;
                 default:
                     Debug.LogWarning($"Unknown color {color} in level.xml");
                     break;
             }
 
             return cell;
+        }
+
+        public static string TryGetColorCountCondition(XElement conditionElement, out byte color, out byte count)
+        {
+            XAttribute colorCount = conditionElement.Attribute(XmlFields.CELL_COUNT_CONDITION);
+            color = 0;
+            count = 0;
+            if (colorCount != null)
+            {
+                string colorCountText = colorCount.Value;
+                string[] colorCountSplit = colorCountText.Split(XmlFields.SPLITER);
+                color = Byte.Parse(colorCountSplit[0]);
+                count = Byte.Parse(colorCountSplit[1]);
+                return colorCountText;
+            }
+            return "";
         }
 
         public static string TryGetCellIdFromCell(XElement slotElement)

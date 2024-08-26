@@ -5,10 +5,9 @@ namespace Match3Core
 {
     public class WinContoller
     {
-        public WinContoller(byte conditions)
+        public WinContoller(Condition conditions)
         {
-            var c = (Conditions)conditions;
-            
+            Debug.Log(conditions);
         }
     }
 }

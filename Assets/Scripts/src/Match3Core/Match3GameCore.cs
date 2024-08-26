@@ -34,7 +34,7 @@ namespace Match3Core
         private event Action _updateView;
         private event Action<Slot[,]> _boardScreen;
 
-        public Match3GameCore(Slot[,] slots, Dictionary<Coordinate, string> boxes)  
+        public Match3GameCore(Slot[,] slots, Condition condition, Dictionary<Coordinate, string> boxes)  
         {
             _updateView += UpdateView;
 
@@ -57,7 +57,7 @@ namespace Match3Core
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
-            _winContoller = new WinContoller(3);
+            _winContoller = new WinContoller(condition);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
