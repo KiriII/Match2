@@ -26,5 +26,8 @@ namespace Match3Configs.Levels
         //win conditions
         public const string WIN_ELEMENT = "winCondition";
         public const string CELL_COUNT_CONDITION = "cellCount";
+        public const string SPECIAL_CONDITION = "special";
+        public const string UNBLOCK_CONDITION = "unblock";
+        public const string SHAPE_CONDITION = "shape";
     }
 }

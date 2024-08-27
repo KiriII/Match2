@@ -112,8 +112,19 @@ namespace Match3Configs.Levels
             {
                 flags += (byte)ConditionFlags.ColorCounter;
             }
-
-            return new Condition(flags, (CellsColor)color, count);
+            if (TryGetSpecialCondition(conditions, out bool special).Length > 0)
+            {
+                flags += (byte)ConditionFlags.Special;
+            }
+            if (TryGetUnblockCondition(conditions, out bool unblock).Length > 0)
+            {
+                flags += (byte)ConditionFlags.Unblock;
+            }
+            if (TryGetShapeCondition(conditions, out HashSet<Coordinate> shape).Length > 0)
+            {
+                flags += (byte)ConditionFlags.Shape;
+            }
+            return new Condition(flags, (CellsColor)color, count, special, unblock, shape);
         }
 
         public static XElement GetSlotElement(XElement levelElement)
@@ -229,6 +240,48 @@ namespace Match3Configs.Levels
                 color = Byte.Parse(colorCountSplit[0]);
                 count = Byte.Parse(colorCountSplit[1]);
                 return colorCountText;
+            }
+            return "";
+        }
+
+        public static string TryGetSpecialCondition(XElement conditionElement, out bool special)
+        {
+            XAttribute specialCond = conditionElement.Attribute(XmlFields.SPECIAL_CONDITION);
+            special = false;
+            if (specialCond != null)
+            {
+                Boolean.TryParse(specialCond.Value, out special);
+                return specialCond.Value;
+            }
+            return "";
+        }
+
+        public static string TryGetUnblockCondition(XElement conditionElement, out bool unblock)
+        {
+            XAttribute unblockCond = conditionElement.Attribute(XmlFields.UNBLOCK_CONDITION);
+            unblock = false;
+            if (unblockCond != null)
+            {
+                Boolean.TryParse(unblockCond.Value, out unblock);
+                return unblockCond.Value;
+            }
+            return "";
+        }
+
+        public static string TryGetShapeCondition(XElement conditionElement, out HashSet<Coordinate> shape)
+        {
+            XAttribute shapeCond = conditionElement.Attribute(XmlFields.SHAPE_CONDITION);
+            shape = new HashSet<Coordinate>();
+            if (shapeCond != null)
+            {
+                String[] coordinateText = shapeCond.Value.Split(',');
+                foreach (var c in coordinateText)
+                {
+                    String[] coordinateXY = c.Split(XmlFields.SPLITER);
+                    var coordinate = new Coordinate(Int32.Parse(coordinateXY[0]) , Int32.Parse(coordinateXY[1]));
+                    shape.Add(coordinate);
+                }
+                return shapeCond.Value;
             }
             return "";
         }
