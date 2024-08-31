@@ -57,13 +57,14 @@ namespace Match3Core
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
-            _winContoller = new WinContoller(condition);
+            _winContoller = new WinContoller(condition, _boardModel);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.SimpleDestroyCells);
             _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.ForceDestroyCells);
+            _cellsDestroyController.EnableCellsFindedListener(_winContoller.CellsDestroyed);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
             _fallingController.EnableCellsFellListener(_boxController.FindBoxDropdown);
@@ -110,8 +111,7 @@ namespace Match3Core
             return _abilityController.CreateBomb(coordinate, slot);
         }
 
-        // ---------- GETTERS ------------------
-
+        #region GETTERS
         public int GetScore()
         {
             return _scoreHolder.GetScore();
@@ -141,7 +141,9 @@ namespace Match3Core
         {
             return _fallenOffSlotsModel.GetFallenSlot();
         }
+        #endregion
 
+        #region ACTIONS
         // ------ ACTIONS ------
         public void EnableCellSwitchedListener(Action methodInLitener)
         {
@@ -162,5 +164,6 @@ namespace Match3Core
         {
             _boardScreen -= methodInLitener;
         }
+        #endregion
     }
 }

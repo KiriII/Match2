@@ -11,6 +11,7 @@ namespace Match3Core
         private SwitchCellsContoller _switchCellsContoller;
         private IBoardCellDestroyModel _cellDestroyModel;
 
+        private event Action<IEnumerable<Coordinate>> _cellsFinded;
         private event Action<List<Coordinate>> _cellsDestroyed;
         private event Action _updateView;
 
@@ -36,6 +37,7 @@ namespace Match3Core
         public bool DestroyCells(Coordinate coordinate, bool forceDestroy = false)
         {
             if (!(_cellDestroyModel.GetCanDestroyCell(coordinate) || forceDestroy)) return false;
+            OnCellsFinded(new List<Coordinate> { coordinate });
             _switchCellsContoller.SwitchWithNewCell(coordinate, new Cell());
             OnViewUpdate();
             OnCellsDestroyed(new List<Coordinate> { coordinate });
@@ -44,9 +46,16 @@ namespace Match3Core
 
         private void DestroyCells(List<Coordinate> tripledCells, bool forceDestroy = false)
         {
+            HashSet<Coordinate> canDestroyCells = new HashSet<Coordinate>();
             foreach (var cell in tripledCells)
             {
                 if (!(_cellDestroyModel.GetCanDestroyCell(cell) || forceDestroy)) continue;
+                canDestroyCells.Add(cell);
+            }
+            OnCellsFinded(canDestroyCells);
+
+            foreach (var cell in canDestroyCells)
+            {
                 _switchCellsContoller.SwitchWithNewCell(cell, new Cell());
             }
             OnViewUpdate();
@@ -71,6 +80,21 @@ namespace Match3Core
         public void DesableCellDestroyedListener(Action<List<Coordinate>> methodInLitener)
         {
             _cellsDestroyed -= methodInLitener;
+        }
+
+        private void OnCellsFinded(IEnumerable<Coordinate> destroyedCells)
+        {
+            _cellsFinded?.Invoke(destroyedCells);
+        }
+
+        public void EnableCellsFindedListener(Action<IEnumerable<Coordinate>> methodInLitener)
+        {
+            _cellsFinded += methodInLitener;
+        }
+
+        public void DesableCellsFindedListener(Action<IEnumerable<Coordinate>> methodInLitener)
+        {
+            _cellsFinded -= methodInLitener;
         }
     }
 }

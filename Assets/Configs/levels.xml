@@ -11,7 +11,7 @@ level id - уникальный
 -->
 <levels>
   <level id="1">
-    <winCondition cellCount="2/30" special="false" unblock="true" shape="0/1,0/2,0/3,0/4"/>
+    <winCondition cellCount="2/30"/>
     <slots size="9/9">
       <slot coordinate="0/0" isBlocked="false" canPassCells="false" canHoldCell="false" isActive="false" />
       <slot coordinate="0/1" isBlocked="false" canPassCells="false" isActive="false" />
@@ -97,7 +97,7 @@ level id - уникальный
     </slots>
   </level>
   <level id="2">
-    <winCondition cellCount="2/30"/>
+    <winCondition cellCount="2/30" special="false" unblock="true" shape="0/1,0/2,0/3,0/4"/>
     <slots size="9/9">
       <slot coordinate="0/0" isBlocked="false" canHoldCell="false" />
       <slot coordinate="0/1" isBlocked="false" />

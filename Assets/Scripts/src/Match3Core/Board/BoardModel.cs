@@ -14,7 +14,8 @@ namespace Match3Core.Board
         IBoardCellDestroyModel,
         IBoardSlotManipulateModel,
         IBoardBoxModel,
-        IBoardAbilityModel
+        IBoardAbilityModel,
+        IWinControllerModel
     {
         private Slot[,] _board;
         private readonly int _rows;
@@ -130,6 +131,12 @@ namespace Match3Core.Board
             if (!GetCanHoldCell(coordinate)) throw new Exception($"Try to get Cell from Blocked Slot {coordinate}");
             var slot = _board[coordinate.x, coordinate.y];
             return slot.Cell;
+        }
+
+        public CellsColor GetCellsColor(Coordinate coordinate)
+        {
+            Cell cell = GetCell(coordinate);
+            return cell.Color;
         }
 
         public Cell GetCell(int x, int y)
@@ -289,6 +296,16 @@ namespace Match3Core.Board
                 }
             }
             return slotsWithCells;
+        }
+
+        public HashSet<Cell> GetCellsInCoordinates(IEnumerable<Coordinate> coordinates)
+        {
+            HashSet<Cell> cells = new HashSet<Cell>();
+            foreach (var c in coordinates)
+            {
+                cells.Add(GetCell(c));
+            }
+            return cells;
         }
 
         public List<Coordinate> GetEmptyCoordinates()
