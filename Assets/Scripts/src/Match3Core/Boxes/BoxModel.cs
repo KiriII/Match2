@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Match3Core.Box
 {
-    public class BoxModel
+    public class BoxModel : IBoxWinConditionModel
     {
         private Dictionary<Coordinate, string> _boxes;
 
@@ -23,6 +23,11 @@ namespace Match3Core.Box
         {
             if (!_boxes.ContainsKey(coordinate)) return null;
             return _boxes[coordinate];
+        }
+
+        public int GetSpecialCellsCount()
+        {
+            return _boxes.Count;
         }
     }
 }

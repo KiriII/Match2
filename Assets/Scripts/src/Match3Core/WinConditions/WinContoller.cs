@@ -9,17 +9,42 @@ namespace Match3Core
         private readonly Condition _condition;
         private byte _complitedFlags;
 
-        private IWinControllerModel _boardModel;
+        private IBoardWinControllerModel _boardModel;
+        private IBoxWinConditionModel _boxModel;
 
         private ColorCountConditionController _colorCount;
-        public WinContoller(Condition conditions, IWinControllerModel boardModel)
+        private SpecialConditionController _special;
+        public WinContoller(Condition conditions, IBoardWinControllerModel boardModel, IBoxWinConditionModel boxModel)
         {
             _condition = conditions;
-            Debug.Log(conditions);
+            //Debug.Log(conditions);
 
             _boardModel = boardModel;
+            _boxModel = boxModel;
 
-            _colorCount = new ColorCountConditionController(conditions, ConditionCompleted);
+            InitiateConditionControllers(conditions);
+        }
+
+        private void InitiateConditionControllers(Condition conditions)
+        {
+            Debug.Log((ConditionFlags)_condition.flags);
+            byte flags = _condition.flags;
+            if ((flags & (byte)ConditionFlags.ColorCounter) > 0)
+            {
+                _colorCount = new ColorCountConditionController(conditions, ConditionCompleted);
+            }
+            if ((flags & (byte)ConditionFlags.Special) > 0)
+            {
+                _special = new SpecialConditionController(_boxModel.GetSpecialCellsCount(), ConditionCompleted);
+            }
+            if ((flags & (byte)ConditionFlags.Unblock) > 0)
+            {
+                Debug.Log("Unblock");
+            }
+            if ((flags & (byte)ConditionFlags.Special) > 0)
+            {
+                Debug.Log("Shape");
+            }
         }
 
         public void CellsDestroyed(IEnumerable<Coordinate> destroyedCells)
@@ -27,48 +52,19 @@ namespace Match3Core
             _colorCount.CellsDestroyed(_boardModel.GetCellsInCoordinates(destroyedCells));
         }
 
+        public void SpecialCellDestroyed(List<Coordinate> destroyedCells)
+        {
+            _special.SpecialCellDestroyed(destroyedCells.Count);
+        }
+
         public void ConditionCompleted(byte cond)
         {
+            //Debug.Log(cond);
             _complitedFlags += cond;
             if (_complitedFlags == _condition.flags)
             {
                 Debug.Log("Round won");
             }
-        }
-    }
-
-    public class ColorCountConditionController
-    {
-        private const byte CONDITION = (byte)ConditionFlags.ColorCounter;
-
-        private CellsColor _color;
-        private int _count;
-
-        private event Action<byte> _condComplete;
-
-        public ColorCountConditionController(Condition condition, Action<byte> condComplete)
-        {
-            _color = condition.color;
-            _count = condition.colorCount;
-
-            _condComplete = condComplete;
-        }
-
-        public void CellsDestroyed(IEnumerable<Cell> cells)
-        {
-            Debug.Log(String.Join(',', cells));
-            foreach (var c in cells)
-            {
-                if (c.Color == _color)
-                {
-                    _count--;
-                    if (_count == 0)
-                    {
-                        _condComplete(CONDITION);
-                    }
-                }
-            }
-            Debug.Log($"Left destroy {_color} cells {_count}");
         }
     }
 }

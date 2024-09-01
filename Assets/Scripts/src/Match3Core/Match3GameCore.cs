@@ -57,13 +57,14 @@ namespace Match3Core
 
             _boxController = new BoxController(_boxModel, _boardModel);
 
-            _winContoller = new WinContoller(condition, _boardModel);
+            _winContoller = new WinContoller(condition, _boardModel, _boxModel);
 
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.SimpleDestroyCells);
             _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.ForceDestroyCells);
+            _boxController.EnableSpecialCellDroppedDownListener(_winContoller.SpecialCellDestroyed);
             _cellsDestroyController.EnableCellsFindedListener(_winContoller.CellsDestroyed);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);

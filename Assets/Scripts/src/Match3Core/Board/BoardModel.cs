@@ -15,7 +15,7 @@ namespace Match3Core.Board
         IBoardSlotManipulateModel,
         IBoardBoxModel,
         IBoardAbilityModel,
-        IWinControllerModel
+        IBoardWinControllerModel
     {
         private Slot[,] _board;
         private readonly int _rows;
