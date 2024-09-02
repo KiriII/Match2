@@ -63,6 +63,7 @@ namespace Match3Core
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
             _slotUnblockController.EnableCellUnblockedListener(_cellsDestroyController.SimpleDestroyCells);
+            _slotUnblockController.EnableCountUnblockedListener(_winContoller.SlotUnblocked);
             _boxController.EnableSpecialCellDroppedDownListener(_cellsDestroyController.ForceDestroyCells);
             _boxController.EnableSpecialCellDroppedDownListener(_winContoller.SpecialCellDestroyed);
             _cellsDestroyController.EnableCellsFindedListener(_winContoller.CellsDestroyed);

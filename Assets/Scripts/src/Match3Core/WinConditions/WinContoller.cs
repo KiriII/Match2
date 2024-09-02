@@ -14,6 +14,8 @@ namespace Match3Core
 
         private ColorCountConditionController _colorCount;
         private SpecialConditionController _special;
+        private UnblockConditionController _unblock;
+
         public WinContoller(Condition conditions, IBoardWinControllerModel boardModel, IBoxWinConditionModel boxModel)
         {
             _condition = conditions;
@@ -39,9 +41,9 @@ namespace Match3Core
             }
             if ((flags & (byte)ConditionFlags.Unblock) > 0)
             {
-                Debug.Log("Unblock");
+                _unblock = new UnblockConditionController(_boardModel.GetBlockedCellCount(), ConditionCompleted);
             }
-            if ((flags & (byte)ConditionFlags.Special) > 0)
+            if ((flags & (byte)ConditionFlags.Shape) > 0)
             {
                 Debug.Log("Shape");
             }
@@ -49,12 +51,23 @@ namespace Match3Core
 
         public void CellsDestroyed(IEnumerable<Coordinate> destroyedCells)
         {
+            if ((_complitedFlags & (byte)ConditionFlags.ColorCounter) != 0) return;
+
             _colorCount.CellsDestroyed(_boardModel.GetCellsInCoordinates(destroyedCells));
         }
 
         public void SpecialCellDestroyed(List<Coordinate> destroyedCells)
         {
+            if ((_complitedFlags & (byte)ConditionFlags.Special) != 0) return;
+
             _special.SpecialCellDestroyed(destroyedCells.Count);
+        }
+
+        public void SlotUnblocked(int count)
+        {
+            if ((_complitedFlags & (byte)ConditionFlags.Unblock) != 0) return;
+
+            _unblock.SlotUnblocked(count);
         }
 
         public void ConditionCompleted(byte cond)

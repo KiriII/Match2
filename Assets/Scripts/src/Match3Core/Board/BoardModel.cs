@@ -68,52 +68,19 @@ namespace Match3Core.Board
         }
 
         #region Getters
-        public Cell[] GetFullRow(int rowNumber)
+        public int GetRows()
         {
-            var row = new Cell[_rows];
-            for (int i = 0; i < _rows; i++)
-            {
-                row[i] = GetCanHoldCell(rowNumber, i) ? GetCell(rowNumber, i) : null;
-            }
-            return row;
+            return _rows;
         }
 
-        public Cell[] GetFullCollumn(int collumnNumber)
+        public int GetCollumns()
         {
-            var collumn = new Cell[_columns];
-            for (int i = 0; i < _columns; i++)
-            {
-                collumn[i] = GetCanHoldCell(i, collumnNumber) ? GetCell(i, collumnNumber) : null;
-            }
-            return collumn;
+            return _columns;
         }
 
-        public List<Coordinate> GetNeighbourSlot(Coordinate coordinate)
+        public Slot[,] GetSlots()
         {
-            var neighbours = new List<Coordinate>();
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up))) neighbours.Add(new Coordinate(coordinate, Vector2.up));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down))) neighbours.Add(new Coordinate(coordinate, Vector2.down));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.right))) neighbours.Add(new Coordinate(coordinate, Vector2.right));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.left))) neighbours.Add(new Coordinate(coordinate, Vector2.left));
-            return neighbours;
-        }
-
-        public List<Coordinate> GetDiagonalsSlot(Coordinate coordinate)
-        {
-            var diagonals = new List<Coordinate>();
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.left));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.right));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.left));
-            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.right));
-            return diagonals;
-        }
-
-        public List<Coordinate> GetAroundSlot(Coordinate coordinate)
-        {
-            var arounders = new List<Coordinate>();
-            arounders.AddRange(GetNeighbourSlot(coordinate));
-            arounders.AddRange(GetDiagonalsSlot(coordinate));
-            return arounders;
+            return _board;
         }
 
         public Slot GetSlot(Coordinate coordinate)
@@ -158,7 +125,7 @@ namespace Match3Core.Board
         public bool GetCanDestroyCell(Coordinate coordinate)
         {
             var cell = _board[coordinate.x, coordinate.y].Cell;
-            return !(cell.Color == CellsColor.Empty) && 
+            return !(cell.Color == CellsColor.Empty) &&
                 !(cell.Color == CellsColor.Special) &&
                 GetCanHoldCell(coordinate);
         }
@@ -213,19 +180,65 @@ namespace Match3Core.Board
             return GetActive(new Coordinate(x, y));
         }
 
-        public int GetRows()
+        public int GetBlockedCellCount()
         {
-            return _rows;
+            var counter = 0;
+            foreach (var slot in _board)
+            {
+                if (slot.IsBlocked)
+                {
+                    counter++;  
+                }
+            }
+            return counter;
         }
 
-        public int GetCollumns()
+        public Cell[] GetFullRow(int rowNumber)
         {
-            return _columns;
+            var row = new Cell[_rows];
+            for (int i = 0; i < _rows; i++)
+            {
+                row[i] = GetCanHoldCell(rowNumber, i) ? GetCell(rowNumber, i) : null;
+            }
+            return row;
         }
 
-        public Slot[,] GetSlots()
+        public Cell[] GetFullCollumn(int collumnNumber)
         {
-            return _board;
+            var collumn = new Cell[_columns];
+            for (int i = 0; i < _columns; i++)
+            {
+                collumn[i] = GetCanHoldCell(i, collumnNumber) ? GetCell(i, collumnNumber) : null;
+            }
+            return collumn;
+        }
+
+        public List<Coordinate> GetNeighbourSlot(Coordinate coordinate)
+        {
+            var neighbours = new List<Coordinate>();
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up))) neighbours.Add(new Coordinate(coordinate, Vector2.up));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down))) neighbours.Add(new Coordinate(coordinate, Vector2.down));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.right))) neighbours.Add(new Coordinate(coordinate, Vector2.right));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.left))) neighbours.Add(new Coordinate(coordinate, Vector2.left));
+            return neighbours;
+        }
+
+        public List<Coordinate> GetDiagonalsSlot(Coordinate coordinate)
+        {
+            var diagonals = new List<Coordinate>();
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.left));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.up + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.up + Vector2.right));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.left))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.left));
+            if (ContainCoordinate(new Coordinate(coordinate, Vector2.down + Vector2.right))) diagonals.Add(new Coordinate(coordinate, Vector2.down + Vector2.right));
+            return diagonals;
+        }
+
+        public List<Coordinate> GetAroundSlot(Coordinate coordinate)
+        {
+            var arounders = new List<Coordinate>();
+            arounders.AddRange(GetNeighbourSlot(coordinate));
+            arounders.AddRange(GetDiagonalsSlot(coordinate));
+            return arounders;
         }
 
         public Slot[,] GetBoardCopy()

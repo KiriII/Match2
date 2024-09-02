@@ -31,7 +31,7 @@ namespace Match3Core
                 if (c.Color == _color)
                 {
                     _count--;
-                    if (_count == 0)
+                    if (_count <= 0)
                     {
                         _condComplete(CONDITION);
                     }
