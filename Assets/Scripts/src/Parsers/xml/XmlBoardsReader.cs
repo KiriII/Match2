@@ -112,11 +112,11 @@ namespace Match3Configs.Levels
             {
                 flags += (byte)ConditionFlags.ColorCounter;
             }
-            if (TryGetSpecialCondition(conditions, out bool special).Length > 0)
+            if (TryGetSpecialCondition(conditions, out bool special).Length > 0 && special)
             {
                 flags += (byte)ConditionFlags.Special;
             }
-            if (TryGetUnblockCondition(conditions, out bool unblock).Length > 0)
+            if (TryGetUnblockCondition(conditions, out bool unblock).Length > 0 && unblock)
             {
                 flags += (byte)ConditionFlags.Unblock;
             }

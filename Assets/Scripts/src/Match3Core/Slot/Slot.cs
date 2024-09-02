@@ -4,7 +4,7 @@ namespace Match3Core
 {
     public class Slot
     {
-        public Coordinate Coordinate { get; }
+        public Coordinate Coordinate { get; set; }
         public Cell Cell { get; set; }
 
         public bool IsActive { get; set; }
@@ -48,7 +48,7 @@ namespace Match3Core
 
         public override string ToString()
         {
-            return $"C={Coordinate} Cell={Cell}";
+            return $"C={Coordinate} Cell={Cell} IsActive={IsActive} HoldCell={CanHoldCell} CanPassCell={CanPassCell} IsBlocked={IsBlocked}";
         }
     }
 }

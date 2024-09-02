@@ -193,6 +193,20 @@ namespace Match3Core.Board
             return counter;
         }
 
+        public HashSet<Coordinate> GetAllCanHoldCellCoordinates()
+        {
+            var activeCoordinate = new HashSet<Coordinate>();
+
+            foreach (var slot in _board)
+            {
+                if (GetCanHoldCell(slot.Coordinate))
+                {
+                    activeCoordinate.Add(slot.Coordinate);
+                }
+            }
+            return activeCoordinate;
+        }
+
         public Cell[] GetFullRow(int rowNumber)
         {
             var row = new Cell[_rows];

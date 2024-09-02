@@ -6,12 +6,12 @@ namespace Match3Core
 {
     public class Condition
     {
-        public byte flags { get; set; }
-        public CellsColor color { get; set; }
-        public int colorCount { get; set; }
-        public bool special { get; set; }
-        public bool unblock { get; set; }
-        public HashSet<Coordinate> shape { get; set; }
+        public readonly byte flags;
+        public readonly CellsColor color;
+        public readonly int colorCount;
+        public readonly bool special;
+        public readonly bool unblock;
+        public readonly HashSet<Coordinate> shape;
 
         public Condition(byte flags, CellsColor color = CellsColor.Empty, int colorCount = 0, bool special = false, bool unblock = false, HashSet<Coordinate> shape = null)
         {

@@ -22,7 +22,7 @@ namespace Match3Core
 
         public void SlotUnblocked(int count)
         {
-            _count = _count - count;
+            _count -= count;
             if (_count < 0)
             {
                 Debug.LogWarning("Uncorrect blocked slots count");

@@ -21,7 +21,12 @@ namespace Match3Core.Board
         public void SwitchSlots(Coordinate switchCoordinate1, Coordinate switchCoordinate2)
         {
             var slot1 = new Slot(_switchSlotsModel.GetSlot(switchCoordinate1));
+            var coordinate1 = slot1.Coordinate;
             var slot2 = new Slot(_switchSlotsModel.GetSlot(switchCoordinate2));
+            var coordinate2 = slot2.Coordinate;
+
+            slot1.Coordinate = coordinate2;
+            slot2.Coordinate = coordinate1;
 
             _switchSlotsModel.SetSlot(switchCoordinate2, slot1);
             _switchSlotsModel.SetSlot(switchCoordinate1, slot2);
@@ -32,6 +37,7 @@ namespace Match3Core.Board
 
         public void SwitchWithNewSlot(Coordinate coordinate, Slot newSlot, bool instaTriples = true)
         {
+            newSlot.Coordinate = coordinate;
             _switchSlotsModel.SetSlot(coordinate, newSlot);
 
             OnViewUpdate();

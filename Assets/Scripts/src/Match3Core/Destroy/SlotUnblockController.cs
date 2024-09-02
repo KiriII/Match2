@@ -38,7 +38,7 @@ namespace Match3Core
             }
             //Debug.Log(String.Join(", ", blockedSlot));
             OnCellsUnblocked(blockedSlot);
-            OnCountUnblocked(unblockedCellCounter);
+            if (unblockedCellCounter > 0) OnCountUnblocked(unblockedCellCounter);
         }
 
         private void OnCellsUnblocked(List<Coordinate> unblockedCells)

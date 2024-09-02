@@ -69,6 +69,7 @@ namespace Match3Core
             _cellsDestroyController.EnableCellsFindedListener(_winContoller.CellsDestroyed);
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
+            _slotManipulateController.EnableSloMovedListener(_winContoller.ShapeChanged);
             _fallingController.EnableCellsFellListener(_boxController.FindBoxDropdown);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
             _switchSlotsController.EnableSlotSwitchedListener(_checkTriplesController.FindTriples);

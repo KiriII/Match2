@@ -15,6 +15,7 @@ namespace Match3Core
         private ColorCountConditionController _colorCount;
         private SpecialConditionController _special;
         private UnblockConditionController _unblock;
+        private ShapeConditionController _shape;
 
         public WinContoller(Condition conditions, IBoardWinControllerModel boardModel, IBoxWinConditionModel boxModel)
         {
@@ -45,34 +46,41 @@ namespace Match3Core
             }
             if ((flags & (byte)ConditionFlags.Shape) > 0)
             {
-                Debug.Log("Shape");
+                _shape = new ShapeConditionController(conditions.shape, ConditionCompleted);
             }
         }
 
         public void CellsDestroyed(IEnumerable<Coordinate> destroyedCells)
         {
-            if ((_complitedFlags & (byte)ConditionFlags.ColorCounter) != 0) return;
+            if (((_complitedFlags & (byte)ConditionFlags.ColorCounter) != 0) || (_colorCount == null)) return;
 
             _colorCount.CellsDestroyed(_boardModel.GetCellsInCoordinates(destroyedCells));
         }
 
         public void SpecialCellDestroyed(List<Coordinate> destroyedCells)
         {
-            if ((_complitedFlags & (byte)ConditionFlags.Special) != 0) return;
+            if (((_complitedFlags & (byte)ConditionFlags.Special) != 0) || (_special == null)) return;
 
             _special.SpecialCellDestroyed(destroyedCells.Count);
         }
 
         public void SlotUnblocked(int count)
         {
-            if ((_complitedFlags & (byte)ConditionFlags.Unblock) != 0) return;
+            if (((_complitedFlags & (byte)ConditionFlags.Unblock) != 0) || (_unblock == null)) return;
 
             _unblock.SlotUnblocked(count);
         }
 
+        public void ShapeChanged(List<Coordinate> destroyedCells)
+        {
+            if (((_complitedFlags & (byte)ConditionFlags.Shape) != 0) || (_shape == null)) return;
+
+            _shape.ShapeChanged(_boardModel.GetAllCanHoldCellCoordinates());
+        }
+
         public void ConditionCompleted(byte cond)
         {
-            //Debug.Log(cond);
+            Debug.Log(cond);
             _complitedFlags += cond;
             if (_complitedFlags == _condition.flags)
             {

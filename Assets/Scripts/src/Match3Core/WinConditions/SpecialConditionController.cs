@@ -22,7 +22,7 @@ namespace Match3Core
         public void SpecialCellDestroyed(int count)
         {
             if (_count <= 0) throw new Exception("Wrong number of special cells");
-            _count = _count - count;
+            _count -= count;
             if (_count == 0)
             {
                 _condComplete(CONDITION);
