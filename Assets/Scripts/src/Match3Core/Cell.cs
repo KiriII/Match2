@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Match3Core
 {
-    public class Cell
+    public class Cell : IFormattable
     {
         public CellsColor Color { get; set; }
         public string Id { get; }
@@ -22,21 +23,31 @@ namespace Match3Core
             }
         }
 
-        public override bool Equals(object obj)
+        public static bool Equals(Cell c1, Cell c2)
         {
-            Cell cell = obj as Cell;
-            if (cell == null 
-                || Color == CellsColor.Empty || cell.Color == CellsColor.Empty 
-                || Color == CellsColor.Special || cell.Color == CellsColor.Special)
+            if (c1 == null && c2 == null
+                || c1.Color == CellsColor.Empty || c2.Color == CellsColor.Empty
+                || c1.Color == CellsColor.Special || c2.Color == CellsColor.Special)
             {
                 return false;
             }
-            return Color == cell.Color;
+            return c1.Color == c2.Color;
+        }
+
+        public bool EqualsTo(object obj)
+        {
+            Cell cell = obj as Cell;
+            return Equals(this, cell);
         }
 
         public override string ToString()
         {
             return $"{Color}";
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            throw new NotImplementedException();
         }
     }
 }

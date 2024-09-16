@@ -126,6 +126,85 @@ namespace Match3Configs.Levels
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
+        public static void SetWinConditionColor(int levelId, CellsColor cellsColor)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+
+            XmlBoardsReader.TryGetColorCountCondition(conditions, out byte color, out byte count);
+
+            conditions.SetAttributeValue(XmlFields.CELL_COUNT_CONDITION, $"{(byte)cellsColor}/{count}");
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void SetWinConditionColorCount(int levelId, string condCount)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+
+            XmlBoardsReader.TryGetColorCountCondition(conditions, out byte color, out byte count);
+
+            conditions.SetAttributeValue(XmlFields.CELL_COUNT_CONDITION, $"{color}/{condCount}");
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void ToggleWinConditionColorCount(int levelId)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+
+            if (XmlBoardsReader.TryGetColorCountCondition(conditions, out byte color, out byte count) != "")
+            {
+                conditions.SetAttributeValue(XmlFields.CELL_COUNT_CONDITION, null);
+            }
+            else
+            {
+                conditions.SetAttributeValue(XmlFields.CELL_COUNT_CONDITION, "2/5");
+            }
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void ToggleWinConditionSpecial(int levelId)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+            XmlBoardsReader.TryGetSpecialCondition(conditions, out bool special);
+            if (special)
+            {
+                conditions.SetAttributeValue(XmlFields.SPECIAL_CONDITION, "false");
+            }
+            else
+            {
+                conditions.SetAttributeValue(XmlFields.SPECIAL_CONDITION, "true");
+            }
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void ToggleWinConditionUnblock(int levelId)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+            XmlBoardsReader.TryGetUnblockCondition(conditions, out bool unblock);
+            if (unblock)
+            {
+                conditions.SetAttributeValue(XmlFields.UNBLOCK_CONDITION, "false");
+            }
+            else
+            {
+                conditions.SetAttributeValue(XmlFields.UNBLOCK_CONDITION, "true");
+            }
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        private static XElement GetWinConditionElement(int levelId)
+        {
+            XElement level = XmlBoardsReader.GetLevelByID(levelId, XmlBoardsReader.GetRoot());
+            XElement conditions = level.Element(XmlFields.WIN_ELEMENT);
+
+            if (conditions == null) return null;
+            return conditions;
+        }
+
         private static void ToggleCanSlot(int levelID, int posX, int posY, string attributeName)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);

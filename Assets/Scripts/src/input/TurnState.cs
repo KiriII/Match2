@@ -17,7 +17,7 @@ namespace Match3Input
             }
             else if (turn.vector != Vector2.zero)
             {
-                Debug.Log($"TURN {turn}");
+                //Debug.Log($"TURN {turn}");
                 controller.MakeSwapTurn(turn);
             }
         }

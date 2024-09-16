@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Match3Core;
 using Match3Core.Levels;
 using Match3Configs.Levels;
 using System;
@@ -47,6 +48,27 @@ namespace Match3Debug.Configs
 
             if (_currentLevel != null)
             {
+                GUILayout.Label("Win Condition: ", GUILayout.ExpandWidth(false));
+
+                EditorGUILayout.BeginHorizontal();
+
+                var condition = _currentLevel.condition;
+
+                WinConditionCellsColor(condition);
+
+                WinConditionSpecial(condition);
+
+                WinConditionUnblcok(condition);
+
+                if (GUILayout.Button($"Set Shape"))
+                {
+
+                }
+
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.Space(25);
+
                 // Как-то медленно работает
                 var slotsGrid = ScriptableObject.CreateInstance<BoardSlotEditor>();
                 slotsGrid.CreateGrid(_currentLevel);
@@ -105,6 +127,61 @@ namespace Match3Debug.Configs
                 {
                     _currentLevel = l;
                 }
+            }
+        }
+
+        private void WinConditionCellsColor(Condition condition)
+        {
+            var cellCondition = (condition.flags & (byte)ConditionFlags.ColorCounter) > 0;
+            if (GUILayout.Button($"Cell Count"))
+            {
+                XmlBoardsWriter.ToggleWinConditionColorCount(_currentLevel.ID);
+            }
+            if (cellCondition)
+            {
+                var stringToEdit = condition.colorCount.ToString();
+                stringToEdit = GUILayout.TextField(stringToEdit, 25);
+                if ((stringToEdit != condition.colorCount.ToString()) && (stringToEdit != ""))
+                {
+                    XmlBoardsWriter.SetWinConditionColorCount(_currentLevel.ID, stringToEdit);
+                }
+                ChooseCellColorField(condition);
+            }
+            else
+            {
+                GUILayout.Label("false");
+            }
+        }
+
+        private void WinConditionSpecial(Condition condition)
+        {
+            if (GUILayout.Button($"Special Cells"))
+            {
+                XmlBoardsWriter.ToggleWinConditionSpecial(_currentLevel.ID);
+            }
+            GUILayout.Label(condition.special.ToString());
+        }
+
+        private void WinConditionUnblcok(Condition condition)
+        {
+            if (GUILayout.Button($"Unblock Cells"))
+            {
+                XmlBoardsWriter.ToggleWinConditionUnblock(_currentLevel.ID);
+            }
+            GUILayout.Label(condition.unblock.ToString());
+        }
+
+        private void ChooseCellColorField(Condition condition)
+        {
+            var options = Array.FindAll(Enum.GetNames(typeof(CellsColor)), 
+                color => (color != Enum.GetName(typeof(CellsColor), CellsColor.Special)) && (color != Enum.GetName(typeof(CellsColor), CellsColor.Empty)));
+            var color = condition?.color;
+            var index = color is null ? 0 : (int)color - 2;
+            var indexOriginal = index;
+            index = EditorGUILayout.Popup(index, options, GUILayout.Width(70));
+            if (index != indexOriginal)
+            {
+                XmlBoardsWriter.SetWinConditionColor(_currentLevel.ID, (CellsColor)(index + 2));
             }
         }
     }

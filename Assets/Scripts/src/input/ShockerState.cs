@@ -20,7 +20,7 @@ namespace Match3Input
             {
                 if (controller.CreateShockerSlot(turn.coordinate, turn.fallenSlot, turn.fallenSlotObject))
                 {
-                    Debug.Log($"Create Shocker Slot {turn}");
+                    //Debug.Log($"Create Shocker Slot {turn}");
                     stateMachine.ChangeState(controller.turnState);
                 }
             }

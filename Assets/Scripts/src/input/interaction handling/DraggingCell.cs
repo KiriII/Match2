@@ -27,7 +27,7 @@ namespace Match3Input
 
         public void OnDrop(PointerEventData eventData)
         {
-            Debug.Log($"Drop {eventData.pointerDrag}");
+            //Debug.Log($"Drop {eventData.pointerDrag}");
             var fallenSlotObject = eventData.pointerDrag;
             OnTurnMade(new Turn(coordinate, fallenSlotObject.GetComponent<FallenSlotHolder>().fallenSlot, fallenSlotObject));
         }

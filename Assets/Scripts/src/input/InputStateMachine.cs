@@ -11,13 +11,13 @@ namespace Match3Input
         public void Initialize(InputState StartingState)
         {
             currentState = StartingState;
-            Debug.Log(currentState);
+            //Debug.Log(currentState);
         }
 
         public void ChangeState(InputState newState)
         {
             currentState = newState;
-            Debug.Log(currentState);
+            //Debug.Log(currentState);
         }
     }
 }

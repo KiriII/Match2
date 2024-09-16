@@ -30,24 +30,57 @@ namespace Match3Core
 
         private void InitiateConditionControllers(Condition conditions)
         {
-            Debug.Log((ConditionFlags)_condition.flags);
             byte flags = _condition.flags;
-            if ((flags & (byte)ConditionFlags.ColorCounter) > 0)
+            if ((flags & (byte)ConditionFlags.ColorCounter) > 0) 
             {
-                _colorCount = new ColorCountConditionController(conditions, ConditionCompleted);
+                int count = conditions.colorCount;
+                if (count <= 0)
+                {
+                    Debug.LogWarning($"Wrong color count {count}");
+                    ConditionCompleted((byte)ConditionFlags.ColorCounter);
+                }
+                else
+                {
+                    _colorCount = new ColorCountConditionController(conditions, ConditionCompleted);
+                }
             }
             if ((flags & (byte)ConditionFlags.Special) > 0)
             {
-                _special = new SpecialConditionController(_boxModel.GetSpecialCellsCount(), ConditionCompleted);
+                if (_boxModel.GetSpecialCellsCount() <= 0)
+                {
+                    Debug.LogWarning($"There is no special cells on this level");
+                    ConditionCompleted((byte)ConditionFlags.Special);
+                } 
+                else
+                {
+                    _special = new SpecialConditionController(_boxModel.GetSpecialCellsCount(), ConditionCompleted);
+                }
             }
             if ((flags & (byte)ConditionFlags.Unblock) > 0)
             {
-                _unblock = new UnblockConditionController(_boardModel.GetBlockedCellCount(), ConditionCompleted);
+                if (_boardModel.GetBlockedCellCount() <= 0)
+                {
+                    Debug.LogWarning($"There is no unblock slots on this level");
+                    ConditionCompleted((byte)ConditionFlags.Unblock);
+                }
+                else
+                {
+                    _unblock = new UnblockConditionController(_boardModel.GetBlockedCellCount(), ConditionCompleted);
+                }
             }
             if ((flags & (byte)ConditionFlags.Shape) > 0)
             {
-                _shape = new ShapeConditionController(conditions.shape, ConditionCompleted);
+                if (conditions.shape.Count <= 0)
+                {
+                    Debug.LogWarning($"There is no shape condition in level config");
+                    ConditionCompleted((byte)ConditionFlags.Shape);
+                }
+                else
+                {
+                    _shape = new ShapeConditionController(conditions.shape, ConditionCompleted);
+                }
             }
+            Debug.Log((ConditionFlags)(_condition.flags - _complitedFlags));
         }
 
         public void CellsDestroyed(IEnumerable<Coordinate> destroyedCells)

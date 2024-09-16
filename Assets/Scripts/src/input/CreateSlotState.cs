@@ -17,7 +17,7 @@ namespace Match3Input
             {
                 if (controller.CreateSlot(turn.coordinate, turn.fallenSlot, turn.fallenSlotObject))
                 {
-                    Debug.Log($"Create Slot {turn}");
+                    //Debug.Log($"Create Slot {turn}");
                     stateMachine.ChangeState(controller.turnState);
                 }
             }
