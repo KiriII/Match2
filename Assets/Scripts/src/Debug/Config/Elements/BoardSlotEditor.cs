@@ -11,7 +11,7 @@ namespace Match3Debug.Configs
 {
     public class BoardSlotEditor : EditorWindow
     {
-        public void CreateGrid(Level level)
+        public void CreateGrid(Level level, HashSet<Coordinate> shape)
         {
             if (level == null) return;
             for (int i = 0; i < level.rows; i++)
@@ -19,9 +19,11 @@ namespace Match3Debug.Configs
                 EditorGUILayout.BeginHorizontal();
                 for (int j = 0; j < level.collumns; j++)
                 {
+                    if (shape.Contains(level.Slots[i, j].Coordinate)) GUI.skin = (GUISkin)AssetDatabase.LoadAssetAtPath("Assets/ShapeCondition.guiskin", typeof(GUISkin));
                     var slotSkin = level.Slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
                     if (!level.Slots[i, j].IsActive) slotSkin = GUI.skin.box;
                     EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(70), GUILayout.Height(60));
+                    GUI.skin = null;
                     EditorGUILayout.Space();
                     if (GUILayout.Button($"edit", GUI.skin.button))
                     {
@@ -57,6 +59,16 @@ namespace Match3Debug.Configs
                                     EditorGUILayout.ColorField(Color.gray);
                                     break;
                             }
+                        }
+                    }
+                    var shapeCond = (shape != null) && (shape.Count > 0);
+                    if (shape.Count > 0)
+                    {
+                        var shapeNeeded = shapeCond;
+                        shapeNeeded = EditorGUILayout.Toggle("Shape cond", shapeNeeded);
+                        if (shapeNeeded != shapeCond)
+                        {
+                            // TODO XML Writer toggle shape cond
                         }
                     }
                     EditorGUILayout.EndVertical();

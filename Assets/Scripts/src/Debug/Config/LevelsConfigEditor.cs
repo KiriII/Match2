@@ -64,14 +64,18 @@ namespace Match3Debug.Configs
                 {
 
                 }
-
+                var shapeCondition = (condition.flags & (byte)ConditionFlags.Shape) > 0;
+                if (shapeCondition)
+                {
+                    GUILayout.Label(shapeCondition.ToString());
+                }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.Space(25);
 
                 // Как-то медленно работает
                 var slotsGrid = ScriptableObject.CreateInstance<BoardSlotEditor>();
-                slotsGrid.CreateGrid(_currentLevel);
+                slotsGrid.CreateGrid(_currentLevel, condition.shape);
                 
                 ReadFromConfigCurrentLevel();
             }
