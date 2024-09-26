@@ -148,6 +148,42 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
+        public static void ToggleShapeByPosition(int levelId, int posX, int posY)
+        {
+            ToggleShapeByCoordinate(levelId, new Coordinate(posX, posY));
+        }
+
+        public static void ToggleShapeByCoordinate(int levelId, Coordinate coordinate)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+
+            XmlBoardsReader.TryGetShapeCondition(conditions, out HashSet<Coordinate> shape);
+
+            if (shape != null)
+            {
+                if (shape.Contains(coordinate))
+                {
+                    shape.Remove(coordinate);
+                }
+                else
+                {
+                    shape.Add(coordinate);
+                }
+            }
+
+            if (shape.Count == 0)
+            {
+                ToggleWinConditionShape(levelId);
+                return;
+            }
+            else if (conditions != null)
+            {
+                conditions.SetAttributeValue(XmlFields.SHAPE_CONDITION, string.Join(", ", shape));
+            }
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
         public static void ToggleWinConditionColorCount(int levelId)
         {
             XElement conditions = GetWinConditionElement(levelId);
@@ -191,6 +227,22 @@ namespace Match3Configs.Levels
             else
             {
                 conditions.SetAttributeValue(XmlFields.UNBLOCK_CONDITION, "true");
+            }
+
+            conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
+        }
+
+        public static void ToggleWinConditionShape(int levelId)
+        {
+            XElement conditions = GetWinConditionElement(levelId);
+            XmlBoardsReader.TryGetShapeCondition(conditions, out HashSet<Coordinate> shape);
+            if (shape.Count > 0)
+            {
+                conditions.SetAttributeValue(XmlFields.SHAPE_CONDITION, null);
+            }
+            else
+            {
+                conditions.SetAttributeValue(XmlFields.SHAPE_CONDITION, "4/4");
             }
 
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);

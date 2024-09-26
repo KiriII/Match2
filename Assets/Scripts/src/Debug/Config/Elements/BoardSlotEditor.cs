@@ -22,7 +22,7 @@ namespace Match3Debug.Configs
                     if (shape.Contains(level.Slots[i, j].Coordinate)) GUI.skin = (GUISkin)AssetDatabase.LoadAssetAtPath("Assets/ShapeCondition.guiskin", typeof(GUISkin));
                     var slotSkin = level.Slots[i, j].CanHoldCell ? GUI.skin.button : GUI.skin.textArea;
                     if (!level.Slots[i, j].IsActive) slotSkin = GUI.skin.box;
-                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(70), GUILayout.Height(60));
+                    EditorGUILayout.BeginVertical(slotSkin, GUILayout.Width(75), GUILayout.Height(75));
                     GUI.skin = null;
                     EditorGUILayout.Space();
                     if (GUILayout.Button($"edit", GUI.skin.button))
@@ -61,16 +61,23 @@ namespace Match3Debug.Configs
                             }
                         }
                     }
+
+                    // Shape condition 
+                    EditorGUILayout.BeginHorizontal(GUILayout.Width(50));
                     var shapeCond = (shape != null) && (shape.Count > 0);
                     if (shape.Count > 0)
                     {
-                        var shapeNeeded = shapeCond;
-                        shapeNeeded = EditorGUILayout.Toggle("Shape cond", shapeNeeded);
-                        if (shapeNeeded != shapeCond)
+                        var InShapeCondtion = shape.Contains(level.Slots[i, j].Coordinate);
+                        GUILayout.Label("Shape");
+                        var shapeNeeded = InShapeCondtion;
+                        shapeNeeded = EditorGUILayout.Toggle(shapeNeeded, GUILayout.ExpandWidth(false));
+                        if (shapeNeeded != InShapeCondtion) 
                         {
-                            // TODO XML Writer toggle shape cond
+                            XmlBoardsWriter.ToggleShapeByPosition(level.ID, i, j);
                         }
                     }
+                    EditorGUILayout.EndHorizontal();
+
                     EditorGUILayout.EndVertical();
                 }
                 EditorGUILayout.EndHorizontal();

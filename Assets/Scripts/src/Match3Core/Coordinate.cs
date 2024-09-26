@@ -52,7 +52,7 @@ namespace Match3Core
 
         public override string ToString()
         {
-            return $"[{x}:{y}]";
+            return $"{x}/{y}";
         }
     }
 }
