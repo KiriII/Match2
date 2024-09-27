@@ -8,17 +8,17 @@ namespace Match3Core.Levels
     public class LevelsHolder
     {
         private HashSet<Level> _levels;
-        public int currentLevelID { get; set; }
+        public string currentLevelID { get; set; }
 
-        public LevelsHolder(HashSet<Level> levels, int id)
+        public LevelsHolder(HashSet<Level> levels, string id)
         {
             _levels = levels;
             currentLevelID = id;
         }
 
-        public HashSet<int> GetLevelsID()
+        public HashSet<string> GetLevelsID()
         {
-            var ids = new HashSet<int>(_levels.ToList().Select(x => x.ID));
+            var ids = new HashSet<string>(_levels.ToList().Select(x => x.ID));
             return ids;
         }
 
@@ -27,7 +27,11 @@ namespace Match3Core.Levels
             return _levels.Where(level => level.ID == currentLevelID).First();
         }
 
-        // Не по id а по порядковому номеру
+        public Level GetLevel(string levelNumber)
+        {
+            return _levels.First(level => string.Equals(level.ID, levelNumber));
+        }
+
         public Level GetLevel(int levelNumber)
         {
             return _levels.ElementAt(levelNumber);

@@ -24,7 +24,7 @@ public class Launcher : MonoBehaviour
     void Start()
     {
         var levels = XmlBoardsReader.GetBoards();
-        _levelsHolder = new LevelsHolder(levels, 0);
+        _levelsHolder = new LevelsHolder(levels, "0");
         CreateLevel(0);
     }
 
@@ -37,7 +37,7 @@ public class Launcher : MonoBehaviour
         _viewUpdate?.UpdateScreen();
     }
 
-    private void CreateLevel(int levelNumber)
+    private void CreateLevel(int levelId)
     {
         Destroy(_mainUIObject);
         Destroy(_fallenSlotsObject);
@@ -45,7 +45,7 @@ public class Launcher : MonoBehaviour
         _mainUIObject = Instantiate(_mainUI, _canvas);
         _fallenSlotsObject = Instantiate(_fallenSlots, _canvas);
 
-        _levelsHolder.currentLevelID = _levelsHolder.GetLevel(levelNumber).ID;
+        _levelsHolder.currentLevelID = _levelsHolder.GetLevel(levelId).ID;
 
         var ñurrentLevel = _levelsHolder.GetCurrentLevel();
         var ids = _levelsHolder.GetLevelsID();

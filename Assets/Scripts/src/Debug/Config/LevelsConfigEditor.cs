@@ -62,7 +62,7 @@ namespace Match3Debug.Configs
 
                 if (GUILayout.Button($"Set Shape"))
                 {
-
+                    XmlBoardsWriter.ToggleWinConditionShape(_currentLevel.ID);
                 }
                 var shapeCondition = (condition.flags & (byte)ConditionFlags.Shape) > 0;
                 if (shapeCondition)
@@ -115,9 +115,9 @@ namespace Match3Debug.Configs
         {
             if (GUILayout.Button($"Add new level", GUILayout.Width(228)))
             {
-                if (_levelID.Length > 0 && !_levels.Select(e => e.ID).Contains(Int32.Parse(_levelID)))
+                if (_levelID.Length > 0 && !_levels.Select(e => e.ID).Contains(_levelID))
                 {
-                    XmlBoardsWriter.AddNewLevel(Int32.Parse(_levelID));
+                    XmlBoardsWriter.AddNewLevel(_levelID);
                 }
             }
         }

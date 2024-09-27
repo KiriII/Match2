@@ -1,12 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Match3Core.Levels
 {
-    public class Level
+    public class Level : IComparable<Level>, IEquatable<Level>
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public int rows { get; set; }
         public int collumns { get; set; }
         public Slot[,] Slots { get; set; }
@@ -26,6 +27,30 @@ namespace Match3Core.Levels
         public void AddBox(Coordinate coordinate, string id)
         {
             Boxes.Add(coordinate, id);
+        }
+
+        public int CompareTo(Level other)
+        {
+            return ID.CompareTo(other.ID);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var objAsPart = obj as Level;
+            if (objAsPart == null) return false;
+            else return Equals(objAsPart);
+        }
+
+        public bool Equals(Level level)
+        {
+            return (string.Equals(ID, level.ID));
+        }
+
+        public override string ToString()
+        {
+            return $"Id = {ID}\n" +
+                $"cond = {condition}";
         }
     }
 }

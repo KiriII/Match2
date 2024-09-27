@@ -14,12 +14,12 @@ namespace Match3Debug.Configs
         private static BoardSlotWindow window;
 
         private static Slot _slot;
-        private static int _levelId;
+        private static string _levelId;
 
         private static int x;
         private static int y;
 
-        public static BoardSlotWindow GetInstance(Slot slot, int levelId)
+        public static BoardSlotWindow GetInstance(Slot slot, string levelId)
         {
             if (window != null) window.Close();
             window = CreateWindow(slot, levelId);
@@ -31,7 +31,7 @@ namespace Match3Debug.Configs
             if (window != null) window.Close();
         }
 
-        private static BoardSlotWindow CreateWindow(Slot slot, int levelId)
+        private static BoardSlotWindow CreateWindow(Slot slot, string levelId)
         {
             window = (BoardSlotWindow)GetWindow(typeof(BoardSlotWindow));
 

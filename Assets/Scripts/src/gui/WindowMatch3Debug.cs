@@ -31,9 +31,9 @@ namespace Match3Core.gui
         private InputController _inputController;
         private int _rows;
         private int _collumns;
-        private int _currentLevelID;
+        private string _currentLevelID;
 
-        private HashSet<int> _levelsID;
+        private HashSet<string> _levelsID;
 
         private GameObject[,] _slotsObjects;
 
@@ -52,8 +52,8 @@ namespace Match3Core.gui
         }
 
         public void init(Match3GameCore gameCore,
-            HashSet<int> levelsID, 
-            int curentLevelID,
+            HashSet<string> levelsID, 
+            string curentLevelID,
             UnityAction<int> createNewBoardAction,
             InputController inputController)
         {

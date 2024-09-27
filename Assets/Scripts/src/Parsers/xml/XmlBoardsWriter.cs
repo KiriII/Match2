@@ -12,7 +12,7 @@ namespace Match3Configs.Levels
     {
         private const string DEFAULT_BOARD_SIZE = "9/9";
 
-        public static void AddNewLevel(int levelID)
+        public static void AddNewLevel(string levelID)
         {
             var levels = XmlBoardsReader.GetRoot();
 
@@ -38,7 +38,7 @@ namespace Match3Configs.Levels
             levels.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetCellColor(int levelID, int posX, int posY, CellsColor color)
+        public static void SetCellColor(string levelID, int posX, int posY, CellsColor color)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
 
@@ -72,7 +72,7 @@ namespace Match3Configs.Levels
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetCellId(int levelID, int posX, int posY, string id)
+        public static void SetCellId(string levelID, int posX, int posY, string id)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
 
@@ -83,27 +83,27 @@ namespace Match3Configs.Levels
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleActive(int levelID, int posX, int posY)
+        public static void ToggleActive(string levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_ACTIVE_ATTRIBUTE);
         }
 
-        public static void ToggleHoldCell(int levelID, int posX, int posY)
+        public static void ToggleHoldCell(string levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_HOLD_CELL_ATTRIBUTE);
         }
 
-        public static void TogglePassCell(int levelID, int posX, int posY)
+        public static void TogglePassCell(string levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_PASS_CELL_ATTRIBUTE);
         }
 
-        public static void ToggleBlocked(int levelID, int posX, int posY)
+        public static void ToggleBlocked(string levelID, int posX, int posY)
         {
             ToggleCanSlot(levelID, posX, posY, XmlFields.SLOT_BLOCKED_ATTRIBUTE);
         }
 
-        public static void ToggleBox(int levelID, int posX, int posY, string boxId = "0")
+        public static void ToggleBox(string levelID, int posX, int posY, string boxId = "0")
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
             var boxAttribute = slot.Attribute(XmlFields.SLOT_BOX_ATTRIBUTE);
@@ -119,14 +119,14 @@ namespace Match3Configs.Levels
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetBoxId(int levelID, int posX, int posY, string boxId)
+        public static void SetBoxId(string levelID, int posX, int posY, string boxId)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
             slot.SetAttributeValue(XmlFields.SLOT_BOX_ATTRIBUTE, boxId);
             slot.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetWinConditionColor(int levelId, CellsColor cellsColor)
+        public static void SetWinConditionColor(string levelId, CellsColor cellsColor)
         {
             XElement conditions = GetWinConditionElement(levelId);
 
@@ -137,7 +137,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void SetWinConditionColorCount(int levelId, string condCount)
+        public static void SetWinConditionColorCount(string levelId, string condCount)
         {
             XElement conditions = GetWinConditionElement(levelId);
 
@@ -148,12 +148,12 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleShapeByPosition(int levelId, int posX, int posY)
+        public static void ToggleShapeByPosition(string levelId, int posX, int posY)
         {
             ToggleShapeByCoordinate(levelId, new Coordinate(posX, posY));
         }
 
-        public static void ToggleShapeByCoordinate(int levelId, Coordinate coordinate)
+        public static void ToggleShapeByCoordinate(string levelId, Coordinate coordinate)
         {
             XElement conditions = GetWinConditionElement(levelId);
 
@@ -184,7 +184,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleWinConditionColorCount(int levelId)
+        public static void ToggleWinConditionColorCount(string levelId)
         {
             XElement conditions = GetWinConditionElement(levelId);
 
@@ -200,7 +200,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleWinConditionSpecial(int levelId)
+        public static void ToggleWinConditionSpecial(string levelId)
         {
             XElement conditions = GetWinConditionElement(levelId);
             XmlBoardsReader.TryGetSpecialCondition(conditions, out bool special);
@@ -216,7 +216,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleWinConditionUnblock(int levelId)
+        public static void ToggleWinConditionUnblock(string levelId)
         {
             XElement conditions = GetWinConditionElement(levelId);
             XmlBoardsReader.TryGetUnblockCondition(conditions, out bool unblock);
@@ -232,7 +232,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        public static void ToggleWinConditionShape(int levelId)
+        public static void ToggleWinConditionShape(string levelId)
         {
             XElement conditions = GetWinConditionElement(levelId);
             XmlBoardsReader.TryGetShapeCondition(conditions, out HashSet<Coordinate> shape);
@@ -248,7 +248,7 @@ namespace Match3Configs.Levels
             conditions.Document.Save(XmlFields.PATH_TO_DOCUMENT);
         }
 
-        private static XElement GetWinConditionElement(int levelId)
+        private static XElement GetWinConditionElement(string levelId)
         {
             XElement level = XmlBoardsReader.GetLevelByID(levelId, XmlBoardsReader.GetRoot());
             XElement conditions = level.Element(XmlFields.WIN_ELEMENT);
@@ -257,7 +257,7 @@ namespace Match3Configs.Levels
             return conditions;
         }
 
-        private static void ToggleCanSlot(int levelID, int posX, int posY, string attributeName)
+        private static void ToggleCanSlot(string levelID, int posX, int posY, string attributeName)
         {
             var slot = XmlBoardsReader.GetSlotFromLevelIDByCoordinate(levelID, posX, posY);
 

@@ -26,7 +26,7 @@ namespace Match3Configs.Levels
 
                 foreach (var l in levels)
                 {
-                    if (l.ID == id) throw new Exception($"Duplication level id:{level.ID} in {XmlFields.PATH_TO_DOCUMENT}");
+                    if (string.Equals(l.ID, id)) throw new Exception($"Duplication level id:{level.ID} in {XmlFields.PATH_TO_DOCUMENT}");
                 }
 
                 level.ID = id;
@@ -82,12 +82,12 @@ namespace Match3Configs.Levels
             return rootElement;
         }
 
-        public static XElement GetLevelByID(int levelID, XElement root = null)
+        public static XElement GetLevelByID(string levelID, XElement root = null)
         {
             var rootElement = root is null ? GetRoot() : root;
             if (rootElement is null) throw new Exception($"Missing root element {XmlFields.ROOT_ELEMENT}");
             var SomeRequiredLevel = rootElement.Elements()
-                .Where(e => e.Attribute("id").Value == levelID.ToString());
+                .Where(e => e.Attribute("id").Value == levelID);
 
             if (SomeRequiredLevel.Count() > 1)
             {
@@ -97,11 +97,10 @@ namespace Match3Configs.Levels
             return SomeRequiredLevel.First();
         }
 
-        public static int GetID(XElement levelElement)
+        public static string GetID(XElement levelElement)
         {
             var idText = levelElement.Attribute(XmlFields.LEVEL_ID_ATTRIBUTE).Value;
-            var id = Int32.Parse(idText);
-            return id;
+            return idText;
         }
 
         public static Condition GetWinConditions(XElement levelElement)
@@ -152,7 +151,7 @@ namespace Match3Configs.Levels
             return slot.Elements();
         }
 
-        public static XElement GetSlotFromLevelIDByCoordinate(int levelID, int posX, int posY)
+        public static XElement GetSlotFromLevelIDByCoordinate(string levelID, int posX, int posY)
         {
             var level = GetLevelByID(levelID);
             var slots = GetSlotElement(level);
@@ -297,7 +296,7 @@ namespace Match3Configs.Levels
             return "";
         }
 
-        public static string TryGetCellIdFromCell(Coordinate coordinate, int levelId)
+        public static string TryGetCellIdFromCell(Coordinate coordinate, string levelId)
         {
             var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
             return TryGetCellIdFromCell(slotElement);
@@ -314,7 +313,7 @@ namespace Match3Configs.Levels
             return null;
         }
 
-        public static string TryGetBoxIdFromSlot(Coordinate coordinate, int levelId)
+        public static string TryGetBoxIdFromSlot(Coordinate coordinate, string levelId)
         {
             var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
             return TryGetBoxIdFromSlot(slotElement);
