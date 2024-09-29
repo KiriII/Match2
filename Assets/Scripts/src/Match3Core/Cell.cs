@@ -1,9 +1,10 @@
+using Match3Core.Levels;
 using System;
 using UnityEngine;
 
 namespace Match3Core
 {
-    public class Cell : IFormattable
+    public class Cell : IFormattable, IEquatable<Cell>
     {
         public CellsColor Color { get; set; }
         public string Id { get; }
@@ -48,6 +49,11 @@ namespace Match3Core
         public string ToString(string format, IFormatProvider formatProvider)
         {
             throw new NotImplementedException();
+        }
+
+        public bool Equals(Cell other)
+        {
+            return Equals(this, other);
         }
     }
 }
