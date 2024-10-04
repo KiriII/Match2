@@ -26,8 +26,11 @@ namespace Match3Core
 
         public static bool Equals(Cell c1, Cell c2)
         {
-            if (c1 == null && c2 == null
-                || c1.Color == CellsColor.Empty || c2.Color == CellsColor.Empty
+            if (c1 is null || c2 is null)
+            {
+                return false; 
+            }
+            if (c1.Color == CellsColor.Empty || c2.Color == CellsColor.Empty
                 || c1.Color == CellsColor.Special || c2.Color == CellsColor.Special)
             {
                 return false;

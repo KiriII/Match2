@@ -48,10 +48,10 @@ public class Launcher : MonoBehaviour
         _levelsHolder.currentLevelID = _levelsHolder.GetLevel(levelId).ID;
 
         var ñurrentLevel = _levelsHolder.GetCurrentLevel();
-        var ids = _levelsHolder.GetLevelsID();
+        var ids = _levelsHolder.GetAwaibleLevelsId();
         var boxes = ñurrentLevel.Boxes;
 
-        _match3GameCore = new Match3GameCore(ñurrentLevel.Slots, ñurrentLevel.condition, boxes);
+        _match3GameCore = new Match3GameCore(ñurrentLevel.Slots, ñurrentLevel.condition, boxes, _levelsHolder.CurrentLevelComplete, CreateNextLevel);
 
         _viewUpdate = new ViewUpdateStack(_mainUIObject.GetComponent<WindowMatch3Debug>(), _match3GameCore);
         _inputController = new InputController(_match3GameCore);
@@ -66,5 +66,10 @@ public class Launcher : MonoBehaviour
             _levelsHolder.currentLevelID,
             CreateLevel,
             _inputController);
+    }
+
+    private void CreateNextLevel()
+    {
+        CreateLevel(_levelsHolder.GetCurrentLevelIndex() + 1);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Match3Core
@@ -16,6 +17,8 @@ namespace Match3Core
         private SpecialConditionController _special;
         private UnblockConditionController _unblock;
         private ShapeConditionController _shape;
+
+        private event Action _levelWon;
 
         public WinContoller(Condition conditions, IBoardWinControllerModel boardModel, IBoxWinConditionModel boxModel)
         {
@@ -117,8 +120,23 @@ namespace Match3Core
             _complitedFlags += cond;
             if (_complitedFlags == _condition.flags)
             {
-                Debug.Log("Round won");
+                OnLevelWon();
             }
+        }
+
+        private void OnLevelWon()
+        {
+            _levelWon?.Invoke();
+        }
+
+        public void EnableLevelWonListener(Action methodInLitener)
+        {
+            _levelWon += methodInLitener;
+        }
+
+        public void DesableLevelWonListener(Action methodInLitener)
+        {
+            _levelWon -= methodInLitener;
         }
     }
 }

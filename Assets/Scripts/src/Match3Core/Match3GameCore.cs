@@ -33,10 +33,16 @@ namespace Match3Core
 
         private event Action _updateView;
         private event Action<Slot[,]> _boardScreen;
+        private event Action _createNextLevel;
 
-        public Match3GameCore(Slot[,] slots, Condition condition, Dictionary<Coordinate, string> boxes)  
+        public Match3GameCore(Slot[,] slots,
+            Condition condition,
+            Dictionary<Coordinate,string> boxes,
+            Action CurrentLevelComplete,
+            Action CreateNextLevel)  
         {
             _updateView += UpdateView;
+            _createNextLevel = CreateNextLevel;
 
             _boardModel = new BoardModel(slots);
             _boxModel = new BoxModel(boxes);
@@ -59,6 +65,9 @@ namespace Match3Core
 
             _winContoller = new WinContoller(condition, _boardModel, _boxModel);
 
+            _winContoller.EnableLevelWonListener(CurrentLevelComplete);
+            _winContoller.EnableLevelWonListener(LevelComplete);
+
             _turnController.EnableCorrectTurnDoneListener(_checkTriplesController.FindTriples);
             _checkTriplesController.EnableTriplesCountListener(_scoreHolder.AddScore);
             _checkTriplesController.EnableTriplesFindedListener(_slotUnblockController.UnblockSlots);
@@ -76,6 +85,11 @@ namespace Match3Core
 
             // Create Cells On Board
             CreateCellsOnBoard.CreateBoard(_boardModel.GetSlots(), _switchCellController);
+        }
+
+        public void LevelComplete()
+        {
+            _createNextLevel?.Invoke();
         }
 
         public void UpdateView()
