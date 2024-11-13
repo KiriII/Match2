@@ -37,7 +37,6 @@ namespace Match3Core
 
         public Match3GameCore(Slot[,] slots,
             Condition condition,
-            Dictionary<Coordinate,string> boxes,
             Action CurrentLevelComplete,
             Action CreateNextLevel)  
         {
@@ -45,7 +44,7 @@ namespace Match3Core
             _createNextLevel = CreateNextLevel;
 
             _boardModel = new BoardModel(slots);
-            _boxModel = new BoxModel(boxes);
+            _boxModel = new BoxModel(_boardModel.GetRows());
             _fallenOffSlotsModel = new FallenOffSlotsModel();
 
             _scoreHolder = new ScoreHolder();
@@ -79,6 +78,7 @@ namespace Match3Core
             _cellsDestroyController.EnableCellDestroyedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_fallingController.FallingWithDeadCells);
             _slotManipulateController.EnableSloMovedListener(_winContoller.ShapeChanged);
+            _slotManipulateController.EnableSloMovedSimpleListener(_boxController.FindBoxDropdown);
             _fallingController.EnableCellsFellListener(_boxController.FindBoxDropdown);
             _fallingController.EnableCellsFellListener(_checkTriplesController.FindTriples);
             _switchSlotsController.EnableSlotSwitchedListener(_checkTriplesController.FindTriples);
@@ -147,11 +147,6 @@ namespace Match3Core
         public int GetCollumns()
         {
             return _boardModel.GetCollumns();
-        }
-
-        public string GetIdByCoordinate(Coordinate coordinate)
-        {
-            return _boxModel.GetIdByCoordinate(coordinate);
         }
 
         public Slot GetFallenSlot()

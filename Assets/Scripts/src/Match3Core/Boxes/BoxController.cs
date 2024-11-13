@@ -26,14 +26,25 @@ namespace Match3Core.Box
             var boxCoordinates = _boxModel.GetCoordinates();
             foreach (var coordinate in boxCoordinates)
             {
-                if (coordinate.x <= 0) continue;
+                //if (coordinate.x <= 0) continue;
                 var checkingCellCoordinate = new Coordinate(coordinate, Vector2.up);
-                if (!_boardModel.GetCanHoldCell(checkingCellCoordinate)) return;
-                var dropDownCell = _boardModel.GetCell(checkingCellCoordinate);
-                var desiredId = _boxModel.GetIdByCoordinate(coordinate);
-                if (dropDownCell.Color == CellsColor.Special && dropDownCell.Id == desiredId)
-                {
-                    findedDroppedCells.Add(checkingCellCoordinate);
+                while (checkingCellCoordinate.x > 0)
+				{
+                    if (!_boardModel.GetCanHoldCell(checkingCellCoordinate))
+                    {
+                        checkingCellCoordinate = new Coordinate(checkingCellCoordinate, Vector2.up);
+                        continue;
+                    }
+                    else
+                    {
+                        var dropDownCell = _boardModel.GetCell(checkingCellCoordinate);
+                        if (!_boardModel.GetCanHoldCell(checkingCellCoordinate)) break;
+                        if (dropDownCell.Color == CellsColor.Special)
+                        {
+                            findedDroppedCells.Add(checkingCellCoordinate);
+                        }
+                        break;
+                    }
                 }
             }
             if (findedDroppedCells.Count > 0)

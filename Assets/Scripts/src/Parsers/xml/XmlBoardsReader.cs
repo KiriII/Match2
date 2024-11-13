@@ -205,19 +205,19 @@ namespace Match3Configs.Levels
             switch (color)
             {
                 case "special":
-                    cell = new Cell(CellsColor.Special, TryGetCellIdFromCell(slotElement));
+                    cell = new Cell(CellsColor.Special);
                     break;
                 case "red":
-                    cell = new Cell(CellsColor.Red, TryGetCellIdFromCell(slotElement));
+                    cell = new Cell(CellsColor.Red);
                     break;
                 case "green":
-                    cell = new Cell(CellsColor.Green, TryGetCellIdFromCell(slotElement));
+                    cell = new Cell(CellsColor.Green);
                     break;
                 case "blue":
-                    cell = new Cell(CellsColor.Blue, TryGetCellIdFromCell(slotElement));
+                    cell = new Cell(CellsColor.Blue);
                     break;
                 case "yellow":
-                    cell = new Cell(CellsColor.Yellow, TryGetCellIdFromCell(slotElement));
+                    cell = new Cell(CellsColor.Yellow);
                     break;
                 default:
                     Debug.LogWarning($"Unknown color {color} in level.xml");
@@ -283,23 +283,6 @@ namespace Match3Configs.Levels
                 return shapeCond.Value;
             }
             return "";
-        }
-
-        public static string TryGetCellIdFromCell(XElement slotElement)
-        {
-            var celIdAttribute = slotElement.Attribute(XmlFields.SLOT_CELL_ID);
-            if (celIdAttribute != null)
-            {
-                var cellID = celIdAttribute.Value;
-                return cellID;
-            }
-            return "";
-        }
-
-        public static string TryGetCellIdFromCell(Coordinate coordinate, string levelId)
-        {
-            var slotElement = GetSlotFromLevelIDByCoordinate(levelId, coordinate.x, coordinate.y);
-            return TryGetCellIdFromCell(slotElement);
         }
 
         public static string TryGetBoxIdFromSlot(XElement slotElement)

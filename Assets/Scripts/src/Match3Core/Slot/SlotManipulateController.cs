@@ -15,6 +15,7 @@ namespace Match3Core
         private FallenOffSlotsModel _fallenOffSlotsModel;
 
         private event Action<List<Coordinate>> _slotMoved;
+        private event Action _slotMovedSimple;
         private event Action _updateView;
 
         public SlotManipulateController(SwitchSlotsController switchSlotsController, IBoardSlotManipulateModel slotManipulateModel, FallenOffSlotsModel fallenOffSlotsModel, Action updateView)
@@ -32,7 +33,7 @@ namespace Match3Core
             _fallenOffSlotsModel.AddSlot(new Slot(_slotManipulateModel.GetSlot(coordinate)));
             _switchSlotsController.SwitchWithNewSlot(coordinate, 
                 new Slot(coordinate, new Cell(CellsColor.Empty), false, true, false, true));
-            
+            OnSlotMoved(new List<Coordinate>());
             OnViewUpdate();
             return true;
         }
@@ -60,6 +61,7 @@ namespace Match3Core
 
         private void OnSlotMoved(List<Coordinate> destroyedCells)
         {
+            OnSlotMovedSimple();
             _slotMoved?.Invoke(destroyedCells);
         }
 
@@ -71,6 +73,21 @@ namespace Match3Core
         public void DesableSlotMovedListener(Action<List<Coordinate>> methodInLitener)
         {
             _slotMoved -= methodInLitener;
+        }
+
+        private void OnSlotMovedSimple()
+        {
+            _slotMovedSimple?.Invoke();
+        }
+
+        public void EnableSloMovedSimpleListener(Action methodInLitener)
+        {
+            _slotMovedSimple += methodInLitener;
+        }
+
+        public void DesableSlotMovedSimpleListener(Action methodInLitener)
+        {
+            _slotMovedSimple -= methodInLitener;
         }
     }
 }

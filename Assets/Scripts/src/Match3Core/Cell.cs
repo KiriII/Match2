@@ -7,12 +7,10 @@ namespace Match3Core
     public class Cell : IFormattable, IEquatable<Cell>
     {
         public CellsColor Color { get; set; }
-        public string Id { get; }
 
-        public Cell(CellsColor cellsColor = CellsColor.Empty, string id = "")
+        public Cell(CellsColor cellsColor = CellsColor.Empty)
         {
             Color = cellsColor;
-            Id = id;
         }
 
         public Cell(Cell cell)
@@ -20,7 +18,6 @@ namespace Match3Core
             if (cell is not null)
             {
                 Color = cell.Color;
-                Id = cell.Id;
             }
         }
 

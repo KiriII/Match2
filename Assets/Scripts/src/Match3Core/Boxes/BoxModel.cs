@@ -7,22 +7,20 @@ namespace Match3Core.Box
 {
     public class BoxModel : IBoxWinConditionModel
     {
-        private Dictionary<Coordinate, string> _boxes;
+        private ICollection<Coordinate> _boxes;
 
-        public BoxModel(Dictionary<Coordinate, string> boxes)
+        public BoxModel(int boardSize)
         {
-            _boxes = new Dictionary<Coordinate, string>(boxes);
+            _boxes = new HashSet<Coordinate>();
+            for (var i = 0; i < boardSize; i++)
+			{
+                _boxes.Add(new Coordinate(boardSize, i));
+			}
         }
 
-        public List<Coordinate> GetCoordinates()
+        public ICollection<Coordinate> GetCoordinates()
         {
-            return _boxes.Keys.ToList();
-        }
-
-        public string GetIdByCoordinate(Coordinate coordinate)
-        {
-            if (!_boxes.ContainsKey(coordinate)) return null;
-            return _boxes[coordinate];
+            return _boxes;
         }
 
         public int GetSpecialCellsCount()

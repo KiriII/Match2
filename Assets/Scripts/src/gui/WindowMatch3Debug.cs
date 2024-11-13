@@ -119,12 +119,6 @@ namespace Match3Core.gui
                 var colorInvisible = slotObject.GetComponent<Image>().color;
                 colorInvisible.a = 0f;
                 slotObject.GetComponent<Image>().color = colorInvisible;
-                var boxId = _gameCore.GetIdByCoordinate(coordinate);
-                if (boxId != null)
-                {
-                    //Debug.Log(boxId);
-                    //slotObject.GetComponentInChildren<Text>().text = boxId; 
-                }
                 return slotObject.transform;
             }
             if (!slotScreen.CanHoldCell)
